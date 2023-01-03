@@ -24,7 +24,7 @@
                         <nb-card-header>
                             <span>{{j+1}}. </span>{{blog?.name}} 
                             <nz-tag [nzColor]="'green'" *ngIf="blog.Active == true" nz-typography>Active</nz-tag>
-                            <nz-tag [nzColor]="'red'" *ngIf="blog.Active == false" nz-typography>Blocked</nz-tag>
+                            <nz-tag [nzColor]="'red'" *ngIf="blog.Active == false" nz-typography>Inactive</nz-tag>
                             <ng-container>
                                 <button nz-button nz-dropdown [nzDropdownMenu]="menu" [nzPlacement]="'bottomLeft'" style="float: right;">Actions <i nz-icon nzType="down"></i></button>
                                 <nz-dropdown-menu #menu="nzDropdownMenu">
@@ -33,10 +33,10 @@
                                             <a (click)="openModal(Mode.Edit, blog.id, blog)">Edit</a>
                                         </li>
                                         <li nz-menu-item *ngIf="!blog.Active">
-                                            <a (click)="updateUserStatus(blog._id,'active')">UnBlock</a>
+                                            <a (click)="updateUserStatus(blog._id,'active')">Active</a>
                                         </li>
                                         <li nz-menu-item *ngIf="blog.Active">
-                                            <a (click)="updateUserStatus(blog._id,'deactive')">Block</a>
+                                            <a (click)="updateUserStatus(blog._id,'deactive')">Inactive</a>
                                         </li>
                                         <li nz-menu-item>
                                             <a [routerLink]="['/users/reward/' + blog?._id]" style="text-decoration: none;color: #222b45;">View Rewards</a>

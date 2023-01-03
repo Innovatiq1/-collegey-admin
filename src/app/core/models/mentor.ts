@@ -31,7 +31,7 @@ export interface MentorListing {
     email: string;
     password :string;
     last_name:string,
-    phone_number : string;
+    // phone_number : string;
   };
 
   export interface Student{
@@ -48,7 +48,7 @@ export interface MentorListing {
     email: string;
     // password :string;
     last_name:string,
-    phone_number : string;
+    // phone_number : string;
   };
 
   export interface MentorPerks { 

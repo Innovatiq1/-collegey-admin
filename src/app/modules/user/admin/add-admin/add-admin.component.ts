@@ -103,7 +103,7 @@ export class AddAdminComponent implements OnInit {
       email: [this.mentor ? this.mentor.email : null, [Validators.required]],
       password: [this.mentor ? this.mentor.password : null, [Validators.required]],
       last_name: [this.mentor ? this.mentor.last_name : null, [Validators.required]],
-      phone_number: [this.mentor ? this.mentor.phone_number : null, [Validators.required]],
+      // phone_number: [this.mentor ? this.mentor.phone_number : null, [Validators.required]],
        status: [this.mentor ? (this.mentor.status = this.mentor.status === 1 ? true : false) : null],
     });
 
