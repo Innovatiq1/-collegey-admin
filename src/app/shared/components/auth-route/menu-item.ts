@@ -676,7 +676,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     //pathMatch:'full'
     children: [
       {
-        title: 'Text Invest In Collegey',
+        title: 'Invest In Collegey',
         icon: 'browser-outline',
         link: '/invest-in-collegey/invest-in-collegey-list',
       },
@@ -697,7 +697,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     //pathMatch:'full'
     children: [
       {
-        title: 'Text Fund In Collegey',
+        title: 'Fund In Collegey',
         icon: 'browser-outline',
         link: '/fund-in-collegey/fund-in-list',
       },
@@ -738,12 +738,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
     //pathMatch:'full'
     children: [
       {
-        title: 'Text Career At Collegey',
+        title: 'Career At Collegey',
         icon: 'browser-outline',
         link: '/career-at-collegey/career-at-list',
       },
       {
-        title: 'Text Collegey Careers',
+        title: 'Collegey Careers',
         icon: 'browser-outline',
         link: '/resources/collegey-careers',
         // pathMatch:'full'

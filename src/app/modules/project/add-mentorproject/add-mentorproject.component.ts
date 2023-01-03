@@ -239,6 +239,7 @@ export class AddMentorprojectComponent implements OnInit {
       //   }
       // });
       // formData.skills = skills;
+      formData['remainingSlot'] = formData?.students_count;
       !this.project ? this.addProject(formData).then((response)=>{
         resolve()
       }).catch((e)=>{
