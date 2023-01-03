@@ -1,0 +1,72 @@
+<nb-card style="width: 100%;">
+    <nb-card-header>
+        <nz-page-header nzTitle="Assigned Badge List">
+            <nz-page-header-extra>
+                <button nz-button nzType="primary" (click)="openModal(Mode.Create, null, null)" nz-typography>Assigned Badge</button>
+            </nz-page-header-extra>
+            <nz-page-header-content>
+                <nz-input-group [nzSuffix]="suffixIconSearch">
+                <input type="text" nz-input placeholder="input search text" #searchBox [(ngModel)]="searchText"/>
+                </nz-input-group>
+                <ng-template #suffixIconSearch>
+                <i nz-icon nzType="search"></i>
+                </ng-template>
+            </nz-page-header-content>
+        </nz-page-header>
+    </nb-card-header>
+        <nz-list nzGrid nzBordered>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th> Sr.No</th>
+                        <th> Badge Title</th>
+                        <th> User Name</th>
+                        <th> User Type</th>
+                        <th> Status</th>
+                        <th style="float: right;"> Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let assignBadge of assignBadgeList;  let j = index;"> 
+                        <td>{{j+1}} </td>
+                        <td>
+                            {{assignBadge?.badgeId?.title}} 
+                            <!--  <img src="https://s3.ap-southeast-1.amazonaws.com/storage.collegey/{{assignBadge.imageName}}" width="10%" height="10%" /> -->
+                        </td>
+                        <td>
+                            {{assignBadge?.assignUserId?.name}} {{assignBadge?.assignUserId?.last_name}}
+                        </td>
+                        <td>
+                            {{assignBadge?.userType}}
+                        </td>
+                        <td>
+                            <nz-tag [nzColor]="'green'" *ngIf="assignBadge.active" nz-typography>Active</nz-tag>
+                            <nz-tag [nzColor]="'red'" *ngIf="!assignBadge.active" nz-typography>In-Active</nz-tag>
+                        </td>
+                        <td>
+                            <ng-container>
+                                <button nz-button nz-dropdown [nzDropdownMenu]="menu" [nzPlacement]="'bottomLeft'" style="float: right;">Actions <i nz-icon nzType="down"></i></button>
+                                <nz-dropdown-menu #menu="nzDropdownMenu">
+                                    <ul nz-menu>
+                                        <!-- <li nz-menu-item>
+                                            <a (click)="openModal(Mode.Edit, assignBadge._id, assignBadge)">Edit</a>
+                                        </li> -->
+                                        <li nz-menu-item *ngIf="!assignBadge.active">
+                                            <a (click)="updateAssignBadgeStatus(assignBadge._id,'active')">Active</a>
+                                        </li>
+                                        <li nz-menu-item *ngIf="assignBadge.active">
+                                            <a (click)="updateAssignBadgeStatus(assignBadge._id,'deactive')">De-Active</a>
+                                        </li>
+                                        <li nz-menu-item >
+                                            <a (click)="deleteAssignBadge(assignBadge._id)">Delete</a>
+                                        </li>
+                                    </ul>
+                                </nz-dropdown-menu>
+                            </ng-container>
+                        </td>
+                    </tr>
+                </tbody>
+            </table> 
+        </nz-list>
+</nb-card>
+<!--  <app-load-more [isLoading]="isLoading" [isHidden]="assignBadgeList.length<=0"></app-load-more> -->

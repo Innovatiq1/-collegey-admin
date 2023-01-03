@@ -1,0 +1,38 @@
+<mat-progress-bar mode="indeterminate" [hidden]="!isLoading"></mat-progress-bar>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Students Listing</mat-card-title>
+        <button class="create-user-btn" mat-stroked-button color="primary"
+            (click)= "openCreateStudentModal()">Create Student</button>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="table-responsive">
+            <table ziffyTable class="table">
+                <thead>
+                    <tr>
+                        <th>SNo.</th>
+                        <th>Slug</th>
+                        <th>Name</th>
+                        <th>Qualification</th>
+                        <th>Source</th>
+                        <!-- <th>Profile</th> -->
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let student of studentList; let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{student?.slug}}</td>
+                        <td>{{student?.name}} {{student?.last_name}}</td>
+                        <td>{{student?.qualification}}</td>
+                        <td>{{student.source ? 'Counselor Invite' : 'Direct'}}</td>
+                        <!-- <td><a [routerLink]="['/users/students/' + student?._id]"><mat-icon title="view profile">face</mat-icon></a></td> -->
+                        <td><mat-icon title="view detail" [routerLink]="['/users/students/' + student?._id]">visibility</mat-icon>
+                        </td>                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </mat-card-content>
+</mat-card>
+<app-load-more [isLoading]="isLoading" [isHidden]="studentList?.length<=0"></app-load-more>

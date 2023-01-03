@@ -1,0 +1,60 @@
+<div>
+    <form nz-form [formGroup]="projectFeesForm" class="ant-advanced-search-form">
+      
+      <!-- <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Title</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input formControlName="title" id="title" placeholder="Enter Address line"/>
+          <ng-container *ngIf="projectFeesForm.get('title').errors?.required">
+            Title is required.
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item> -->
+
+      <!-- <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="fees_type" nz-typography>Fees Type</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+           <h6 *ngIf="mode == 'Edit'" style="text-transform: capitalize;">{{pageContent?.fees_type}}</h6>
+            <select name="fees_type" formControlName="fees_type" class="fees_type" *ngIf="mode != 'Edit'">
+                <option value="">Choice fees type</option>
+                <option value="student">Student</option>
+                <option value="mentor">Mentor</option>
+            </select>
+            <ng-container *ngIf="projectFeesForm.get('fees_type').errors?.required && mode != 'Edit'">
+                <div>Fees Type is required.</div>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item> -->
+      
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="default_price" nz-typography>Default price</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input type="number" formControlName="default_price" id="default_price" placeholder="Enter default price"/>
+          <ng-container *ngIf="projectFeesForm.get('default_price').errors?.required">
+            Default price is required.
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+        
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="maximum_price" nz-typography>Maximum price</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input type="number" formControlName="maximum_price" id="maximum_price" placeholder="Enter maximum price"/>
+          <ng-container *ngIf="projectFeesForm.get('maximum_price').errors?.required">
+            Maximum price is required.
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="minimum_price" nz-typography>Minimum price</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input type="number" formControlName="minimum_price" id="minimum_price" placeholder="Enter minimum price"/>
+          <ng-container *ngIf="projectFeesForm.get('minimum_price').errors?.required">
+            Minimum price is required.
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+    </form>
+</div>

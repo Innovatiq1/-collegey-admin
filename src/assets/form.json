@@ -1,0 +1,130 @@
+{
+    "student_profile": {
+        "geography": {
+            "citizenship": null,
+            "country": 0,
+            "state": 0,
+            "city": 0,
+            "is_completed": false
+        },
+        "history": {
+            "education": [{
+                "type": null,
+                "name": null,
+                "location": null,
+                "board": null,
+                "field_of_study": [],
+                "degree": null,
+                "start_year": null,
+                "end_year": null,
+                "score": []
+            }],
+            "current_class": null,
+            "is_completed": false
+        },
+        "interest": {
+            "interest_area": [],
+            "fav_subjects": [],
+            "is_completed": false
+        },
+        "know_you_better": {
+            "people_who_inspire_you": [{
+                "name": null
+            }],
+            "fav_books": [{
+                "name": null
+            }],
+            "fav_movies": [{
+                "name": null
+            }],
+            "fav_websites": [{
+                "name": null
+            }],
+            "fav_activity_on_internet": null,
+            "fav_message_service": [{
+                "name": null
+            }],
+            "is_completed": false
+        },
+        "projects": {
+            "any_bpp": {
+                "answer": false,
+                "title": null,
+                "description": null
+            },
+            "describe_any_project": [{
+                "title": null,
+                "description": null
+            }],
+            "writing_sample": [{
+                "answer": null,
+                "title": null,
+                "description": null,
+                "file": null
+            }],
+            "someone_said_something_or_recommendation": [{
+                "title": null,
+                "description": null,
+                "file": null
+            }],
+            "award": [{
+                "title": null,
+                "issuing_organisation": null,
+                "role": null,
+                "duration": null,
+                "description": null,
+                "file": null
+            }],
+            "is_completed": false
+        },
+        "headed": {
+            "expected_year_to_start": {
+                "grade": null,
+                "year": null
+            },
+            "preferred_countries": [],
+            "test_info": [{
+                "test_name": null,
+                "other_text": null,
+                "test_status": null,
+                "current_score": null,
+                "test_date": null
+            }],
+            "wish_to_study": {
+                "grade": null,
+                "subjects": null,
+                "other_text": null,
+                "majors": null
+            },
+            "is_completed": false
+        },
+        "prefrences": {
+            "interested_in_gap": false,
+            "how_would_like_to_pay": [],
+            "wish_to_apply_for_scholarships": {
+                "answer": false,
+                "imoprtance": null
+            },
+            "family_income": null,
+            "is_completed": false
+        },
+        "ways_to_be_in_touch": {
+            "social_media": [],
+            "dob": null,
+            "phone_number": {
+                "extension": null,
+                "number": null
+            },
+            "parents_details": [{
+                "name": null,
+                "email": null,
+                "relation": null
+            }],
+            "school_counselor": [{
+                "name": null,
+                "email": null
+            }],
+            "is_completed": false
+        }
+    }
+}

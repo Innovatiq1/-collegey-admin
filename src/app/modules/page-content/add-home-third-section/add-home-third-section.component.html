@@ -1,0 +1,93 @@
+<div *ngIf="formType">
+    <form nz-form [formGroup]="pageContentForm1" class="ant-advanced-search-form">
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Main Title</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="mainTitle" id="title" placeholder="Enter Main Title" />
+                <ng-container *ngIf="pageContentForm1.get('mainTitle').errors?.required && formOneSubmit">
+                    Main Title is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Sub Title</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="subTitle" id="title" placeholder="Enter Sub Title" />
+                <ng-container *ngIf="pageContentForm1.get('subTitle').errors?.required && formOneSubmit">
+                    Sub Title is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Bottom Title</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="bottomTitle" id="title" placeholder="Enter Bottom Title" />
+                <ng-container *ngIf="pageContentForm1.get('bottomTitle').errors?.required && formOneSubmit">
+                    Bottom Title is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Bottom Button Text</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="bottomButtonText" id="title" placeholder="Enter Bottom Button Text" />
+                <ng-container *ngIf="pageContentForm1.get('bottomButtonText').errors?.required && formOneSubmit">
+                    Bottom Button Text is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Bottom Button Link</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="bottomButtonLink" id="title" placeholder="Enter Bottom Button Link" />
+                <ng-container *ngIf="pageContentForm1.get('bottomButtonLink').errors?.required && formOneSubmit">
+                    Bottom Button Link is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>       
+    </form>
+</div>
+<div *ngIf="!formType">
+    <form nz-form [formGroup]="pageContentForm" class="ant-advanced-search-form">
+
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Title</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="title" id="title" placeholder="Enter title" />
+                <ng-container *ngIf="pageContentForm.get('title').errors?.required && fromTwoSubmit">
+                    Title is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+       
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Enter Youtube Video Embeded Url</nz-form-label>
+            <span class="ant-col-xs-24">Ex. https://www.youtube.com/embed/siJSdgRl0Zk</span>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="videoLink" id="title" placeholder="Please Enter Only Embed Youtube Link" />
+                <ng-container *ngIf="pageContentForm.get('videoLink').errors?.required && fromTwoSubmit">
+                    Video Link is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+       
+        <div nz-row>
+            <input type="file" (change)="onFileUpload($event)" accept=".png,.jpeg,.jpg"/>
+          </div>
+        <div style="color: green;">
+        Accept only png, jpeg, jpg. (Please upload around image size 630 x 250)
+        </div>
+        <img *ngIf="selectFile" alt="project" style="height: 100px; width: 100px;margin-top: 5px;" src="{{selectFile}}">
+
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="status" nz-typography>Status</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <nz-switch formControlName="status"></nz-switch>
+                <ng-container *ngIf="pageContentForm.get('status').errors?.required && fromTwoSubmit">
+                    Status is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+
+    </form>
+</div>

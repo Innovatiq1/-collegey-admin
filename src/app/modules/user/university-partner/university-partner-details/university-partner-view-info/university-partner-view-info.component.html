@@ -1,0 +1,65 @@
+<mat-progress-bar mode="indeterminate" [hidden]="!isLoading"></mat-progress-bar>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>View Student Info &nbsp;&nbsp;
+    </mat-card-title>
+    <span class="spacer"></span>
+    <span>
+      <button mat-icon-button>
+         <mat-icon (click)="openUpdateModal()">edit</mat-icon>
+      </button>
+    </span>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-dialog-content class="m-0">
+      <div class="table-responsive">
+        <table class="table table-sm table-hover">
+          <thead>
+            <tr>
+              <td>University Name</td>
+              <td>{{universityPartnerInfo?.name}}</td>
+            </tr>
+            <tr>
+              <td>Slug</td>
+              <td>{{universityPartnerInfo?.slug}}</td>
+            </tr>
+            <tr>
+              <td>Email</td>
+              <td>{{universityPartnerInfo?.email}}</td>
+            </tr>
+            <tr>
+              <td>Phone Number</td>
+              <td>{{universityPartnerInfo?.phone_number[0]?.extension}} {{universityPartnerInfo?.phone_number[0]?.number}}</td>
+            </tr>
+            <tr>
+              <td>Status</td>
+              <td>{{universityPartnerInfo?.status}}</td>
+            </tr>
+            <tr>
+              <td>Type</td>
+              <td>{{universityPartnerInfo?.type}}</td>
+            </tr>
+            <tr>
+              <td>Address</td>
+              <td>{{universityPartnerInfo?.university_partner?.address}}</td>
+            </tr>
+            <tr>
+                <td>Contact person name</td>
+                <td>{{universityPartnerInfo?.university_partner?.contact_person_for_collegey[0]?.name}}</td>
+            </tr>
+            <tr>
+                <td>Contact person phone number</td>
+                <td>{{universityPartnerInfo?.university_partner?.contact_person_for_collegey[0]?.phone_number[0]?.extension}}
+                        {{universityPartnerInfo?.university_partner?.contact_person_for_collegey[0]?.phone_number[0]?.number}}
+                </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-dialog-content>
+  </mat-card-content>
+</mat-card>

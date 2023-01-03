@@ -1,0 +1,86 @@
+<!-- <div class="table-responsive">
+    <table class="table">
+        <thead>
+            <th>S No.</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Cost</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let webinar of webinars; let i = index;">
+                <td>{{i+1}}</td>
+                <td>{{webinar.title}}</td>
+                <td>{{webinar.description}}</td>
+                <td>{{webinar.status === 1 ? 'Active' : 'Inactive' }}</td>
+                <td><span *ngIf="webinar?.is_paid"><span *ngIf="webinar.cost">&#8377;</span>{{webinar.cost}}</span>
+                </td>
+                <td>
+                    <a [routerLink]="[webinar.id]">
+                        <mat-icon>visibility</mat-icon>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div> -->
+<nb-card style="width: 100%;">
+    <nb-card-header>
+        <nz-page-header nzTitle="Vlogs Listing">
+            <!-- <button class="create-user-btn" mat-stroked-button color="primary" (click)="openCreateBlogModal()">Create a Blog</button> -->
+            <nz-page-header-extra>
+                <button nz-button nzType="primary" (click)="openModal(Mode.Create, null, null)" nz-typography>Create Webinar</button>
+            </nz-page-header-extra>
+            <nz-page-header-content>
+                <nz-input-group [nzSuffix]="suffixIconSearch">
+                <input type="text" nz-input placeholder="input search text" #searchBox [(ngModel)]="searchText"/>
+                </nz-input-group>
+                <ng-template #suffixIconSearch>
+                <i nz-icon nzType="search"></i>
+                </ng-template>
+            </nz-page-header-content>
+        </nz-page-header>
+    </nb-card-header>
+        <nz-list nzGrid nzBordered>
+            <div nz-row [nzGutter]="16" *ngFor="let webinar of webinarList; let j = index;">
+                <nz-list-item>
+                    <nb-card style="width: 100%;">
+                        <nb-card-header>
+                            <span>{{j+1}}. </span>{{webinar?.title}}
+                            <nz-tag [nzColor]="'green'" *ngIf="webinar.status == 1" nz-typography>Active</nz-tag>
+                            <nz-tag [nzColor]="'red'" *ngIf="webinar.status == 2" nz-typography>In-Active</nz-tag>
+                            <ng-container>
+                                <button nz-button nz-dropdown [nzDropdownMenu]="menu" [nzPlacement]="'bottomLeft'" style="float: right;">Actions <i nz-icon nzType="down"></i></button>
+                                <nz-dropdown-menu #menu="nzDropdownMenu">
+                                    <ul nz-menu>
+                                        <li nz-menu-item>
+                                            <a (click)="openModal(Mode.Edit, webinar._id, webinar)">Edit</a>
+                                        </li>
+                                        <li nz-menu-item>
+                                            <a (click)="deleteVlog(webinar._id)">Delete</a>
+                                        </li>
+                                    </ul>
+                                </nz-dropdown-menu>
+                              </ng-container>
+                        </nb-card-header>
+                        <nb-card-body>
+                            <div style="margin: 10px;">
+                                <iframe [src]="webinarUrlList[j]" style="border: 0;" allow="fullscreen" data-mce-fragment="1">
+                                </iframe>
+                            </div>
+                            <p class="desc">{{webinar?.description}}</p>                            
+                            <div style="margin: 10px;">
+                                <nz-tag [nzColor]="'gold'" nz-typography>{{webinar?.is_paid ? 'Paid' : 'Not Paid'}}</nz-tag>
+                                <nz-tag [nzColor]="'gold'" *ngIf="webinar.is_paid" nz-typography>{{webinar?.cost}}</nz-tag>
+                            </div>
+                        </nb-card-body>
+                        <nb-card-footer>
+                            <nz-tag [nzColor]="'gray'" *ngFor="let tag of webinar.tags;  let i = index;" nz-typography>{{tag}}</nz-tag>
+                        </nb-card-footer>
+                    </nb-card>
+                </nz-list-item>
+            </div>
+          </nz-list>
+</nb-card>
+<app-load-more [isLoading]="isLoading" [isHidden]="webinarList.length<=0"></app-load-more>

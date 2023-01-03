@@ -1,0 +1,4 @@
+.ant-advanced-search-form ::ng-deep .ant-form-item-has-error.ant-form-item-has-feedback .ant-form-item-children-icon {
+    margin-top: 0;
+    top: 8px;
+}

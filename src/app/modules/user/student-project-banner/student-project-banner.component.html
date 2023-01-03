@@ -1,0 +1,48 @@
+<!-- <form [formGroup]="listStudentBanner">
+  <div class="imageDiv" *ngFor="let image of bannerList">
+        <img style="  width: 200px;
+        height: 200px; object-fit: cover; margin: 5px;" src={{image.imagePath}}/>  
+  
+  <select style="width: 150px;  margin: 0 30px;" class="form-control" formControlName="isActivated" (change)="onChange(image._id, $event.target.value)">
+    <option value="true">Activate</option>
+    <option value="false">Deactivate</option>
+</select>
+ 
+  </div>
+</form> -->
+
+
+<nb-card style="width: 100%;">
+  <nb-card-header>
+        <nz-page-header nzTitle="Student project banners">
+            <nz-page-header-extra>
+                  <button nz-button nzType="primary" (click)="openModal(null, null)" nz-typography>Add banner</button>
+            </nz-page-header-extra>
+          </nz-page-header>
+  </nb-card-header>
+  <nz-list nzGrid nzBordered>
+        <div nz-row [nzGutter]="16" *ngFor="let image of bannerList; let j = index;">
+              <nz-list-item class="w-100" [formGroup]="listStudentBanner">
+                    <nb-card style="width: 100%;">
+                          <nb-card-body class="imageDiv">
+                                <img 
+                                      style="width: 200px;
+                                            height: 200px; 
+                                            object-fit: cover; 
+                                            margin: 5px;" 
+                                      src={{image.imagePath}}
+                                />
+                                <div class="clgadm-banner">
+                                    <select style="width: 150px;  margin: 0 30px;display: inline-block;" class="form-control" (change)="onChange(image._id, $event.target.value)">
+                                          <option value=true [selected]="image?.isActivated">Activate</option>
+                                          <option value=false [selected]="!image?.isActivated">Deactivate</option>
+                                    </select>
+                                    <a href="javascript:;" class="clgadm-remaction" (click)="removeBannerImage(image._id)">Delete</a>
+                                </div>
+                                
+                          </nb-card-body>
+                    </nb-card>
+              </nz-list-item>
+        </div>
+  </nz-list>
+</nb-card>

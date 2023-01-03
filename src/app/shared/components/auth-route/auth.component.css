@@ -1,0 +1,65 @@
+#nav-container {
+    width: 220px;
+    margin-bottom: 40px;
+}
+
+#nav-header {
+    padding: 10px;
+    background-color: antiquewhite;
+}
+
+#nav-header h2 {
+    padding-top: 10px;
+    text-align: center;
+}
+
+#nav-header img {
+    max-width: 80%;
+    max-height: 80%;
+    display: block;
+    margin: auto;
+}
+
+.help-btn {
+    padding: 11px;
+}
+
+.help-btn a {
+    color: black;
+}
+
+.mat-list-base {
+    padding-top: 0 !important;
+}
+
+#nav-footer {
+    width: 100%;
+    max-width: 220px;
+    height: 40px;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    background-color: antiquewhite;
+}
+
+.sidenav-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #eee;
+}
+
+.dashboard-container {
+    padding: 5%;
+    width: 100%;
+    margin: 0 auto;
+    top: 50px;
+    position: absolute;
+}
+
+mat-sidenav {
+    width: 300px;
+}
+

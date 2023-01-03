@@ -1,0 +1,121 @@
+<!-- 
+<nb-card class="login-card">
+    <nb-card-body class="text-center">
+        <form [formGroup]="announcementForm">
+
+            <nz-form-item >
+                <nz-input-group>
+                    <input type="text" nz-input formControlName="subject" placeholder="Announcement Subject" />
+                </nz-input-group>
+            </nz-form-item>
+
+            <nz-form-item >
+                <nz-input-group>
+                    <textarea nz-input formControlName="details" placeholder="Create Announcement"></textarea>
+                </nz-input-group>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzXs]="24" nzFor="announcementType" nz-typography>Announcement Type</nz-form-label>
+                <nz-form-control [nzXs]="24" nzHasFeedback>
+                  <nz-select formControlName="announcementType" nzPlaceHolder="Please Announcement Type">
+                    <nz-option *ngFor="let option of announcementTypeOptions" [nzLabel]="option.name" [nzValue]="option.value"></nz-option>
+                  </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+
+            <div class="form-group text-left" >
+                <label >Announcement For:</label>
+                <div class="custom-control custom-checkbox text-left">
+                    <input type="checkbox" class="custom-control-input" formControlName="forStudents" id="forStudents">
+                    <label class="custom-control-label" for="forStudents">to Students</label>
+                </div>
+                <div class="custom-control custom-checkbox text-left">
+                    <input type="checkbox" class="custom-control-input" formControlName="forMentors" id="forMentors">
+                    <label class="custom-control-label" for="forMentors">to Mentors</label>
+                </div>
+            </div>
+
+            <nz-form-item>
+                <nz-form-label [nzXs]="24" nzFor="isActive" nz-typography>Status</nz-form-label>
+                <nz-form-control [nzXs]="24" nzHasFeedback>
+                  <nz-select formControlName="isActive" nzPlaceHolder="Please Select Activation Status">
+                    <nz-option *ngFor="let option of activationOptions" [nzLabel]="option.name" [nzValue]="option.value"></nz-option>
+                  </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+        <button  nztype="primary" nz-typography="" ng-reflect-nz-type="primary" class="ant-btn ant-btn-primary" (click)="onSubmitForm()">
+        <span class="ng-star-inserted">Create Announcement</span></button>
+    </nb-card-body>
+</nb-card> -->
+
+
+<div>
+    <form nz-form [formGroup]="announcementForm" class="ant-advanced-search-form">
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="subject" nz-typography>Announcement Title</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="subject" id="subject" placeholder="Add Announcement Title">
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="details" nz-typography>Announcement Text</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <!-- <input nz-input formControlName="details" id="details" placeholder="Add Announcement Text" (change)="wordCounter($event);"/> -->
+            <quill-editor
+            formControlName="details" aria-placeholder="Add Announcement Text"
+            ></quill-editor>
+            <span *ngIf="showWordLimitError" class="d-block" style="color: red; position: absolute;">{{ wordLimitError }}</span> 
+        </nz-form-control>
+      </nz-form-item>      
+
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="announcementType" nz-typography>Announcement Type</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <nz-select formControlName="announcementType" nzPlaceHolder="Please Announcement Type">
+            <nz-option *ngFor="let option of announcementTypeOptions" [nzLabel]="option.name" [nzValue]="option.value"></nz-option>
+          </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+
+    <div class="form-group text-left" >
+        <label >Announcement For:</label>
+        <div class="custom-control custom-checkbox text-left">
+            <input type="checkbox" class="custom-control-input" formControlName="forStudents" id="forStudents">
+            <label class="custom-control-label" for="forStudents">to Students</label>
+        </div>
+        <div class="custom-control custom-checkbox text-left">
+            <input type="checkbox" class="custom-control-input" formControlName="forMentors" id="forMentors">
+            <label class="custom-control-label" for="forMentors">to Mentors</label>
+        </div>
+    </div>
+
+    <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="isActive" nz-typography>Status</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <nz-select formControlName="isActive" nzPlaceHolder="Please Select Activation Status">
+            <nz-option *ngFor="let option of activationOptions" [nzLabel]="option.name" [nzValue]="option.value"></nz-option>
+          </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+
+      
+      <!-- <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="description" nz-typography>Enter description</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <quill-editor
+            formControlName="description" aria-placeholder="Enter description"
+            ></quill-editor>
+        </nz-form-control>
+      </nz-form-item> -->
+
+      <!-- <div nz-row>
+        <input type="file" (change)="onFileUpload($event)"/> 
+      </div>
+      <img *ngIf="articleImage" alt="project" style="height: 100px; width: 100px;margin-top: 5px;" src="{{articleImage}}"> -->
+
+    </form>
+</div>

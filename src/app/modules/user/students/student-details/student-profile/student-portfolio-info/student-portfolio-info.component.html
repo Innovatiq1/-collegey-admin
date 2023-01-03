@@ -1,0 +1,172 @@
+<mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Portfolio Information
+    </mat-panel-title>
+    <mat-panel-description *ngIf="!panelOpenState">
+      click to enter your details
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <div class="row align-baseline">
+    <div class="col-md-4">
+      <span class="fw-400">{{portfolioInfoQuestion.inspire_person}} </span>
+    </div>
+    <div class="col-md-4">
+      <span>
+        <mat-form-field class="full-width">
+          <input matInput type="text" placeholder="enter name">
+        </mat-form-field>
+      </span>
+    </div>
+    <div class="col-md-4">
+      <span>
+        <mat-form-field class="full-width">
+          <input matInput type="text" placeholder="enter name">
+        </mat-form-field>
+      </span>
+    </div>
+
+
+  </div>
+  <div class="row align-baseline">
+    <div class="col-md-4">
+      <span class="fw-400">{{portfolioInfoQuestion.favourite_book}} </span>
+    </div>
+    <div class="col-md-4">
+      <span>
+        <mat-form-field class="full-width">
+          <input matInput type="text" placeholder="enter name">
+        </mat-form-field>
+      </span>
+    </div>
+    <div class="col-md-4">
+      <span>
+        <mat-form-field class="full-width">
+          <input matInput type="text" placeholder="enter name">
+        </mat-form-field>
+      </span>
+    </div>
+
+
+  </div>
+  <div class="row align-baseline">
+    <div class="col-md-5">
+      <span class="fw-400">{{portfolioInfoQuestion.favorite_documentaries_movies}}</span>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field class="full-width">
+        <input matInput type="text" placeholder="enter name">
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field class="full-width">
+        <input matInput type="text" placeholder="enter name">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row align-baseline">
+    <div class="col-md-4">
+      <span class="fw-400">{{portfolioInfoQuestion.social_media_channel}} </span>
+    </div>
+
+    <div class="col-md-6">
+      <mat-form-field class="full-width">
+        <input matInput type="text" placeholder="enter your social medial channel link">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row align-baseline">
+    <div class="col-md-4">
+      <span class="fw-400">{{portfolioInfoQuestion.favourite_websites}} </span>
+    </div>
+
+    <div class="col-md-6">
+      <mat-form-field class="full-width">
+        <input matInput type="text" placeholder="enter your favourite websites link">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row align-baseline">
+    <div class="col-md-4">
+      <span class="fw-400">{{portfolioInfoQuestion.favourite_activity_on_internet}} </span>
+    </div>
+
+    <div class="col-md-8">
+      <mat-form-field class="full-width">
+        <input matInput type="text" placeholder="enter your favourite activities on internet">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row align-baseline">
+    <div class="col-md-4">
+      <span class="fw-400">{{portfolioInfoQuestion.favorite_messaging_service}} </span>
+    </div>
+
+    <div class="col-md-8">
+      <mat-form-field class="full-width">
+        <input matInput type="text" placeholder="enter your favourite text messaging service">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row align-baseline mb-15">
+    <div class="col-md-4">
+      <span class="fw-400">{{portfolioInfoQuestion.big_picture_project}} </span>
+    </div>
+
+    <div class="col-md-2">
+      <mat-radio-group aria-label="Select an option" [(ngModel)]="doneBigProject">
+        <mat-radio-button value="yes">Y</mat-radio-button>
+        <mat-radio-button value="no">N</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="col-md-6">
+      <div *ngIf="doneBigProject == 'yes'">
+        <mat-form-field class="full-width">
+          <input matInput type="text" placeholder="enter name of project">
+        </mat-form-field>
+      </div>
+      <div *ngIf="doneBigProject == 'no'">
+        <span class="fw-400"><i>No worries, we have a lot for you coming in soon</i></span>
+      </div>
+    </div>
+  </div>
+  <div class="row align-baseline">
+    <div class="col-md-12 no-padding">
+      <span class="fw-400">{{portfolioInfoQuestion.class_project}} </span>
+    </div>
+
+    <div class="col-md-12 no-padding">
+      <mat-form-field class="full-width">
+        <input matInput type="text" placeholder="describe your project">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row align-baseline">
+    <div class="col-md-7">
+      <span class="fw-400">{{portfolioInfoQuestion.writing_sample}}</span>
+    </div>
+    <div class="col-md-5">
+      <mat-radio-group aria-label="Select an option" [(ngModel)]="writingSample">
+        <mat-radio-button value="text">Text</mat-radio-button>
+        <mat-radio-button value="upload">Upload</mat-radio-button>
+        <mat-radio-button value="thinking">Am thinking about it</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+  <div class="row align-baseline">
+    <div class="col-md-12 no-padding" *ngIf="writingSample == 'text'">
+      <mat-form-field class="full-width">
+        <input matInput type="text" placeholder="share your document">
+      </mat-form-field>
+    </div>
+    <div class="col-md-12 no-padding" *ngIf="writingSample== 'upload'">
+        <br>
+        <div class="form-group">
+            <input type="file" name="image" #fileInput (change)="fileProgress($event)"  style= "display: none;"/>
+            <button mat-stroked-button color="accent" (click)="fileInput.click()">Upload File</button>
+            &nbsp;<span>{{fileData?.name}}</span>
+        </div>
+    </div>
+  </div>
+</mat-expansion-panel>

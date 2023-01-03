@@ -1,0 +1,26 @@
+<div>
+    <form nz-form [formGroup]="rewardSettingForm" class="ant-advanced-search-form">
+
+        <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="redeemed_allow" nz-typography>Redemption Allow</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <select name="redeemed_allow" formControlName="redeemed_allow" class="redeemed_allow">
+                <option value="">Choice Redemption Allow</option>
+                <option value="yes">Enable</option>
+                <option value="no">Disable</option>
+            </select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="redeemed_value" nz-typography>Redemption value</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input type="number" formControlName="redeemed_value" id="redeemed_value" placeholder="Enter redemption value"/>
+            <ng-container *ngIf="rewardSettingForm.get('redeemed_value').errors?.required">
+                is required.
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+    </form>
+</div>

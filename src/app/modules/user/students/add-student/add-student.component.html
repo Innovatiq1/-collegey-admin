@@ -1,0 +1,61 @@
+<mat-progress-bar mode="indeterminate" [hidden]="!isLoading"></mat-progress-bar>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{student ? 'Update Student' : 'Add Student'}}</mat-card-title>
+        <span class="spacer"></span>
+        <span>
+            <button mat-icon-button>
+                <mat-icon (click)="closeModal()">close</mat-icon>
+            </button>
+        </span>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-dialog-content class="m-0" style="width: 800px;">
+            <form [formGroup]="studentFormGroup" (ngSubmit)="onSubmitForm()">
+                <div class="row">
+                    <mat-form-field class="col-12 col-sm-12 col-md-6">
+                        <input formControlName="name" matInput placeholder="Name">
+                        <mat-error *ngIf="studentFormGroup.get('name').hasError('required')">
+                            Name is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-12 col-sm-12 col-md-6">
+                        <input formControlName="email" matInput [errorStateMatcher]="matcher" placeholder="Ex. user@example.com">
+                        <mat-error *ngIf="studentFormGroup.get('email').hasError('pattern') && !studentFormGroup.get('email').hasError('required')">
+                            Please enter a valid email address
+                        </mat-error>
+                        <mat-error *ngIf="studentFormGroup.get('email').hasError('required')">
+                            Email is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-12 col-sm-12 col-md-6">
+                        <input formControlName="password" matInput placeholder="Password" type="password">
+                        <mat-error *ngIf="studentFormGroup.get('password').hasError('required')">
+                            Password is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-12 col-sm-12" [ngClass]="(studentFormGroup.get('qualification').value == 'Other') ? 'col-md-3' : 'col-md-6' ">
+                        <mat-label>Qualification</mat-label>
+                        <mat-select formControlName="qualification">
+                            <mat-option *ngFor="let qualification of studentQualification" [value]="qualification">
+                                {{qualification}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="studentFormGroup.get('qualification').hasError('required')">
+                            qualification is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-12 col-sm-12 col-md-3" *ngIf="studentFormGroup.get('qualification').value == 'Other'">
+                        <input formControlName="otherQualification" matInput placeholder="enter your qualification">
+                        <mat-error *ngIf="studentFormGroup.get('otherQualification').hasError('required')">
+                            qualification is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="col-md-12">
+                        <button class="float-right" type="submit" mat-flat-button color="primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </mat-dialog-content>
+    </mat-card-content>
+</mat-card>

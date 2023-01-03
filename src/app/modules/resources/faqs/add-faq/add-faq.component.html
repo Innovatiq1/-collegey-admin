@@ -1,0 +1,47 @@
+<div>
+    <form nz-form [formGroup]="faqForm" class="ant-advanced-search-form">
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="ques" nz-typography>Enter question</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="ques" id="ques" placeholder="Enter questiom"/>
+            <ng-container *ngIf="submitted && faqForm.get('ques').errors?.required">
+              <span class="clg-error-textcolor"> Question is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="answer" nz-typography>Answer</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="answer" id="answer" placeholder="Enter answer"/>
+            <ng-container *ngIf="submitted && faqForm.get('answer').errors?.required">
+              <span class="clg-error-textcolor">Answer is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="category" nz-typography>Enter category</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <nz-select formControlName="category" nzPlaceHolder="Enter category">
+            <nz-option nzLabel="positionArray" *ngFor="let option of categoryPositions" [nzLabel]="option.name" [nzValue]="option._id"></nz-option>
+          </nz-select>
+          <ng-container *ngIf="submitted && faqForm.get('category').errors?.required">
+            <span class="clg-error-textcolor">category is required.</span>
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <!-- <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="position" nz-typography>Enter position</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <nz-select formControlName="category" nzPlaceHolder="Enter category">
+            <nz-option nzLabel="positionArray" *ngFor="let option of categoryPositions" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+    </nz-form-item> -->
+      <!-- <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="position" nz-typography>Enter position</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="position" id="position" placeholder="Enter position"/>
+        </nz-form-control>
+      </nz-form-item> -->
+    </form>
+</div>

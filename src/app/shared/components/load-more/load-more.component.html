@@ -1,0 +1,6 @@
+<div class="row" [hidden]="isHidden">
+    <div class="col mt-3 mb-4 text-center">
+        <mat-spinner style="margin: 0 auto;" color="accent" [hidden]="!isLoading" [diameter]="40"></mat-spinner>
+        <button nbButton outline status="primary" (click)="_loadMore()" [hidden]="isLoading" color="primary">Load More</button>
+    </div>
+</div>

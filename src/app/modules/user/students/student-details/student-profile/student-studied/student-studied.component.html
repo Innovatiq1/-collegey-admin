@@ -1,0 +1,202 @@
+<mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            STEP 7 - WHAT HAVE YOU STUDIED SO FAR?
+        </mat-panel-title>
+        <mat-panel-description>
+            click to enter your details
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form *ngIf="studentProjectForm" [formGroup]="studentProjectForm">
+        <ng-container formGroupName="student_profile">
+            <ng-container formGroupName="projects">
+                <div class="row mb-12" formGroupName="any_bpp" style="align-items: center;">
+                    <div class="col-md-6">
+                        <label>Have you done any Big Picture Project?</label>&nbsp;&nbsp;
+                        <mat-radio-group aria-label="Select an option" formControlName="answer">
+                            <mat-radio-button [value]="true">Yes</mat-radio-button>
+                            <mat-radio-button [value]="false">No</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <div class="col-md-6" *ngIf="projectFormAbstractControl.get('any_bpp').get('answer').value == false">
+                        <label>(No worries, we have a lot for you coming in soon!)</label>
+                    </div>
+                    <div class=" col-md-12 no-padding-left" *ngIf="projectFormAbstractControl.get('any_bpp').get('answer').value == true">
+                        <mat-form-field class="full-width col-md-6">
+                            <mat-label>Enter your project name </mat-label>
+                            <input matInput type="text" formControlName="title">
+                        </mat-form-field>
+                        <mat-form-field class="full-width col-md-6">
+                            <mat-label>Description </mat-label>
+                            <input matInput type="text" formControlName="title">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <hr>
+                <div class="row align-center" formArrayName="describe_any_project" *ngFor="let item of typeCastToFormArray('describe_any_project').controls; let i = index;">
+                    <ng-container formGroupName={{i}}>
+                        <div class="col-md-11">
+                            <div class="row align-baseline">
+                                <div class="col-md-6">
+                                    <label>Describe any one project/class project that you have done?</label>
+                                </div>
+                                <mat-form-field class="col-md-6">
+                                    <mat-label>Title of project</mat-label>
+                                    <input matInput type="text" formControlName="title">
+                                </mat-form-field>
+                            </div>
+
+                            <mat-form-field class="col-md-12">
+                                <mat-label>Description</mat-label>
+                                <textarea matInput formControlName="description"></textarea>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-1">
+                            <mat-icon (click)="onAddDescribeProjectSection()">add_box</mat-icon> &nbsp;
+                            <mat-icon (click)="onRemoveFormGroup(i, imageFormArrays.DESCRIBE_ANY_PROJECT)" *ngIf="i>0">indeterminate_check_box
+                            </mat-icon>
+                        </div>
+                    </ng-container>
+                </div>
+                <hr>
+
+                <div class="row" formArrayName="writing_sample" *ngFor="let item of typeCastToFormArray('writing_sample').controls; let i = index" style="align-items: center;">
+                    <ng-container [formGroupName]="i">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label>Share any writing sample, essays or any of your published or in-progress work that you wish to
+                  share ?</label>
+                            </div>
+                            <div class="col-md-5">
+                                <mat-radio-group aria-label="Select an option" formControlName="answer">
+                                    <mat-radio-button value="Yes">Yes</mat-radio-button>
+                                    <mat-radio-button value="No">No</mat-radio-button>
+                                    <mat-radio-button value="Am thinking about it">Am thinking about it</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                        <div class=" col-md-12 no-padding-left" *ngIf="typeCastToFormArray('writing_sample').controls[0].get('answer').value != 'No'">
+                            <mat-form-field class="full-width col-md-6">
+                                <mat-label>Enter title </mat-label>
+                                <input matInput type="text" formControlName="title">
+                            </mat-form-field>
+                            <mat-form-field class="full-width col-md-6">
+                                <mat-label>Description </mat-label>
+                                <input matInput type="text" formControlName="description">
+                            </mat-form-field>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <input hidden #chooseFiles multiple type='file' (change)="onSelectFile($event,i,imageFormArrays.WRITING_SAMPLE)">
+                                    <button (click)="chooseFiles.click()" color="primary" mat-flat-button>Choose
+                    Files</button>
+                                </div>
+                                <div class="col-md-10">
+                                    <!-- <mat-progress-spinner [hidden]="!isLoading" class="example-margin" [color]="color" [mode]="mode" [value]="value">
+                  </mat-progress-spinner> -->
+                                    <mat-chip-list>
+                                        <mat-chip *ngFor="let item of typeCastToFormArray('writing_sample').controls[i].get('file').value">
+                                            {{item}}</mat-chip>
+                                    </mat-chip-list>
+
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+                <hr>
+                <div class="row align-center" formArrayName="someone_said_something_or_recommendation" *ngFor="let recommendation of typeCastToFormArray('someone_said_something_or_recommendation').controls;let i =index">
+                    <ng-container formGroupName={{i}}>
+                        <div class="col-md-11">
+                            <div class="row align-baseline">
+                                <div class="col-md-6">
+                                    <label>Someone say something good about your work? Post it here or Upload your letters of recommendation?</label>
+                                </div>
+                                <mat-form-field class="col-md-6">
+                                    <mat-label>Title of project</mat-label>
+                                    <input matInput type="text" formControlName="title">
+                                </mat-form-field>
+                            </div>
+
+                            <mat-form-field class="col-md-12">
+                                <mat-label>Description</mat-label>
+                                <textarea matInput formControlName="description"></textarea>
+                            </mat-form-field>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <input hidden #chooseFiles multiple type='file' (change)="onSelectFile($event,i,imageFormArrays.RECOMMENDATION)">
+                                    <button (click)="chooseFiles.click()" color="primary" mat-flat-button>Choose
+                        Files</button>
+                                </div>
+                                <div class="col-md-10">
+                                    <!-- <mat-progress-spinner [hidden]="!isLoading" class="example-margin" [color]="color" [mode]="mode" [value]="value">
+                      </mat-progress-spinner> -->
+                                    <mat-chip-list>
+                                        <mat-chip *ngFor="let item of typeCastToFormArray('someone_said_something_or_recommendation').controls[i].get('file').value">
+                                            {{item}}</mat-chip>
+                                    </mat-chip-list>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <mat-icon (click)="onAddRecommendation()">add_box</mat-icon> &nbsp;
+                            <mat-icon (click)="onRemoveFormGroup(i, imageFormArrays.RECOMMENDATION)" *ngIf="i>0">indeterminate_check_box
+                            </mat-icon>
+                        </div>
+                    </ng-container>
+
+                </div>
+
+
+
+
+
+            </ng-container>
+        </ng-container>
+        <button class="float-right" mat-flat-button color="primary" (click)="onSubmitForm()">Save</button>
+        <pre>{{studentProjectForm.value | json}}</pre>
+    </form>
+    <!-- <form *ngIf="studentStudiedForm" [formGroup]="studentStudiedForm" (ngSubmit)="onSubmitForm()">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            STEP 7 - WHAT HAVE YOU STUDIED SO FAR?
+        </mat-panel-title>
+        <mat-panel-description>
+            click to enter your details
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form *ngIf="studentStudiedForm" [formGroup]="studentStudiedForm" (ngSubmit)="onSubmitForm()">
+        <ng-container formGroupName="student_profile">
+            <ng-container formGroupName="studied">
+                <div class="row">
+                    <div [ngClass]="studentStudiedForm.get('student_profile').get('studied').get('school_board').value==='State board/other' ? 'col-md-3' : 'col-md-6'">
+                        <mat-form-field class="full-width">
+                            <mat-label>Select your school board</mat-label>
+                            <mat-select formControlName="school_board" placeholder="Select your school board">
+                                <mat-option *ngFor="let studentSchoolBoard of studentSchoolBoards" [value]="studentSchoolBoard">{{studentSchoolBoard}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3" *ngIf="studentStudiedForm.get('student_profile').get('studied').get('school_board').value==='State board/other'">
+                        <mat-form-field class="full-width">
+                            <mat-label>Enter your school board</mat-label>
+                            <input matInput type="text" formControlName="other_text">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="full-width">
+                            <mat-label>Grades/GPA/Percentage: Add what is available and what applies to you:</mat-label>
+                            <mat-select formControlName="grade" placeholder="Grades/GPA/Percentage">
+                                <mat-option *ngFor="let studentClassOption of studentClassOptions" [value]="studentClassOption">{{studentClassOption}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <ng-select [items]="studentFavoriteSubjects" class="reduce-spacing" [addTag]="addTagFn" [multiple]="true" bindLabel="name" bindValue="name" [searchable]="true" [clearable]="false" placeholder="List your favourite subjects" formControlName="fav_subjects"></ng-select>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
+        <button class="float-right" mat-flat-button color="primary" type="submit">Save</button>
+    </form> -->
+</mat-expansion-panel>

@@ -1,0 +1,95 @@
+<mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            STEP 2-YOUR HISTORY
+        </mat-panel-title>
+        <mat-panel-description>
+            click to enter your details
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form *ngIf="studentHistoryForm" [formGroup]="studentHistoryForm" (ngSubmit)="onSubmitForm()">
+        <ng-container formGroupName="student_profile">
+            <div class="row" formGroupName="history" class="row history-container">
+                <mat-form-field class="col-md-12 col-lg-6">
+                    <mat-label>Select Current Class</mat-label>
+                    <mat-select formControlName="current_class">
+                        <mat-option value="8th or less">8th or less</mat-option>
+                        <mat-option value="9th">9th</mat-option>
+                        <mat-option value="10th">10th</mat-option>
+                        <mat-option value="11th">11th</mat-option>
+                        <mat-option value="12th">12th</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+
+                <ng-container formArrayName="education" *ngFor="let item of educationFormArray.controls; let i =index;">
+                    <ng-container formGroupName={{i}}>
+                        <div class="col-md-11 education-container" [ngClass]=" i<i+1 ? 'mb-12': null">
+                            <mat-form-field class="col-md-6 col-lg-3">
+                                <mat-label>education type</mat-label>
+                                <mat-select formControlName="type" (selectionChange)="onSelectEductionType($event, i)">
+                                    <mat-option value="School">School</mat-option>
+                                    <mat-option value="College">College</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field class="col-md-6 col-lg-5">
+                                <input matInput type="text" placeholder="enter school/college name" formControlName="name">
+                            </mat-form-field>
+
+                            <mat-form-field class=" col-md-6 col-lg-3">
+                                <input matInput type="text" placeholder="enter location" formControlName="location">
+                            </mat-form-field>
+
+                            <ng-select [items]="studentSchoolBoards" class="reduce-spacing col-md-6 col-lg-4" placeholder="Enter School Board" [addTag]="true" *ngIf="educationFormArray.controls[i].get('type').value !='College'" formControlName="board"></ng-select>
+
+                            <ng-select [items]="studentFavoriteSubjects" class="reduce-spacing col-md-6 col-lg-4" [addTag]="addTagFn" [multiple]="true" bindLabel="name" bindValue="name" [searchable]="true" [clearable]="false" placeholder="List your favorite subjects" formControlName="field_of_study"></ng-select>
+
+                            <mat-form-field class=" col-md-6 col-lg-4" *ngIf="educationFormArray.controls[i].get('type').value =='College'">
+                                <input matInput type="text" placeholder="enter degree" formControlName="degree">
+                            </mat-form-field>
+
+                            <ng-select [items]="years" class="reduce-spacing col-md-6 col-lg-3" [searchable]="true" [clearable]="false" placeholder="Enter Start Year" formControlName="start_year"></ng-select>
+
+                            <ng-select [items]="years" class="reduce-spacing col-md-6 col-lg-3" [searchable]="true" [clearable]="false" placeholder="Enter End Year" formControlName="end_year"></ng-select>
+
+                            <div class="col-md-12 add-grade-container" [ngClass]=" i<index+1 ? 'mb-12': null" formArrayName="score" *ngFor="let item of 
+                typeCastToFormArray(educationFormArray.controls[i].get('score')).controls; let index = index;">
+                                <div class="grade-section" formGroupName={{index}}>
+                                    <div class="col-md-6 col-lg-4">
+                                        <label>Add your grade</label>
+                                    </div>
+                                    <mat-form-field class="col-md-6 col-lg-6">
+                                        <mat-label>Class Name</mat-label>
+                                        <mat-select formControlName="class_name">
+                                            <mat-option value="9th">9th</mat-option>
+                                            <mat-option value="10th">10th</mat-option>
+                                            <mat-option value="11th">11th</mat-option>
+                                            <mat-option value="12th" [hidden]="studentHistoryForm.get('student_profile').get('history').get('current_class').value === '11th'">12th</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <mat-form-field class=" col-md-6 col-lg-4">
+                                        <input matInput type="text" formControlName="class_score" placeholder="enter score">
+                                    </mat-form-field>
+                                    <mat-icon (click)="onAddStudentScore(i)" *ngIf="educationFormArray.controls[i].get('type').value !='College'">add_box</mat-icon>
+                                    <mat-icon (click)="onRemoveStudentScore(i,index)" *ngIf="index>0">indeterminate_check_box</mat-icon>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-1 history-action-section">
+                            <mat-icon (click)="onAddEducation()">add_box</mat-icon>
+                            <mat-icon (click)="onRemoveEducation(i)" *ngIf="i>0">indeterminate_check_box</mat-icon>
+
+
+                        </div>
+
+                    </ng-container>
+
+                </ng-container>
+            </div>
+        </ng-container>
+        <button class="float-right" mat-flat-button color="primary" type="submit">Save</button>
+    </form>
+
+
+</mat-expansion-panel>

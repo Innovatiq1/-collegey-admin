@@ -1,0 +1,88 @@
+<!-- <mat-progress-bar mode="indeterminate" [hidden]="!isLoading"></mat-progress-bar>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Conference Listing</mat-card-title>
+        <button class="create-user-btn" mat-stroked-button color="primary" (click)="openCreateConferenceModal()">Create a Conference</button>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>SNo.</th>
+                        <th>Title</th>
+                        <th>Short Description</th>
+                        <th>Is Paid</th>
+                        <th>Cost</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let conference of conferenceList;  let i = index;">
+                    <td>{{i+1}}</td>
+                    <td>{{conference?.title}}</td>
+                    <td>{{conference?.short_description}}</td>
+                    <td>{{conference?.is_paid ? 'Yes' : 'No'}}</td>
+                    <td><span *ngIf="conference?.is_paid"><span *ngIf="conference.cost">&#8377;</span>{{conference?.cost}}</span>
+                    </td>
+                    <td>{{conference?.status === 1 ? 'Active' : 'Inactive' }}</td>
+                    <td>
+                        <mat-icon title="view detail" [routerLink]="[conference?._id]">visibility</mat-icon>
+                    </td>
+                </tbody>
+            </table>
+        </div>
+    </mat-card-content>
+</mat-card> -->
+<nb-card style="width: 100%;">
+    <nb-card-header>
+        <nz-page-header nzTitle="Conference Listing">
+            <!-- <button class="create-user-btn" mat-stroked-button color="primary" (click)="openCreateBlogModal()">Create a Blog</button> -->
+            <nz-page-header-extra>
+                <button nz-button nzType="primary" (click)="openModal(Mode.Create, null, null)" nz-typography>Create a Conference</button>
+            </nz-page-header-extra>
+            <nz-page-header-content>
+                <nz-input-group [nzSuffix]="suffixIconSearch">
+                <input type="text" nz-input placeholder="input search text" #searchBox [(ngModel)]="searchText"/>
+                </nz-input-group>
+                <ng-template #suffixIconSearch>
+                <i nz-icon nzType="search"></i>
+                </ng-template>
+            </nz-page-header-content>
+        </nz-page-header>
+    </nb-card-header>
+        <nz-list nzGrid nzBordered>
+            <div nz-row [nzGutter]="16" *ngFor="let conference of conferenceList;  let j = index;">
+                <nz-list-item>
+                    <nb-card style="width: 100%;">
+                        <nb-card-header>
+                            <span>{{j+1}}. </span>{{conference?.title}}
+                            <nz-tag [nzColor]="'green'" *ngIf="conference.status == 1" nz-typography>Active</nz-tag>
+                            <nz-tag [nzColor]="'red'" *ngIf="conference.status == 2" nz-typography>In-Active</nz-tag>
+                            <ng-container>
+                                <button nz-button nz-dropdown [nzDropdownMenu]="menu" [nzPlacement]="'bottomLeft'" style="float: right;">Actions <i nz-icon nzType="down"></i></button>
+                                <nz-dropdown-menu #menu="nzDropdownMenu">
+                                    <ul nz-menu>
+                                        <li nz-menu-item>
+                                            <a (click)="openModal(Mode.Edit, conference._id, conference)">Edit</a>
+                                        </li>
+                                    </ul>
+                                </nz-dropdown-menu>
+                              </ng-container>
+                        </nb-card-header>
+                        <nb-card-body>
+                            {{conference?.description}}
+                            <div style="margin: 10px;">
+                                <nz-tag [nzColor]="'gold'" nz-typography>{{conference?.is_paid ? 'Paid' : 'Not Paid'}}</nz-tag>
+                                <nz-tag [nzColor]="'gold'" *ngIf="conference.is_paid" nz-typography>{{conference?.cost}}</nz-tag>
+                            </div>
+                        </nb-card-body>
+                        <nb-card-footer>
+                            <nz-tag [nzColor]="'gray'" *ngFor="let tag of conference.tags;  let i = index;" nz-typography>{{tag}}</nz-tag>
+                        </nb-card-footer>
+                    </nb-card>
+                </nz-list-item>
+            </div>
+          </nz-list>
+</nb-card>
+<app-load-more [isLoading]="isLoading" [isHidden]="conferenceList.length<=0"></app-load-more>

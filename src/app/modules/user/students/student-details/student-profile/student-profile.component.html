@@ -1,0 +1,44 @@
+<div class="card">
+    <div class="card-header card-header-info">
+        <div class="card-title">
+            Student Profile
+        </div>
+    </div>
+    <div class="expansion-block">
+        <mat-accordion *ngIf="studentProfileData$ | async as studentProfileData">
+            <app-student-geography [studentProfileData]="studentProfileData" (onSubmitGeographyForm)="submitStudentProfile($event)"></app-student-geography>
+            <app-student-history [studentProfileData]="studentProfileData" (onSubmitHistoryForm)="submitStudentProfile($event)"></app-student-history>
+            <app-student-get-in-touch (onSubmitGetInTouchForm)="submitStudentProfile($event)" [studentProfileData]="studentProfileData"></app-student-get-in-touch>
+            <app-student-interests-areas (onSubmitInterestForm)="submitStudentProfile($event)" [studentProfileData]="studentProfileData"></app-student-interests-areas>
+            <app-student-headed (onSubmitHeadedForm)="submitStudentProfile($event)" [studentProfileData]="studentProfileData"></app-student-headed>
+            <app-student-know-you-better (onSubmitKnowYouBetterForm)="submitStudentProfile($event)" [studentProfileData]="studentProfileData">
+            </app-student-know-you-better>
+            <app-student-studied (onSubmitStudiedForm)="submitStudentProfile($event)" [studentProfileData]="studentProfileData"></app-student-studied>
+            <app-student-preferences (onSubmitPreferencesForm)="submitStudentProfile($event)" [studentProfileData]="studentProfileData"></app-student-preferences>
+        </mat-accordion>
+    </div>
+
+</div>
+
+<!-- 
+<div class="card">
+  <div class="card-header card-header-info">
+    <div class="card-title">
+      Student Profile
+    </div>
+  </div>
+  <form *ngIf="studentOnBoardingForm$ | async as studentOnBoardingForm" [formGroup]="studentOnBoardingForm">
+    <div class="expansion-block">
+      <mat-accordion>
+        <app-student-geography [studentGeographyForm]="studentOnBoardingForm.get('geography')" (onGeographySubmitEvent)="submitStudentProfile($event,studentOnBoardingForm)"></app-student-geography>
+        <app-student-history [studentHistoryForm]="studentOnBoardingForm.get('history')" (onHistorySubmitEvent)="submitStudentProfile($event, studentOnBoardingForm)"></app-student-history>
+        <app-student-get-in-touch [getInTouchForm]="studentOnBoardingForm.get('ways_to_be_in_touch')" (onGetInTouchSubmitEvent)="submitStudentProfile($event, studentOnBoardingForm)"></app-student-get-in-touch>
+        <app-student-headed [studentHeadedForm]="studentOnBoardingForm.get('headed')" (onHeadedSubmitEvent)="submitStudentProfile($event, studentOnBoardingForm)"></app-student-headed>
+        <app-student-know-you-better [studentKnowYouBetterForm] = "studentOnBoardingForm.get('know_you_better')"
+          (onKnowYouBetterSubmitEvent) = "submitStudentProfile($event, studentOnBoardingForm)"></app-student-know-you-better>
+      </mat-accordion>
+    </div>
+    <pre>{{studentOnBoardingForm.value | json}}</pre>
+  </form>
+
+</div> -->

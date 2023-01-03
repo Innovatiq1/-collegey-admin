@@ -1,0 +1,8 @@
+.mat-card-header {
+    margin-bottom: 15px;
+}
+
+.mat-card-header button {
+    position: absolute;
+    right: 22px;
+}

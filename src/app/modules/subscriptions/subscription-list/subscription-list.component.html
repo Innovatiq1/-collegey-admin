@@ -1,0 +1,68 @@
+<nb-card>
+    <nb-card-header>
+        <nz-page-header nzTitle="Subscriptions">
+        <!-- <nz-page-header-extra>
+            <button nz-button nzType="primary" (click)="openModal(Mode.Create, null, null)" nz-typography>Create Invite</button>
+        </nz-page-header-extra> -->
+        <!-- <nz-page-header-extra>
+            <input 
+                    type="file" 
+                    style="display: none;"
+                    #fileImportInput
+                    name="File Upload" 
+                    id="csvFileUpload"
+                    (change)="fileChangeListener($event,item)" 
+                    accept=".csv"
+                  >
+            <button nz-button nzType="primary" (click)="fileImportInput.click()" nz-typography>Upload CSV</button>
+        </nz-page-header-extra> -->
+        <nz-page-header-content>
+            <nz-input-group [nzSuffix]="suffixIconSearch">
+            <input type="text" nz-input placeholder="input search text" #searchBox [(ngModel)]="searchText"
+                (ngModelChange)="search()" />
+            </nz-input-group>
+            <ng-template #suffixIconSearch>
+            <i nz-icon nzType="search"></i>
+            </ng-template>
+        </nz-page-header-content>
+        </nz-page-header>
+    </nb-card-header>
+    <nb-card-body>
+        <nz-list [nzDataSource]="subscriptionData" [nzRenderItem]="item" nzBordered>
+        <ng-template #item let-item>
+            <nz-list-item>
+            <!-- <ng-template #editAction>
+                <button nz-button nz-dropdown [nzDropdownMenu]="menulist" [nzPlacement]="'bottomLeft'" nz-typography>Actions <i nz-icon nzType="down"></i></button>
+                <nz-dropdown-menu #menulist="nzDropdownMenu">
+                <ul nz-menu>
+                    <li nz-menu-item>
+                    <a (click)="openModal(Mode.Edit, item._id, item)" >Edit</a>
+                    </li>
+                    <li nz-menu-item>
+                    <a >Delete</a>
+                    </li>
+                    <li nz-menu-item>
+                    <a (click)="sendActivationEmail(item._id,item)">Confirm</a>
+                    </li>
+                    <li nz-menu-item>
+                    <a (click)="sendActivationEmail(item._id,item)">Resend Email</a>
+                    </li>
+                </ul>
+                </nz-dropdown-menu>
+            </ng-template> -->
+            <nz-list-item-meta [nzTitle]="nzTitle">
+                <ng-template #nzTitle>
+                    <span>
+                        <a style="margin-right: 10px;" nz-typography>{{ item.emialId }}</a>
+                        <nz-tag [nzColor]="'green'" *ngIf="item.status == 'active'" nz-typography>Active</nz-tag>
+                        <nz-tag [nzColor]="'gold'" *ngIf="item.status == 'waitlisted'" nz-typography>Waitlisted</nz-tag>
+                        <nz-tag [nzColor]="'orange'" *ngIf="item.status == 'pending'" nz-typography>Pending</nz-tag>
+                    </span>
+                <!-- <p nz-typography>Email : {{item.email}}</p> -->
+                </ng-template>
+            </nz-list-item-meta>
+            </nz-list-item>
+        </ng-template>
+        </nz-list>
+    </nb-card-body>
+</nb-card>

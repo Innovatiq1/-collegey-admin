@@ -1,0 +1,43 @@
+<mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      STEP 1 - YOUR GEOGRAPHY
+    </mat-panel-title>
+    <mat-panel-description>
+      click to enter your details
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <form *ngIf="geographyFormGroup" [formGroup]="geographyFormGroup" (ngSubmit)="onSubmitForm()">
+    <ng-container formGroupName = "student_profile">
+      <ng-container formGroupName = "geography">
+    <div class="row">
+      <!-- <div class="col-md-4">
+        <mat-form-field class="full-width">
+          <mat-label>School/College Name</mat-label>
+          <input matInput type="text" formControlName="school_clg_name">
+        </mat-form-field>
+      </div> -->
+      <!-- <div class="col-md-4">
+        <mat-form-field class="full-width">
+          <mat-label>School/College City</mat-label>
+          <input matInput type="text" formControlName="school_clg_city">
+        </mat-form-field>
+      </div> -->
+        <mat-form-field class="col-12 col-sm-12 col-md-6">
+          <mat-label>Citizenship</mat-label>
+          <input matInput type="text" formControlName="citizenship">
+        </mat-form-field>
+        <ng-select class="col-12 col-sm-12 col-md-6 reduce-spacing" [items]="countries" bindLabel="name" bindValue="id" [searchable]="true" [clearable]="false"
+          placeholder="Countries" formControlName="country" (change)="onSelectCountry($event)"></ng-select>
+        <ng-select class=" col-12 col-sm-12 col-md-6 reduce-spacing" [items]="states" bindLabel="name" bindValue="id" [searchable]="true" [clearable]="false"
+          placeholder="States" formControlName="state" (change)="onSelectState($event)"></ng-select>
+        <ng-select class=" col-12 col-sm-12 col-md-6 reduce-spacing" [items]="cities" formControlName="city" bindLabel="name" bindValue="id" [searchable]="true" [clearable]="false"
+          placeholder="Cities"></ng-select>
+    </div>
+    </ng-container>
+    </ng-container>
+    <button class="float-right" mat-flat-button color="primary" type="submit">Save</button>
+  </form>
+
+
+</mat-expansion-panel>

@@ -1,0 +1,25 @@
+<div>
+    <form nz-form [formGroup]="pageContentForm" class="ant-advanced-search-form">
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Title</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="title" id="title" placeholder="Enter title"/>
+            <ng-container *ngIf="pageContentForm.get('title').errors?.required">
+              Title is required.
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="status" nz-typography>Status</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback >
+            <nz-switch formControlName="status" ></nz-switch>
+            <ng-container *ngIf="pageContentForm.get('status').errors?.required">
+                Status is required.
+              </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+    </form>
+</div>

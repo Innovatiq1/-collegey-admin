@@ -1,0 +1,77 @@
+<nb-card>
+    <nb-card-header>
+        <nz-page-header nzTitle="Collegey Career">
+            <nz-page-header-extra>
+                <button nz-button nzType="primary" (click)="DownloadAsExcel()"  nz-typography>Export CSV</button>
+            </nz-page-header-extra>
+        </nz-page-header>
+    </nb-card-header>
+    <nb-card-body>
+        <nz-list nzGrid nzBordered>
+            <div nz-row [nzGutter]="16" *ngFor="let careerInfo of fundResponse;  let j = index;">
+                <nz-list-item>
+                    <nb-card style="width: 100%;"> 
+                        <nb-card-header>
+                            <span>{{j+1}}. </span>{{careerInfo?.name}}
+                        </nb-card-header>
+                        <nb-card-body>
+                            <table class="listingTable" style="border: 0px;">
+                                <colgroup>
+                                    <col width="40%">
+                                    <col width="60%">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2">
+                                            <b>Email : </b> {{careerInfo?.emailId}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Country Code : </b> {{careerInfo?.countryCode}}
+                                        </td>
+                                        <td>
+                                            <b>Phone Number : </b> {{careerInfo?.cellNumber}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b> City : </b>  {{careerInfo?.city}}
+                                        </td>
+                                        <td>
+                                            <b> County : </b>  {{careerInfo?.country}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b> Linked In : </b> <a href="careerInfo?.linkedinId" target="_blank">{{careerInfo?.linkedinId}}</a> 
+                                        </td>
+                                        <td>
+                                            <b> Work Title : </b>  {{careerInfo?.workTitle}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b> Expertise : </b>  {{careerInfo?.expertise}}
+                                        </td>
+                                        <td>
+                                            <b> Outcome : </b>  {{careerInfo?.outcome}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <b> Resume : </b>
+                                            <a  target="_blank"
+                                            [href]="commonService.imagePathS3(careerInfo?.resume)">Download </a> 
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </nb-card-body>
+                    </nb-card>
+                </nz-list-item>
+            </div>
+        </nz-list>
+    </nb-card-body>
+</nb-card>
+<app-load-more [isLoading]="isLoading" [isHidden]="fundResponse?.length<=0"></app-load-more>

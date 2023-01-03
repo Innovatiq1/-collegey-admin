@@ -1,0 +1,129 @@
+<div>
+    <form nz-form [formGroup]="emailTemplateForm" class="ant-advanced-search-form">
+        
+        <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="email_subject" nz-typography>Email Subject</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input formControlName="email_subject" id="email_subject" placeholder="Enter email subject"/>
+          <ng-container *ngIf="emailTemplateForm.get('email_subject').errors?.required">
+            Email subject is required.
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="email_top_welcome_text" nz-typography>Top Welcome Text</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input formControlName="email_top_welcome_text" id="email_top_welcome_text" placeholder="Enter top welcome text"/>
+          <ng-container *ngIf="emailTemplateForm.get('email_top_welcome_text').errors?.required">
+            is required.
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="email_content1" nz-typography>Content 1</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <textarea matInput formControlName="email_content1" id="title" placeholder="Enter email content" 
+                style="padding: 5px 5px;width: 100%;resize: none;height: 80px;"></textarea>
+                <ng-container *ngIf="emailTemplateForm.get('email_content1').errors?.required">
+                    is required.
+            </ng-container>
+        </nz-form-control>
+    </nz-form-item>
+    
+    <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="email_content2" nz-typography>Content 2</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <textarea matInput formControlName="email_content2" id="title" placeholder="Enter email content" 
+                style="padding: 5px 5px;width: 100%;resize: none;height: 80px;"></textarea>
+                <ng-container *ngIf="emailTemplateForm.get('email_content2').errors?.required">
+                    is required.
+            </ng-container>
+        </nz-form-control> 
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="email_content3_title" nz-typography>Content 3 Title</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="email_content3_title" id="email_content3_title" placeholder="Enter email content title"/>
+            <ng-container *ngIf="emailTemplateForm.get('email_content3_title').errors?.required">is required.</ng-container>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="email_content3" nz-typography>Content 3</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <textarea matInput formControlName="email_content3" id="title" placeholder="Enter email content" 
+                style="padding: 5px 5px;width: 100%;resize: none;height: 80px;"></textarea>
+                <ng-container *ngIf="emailTemplateForm.get('email_content3').errors?.required">
+                    is required.
+            </ng-container>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="email_content4_title" nz-typography>Content 4 Title</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="email_content4_title" id="email_content4_title" placeholder="Enter email content title"/>
+            <ng-container *ngIf="emailTemplateForm.get('email_content4_title').errors?.required">
+                    is required.
+            </ng-container>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="email_content4" nz-typography>Content 4</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <textarea matInput formControlName="email_content4" id="title" placeholder="Enter email content" 
+                style="padding: 5px 5px;width: 100%;resize: none;height: 80px;"></textarea>
+                <ng-container *ngIf="emailTemplateForm.get('email_content4').errors?.required">
+                    is required.
+            </ng-container>
+        </nz-form-control>
+    </nz-form-item>
+    
+    <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="email_content5_title" nz-typography>Content 5 Title</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="email_content5_title" id="email_content5_title" placeholder="Enter email content title"/>
+            <ng-container *ngIf="emailTemplateForm.get('email_content5_title').errors?.required">
+                    is required.
+            </ng-container>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="email_content5" nz-typography>Content 5</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <textarea matInput formControlName="email_content5" id="title" placeholder="Enter email content" 
+                style="padding: 5px 5px;width: 100%;resize: none;height: 80px;"></textarea>
+                <ng-container *ngIf="emailTemplateForm.get('email_content5').errors?.required">
+                    is required.
+            </ng-container>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="bottom_line_text" nz-typography>Bottom line text</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <textarea matInput formControlName="bottom_line_text" id="title" placeholder="Enter text" 
+                style="padding: 5px 5px;width: 100%;resize: none;height: 80px;"></textarea>
+                <ng-container *ngIf="emailTemplateForm.get('bottom_line_text').errors?.required">
+                   is required.
+            </ng-container>
+        </nz-form-control>
+    </nz-form-item>
+    
+    <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="bottom_button_text" nz-typography>Bottom Button Text</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input formControlName="bottom_button_text" id="bottom_button_text" placeholder="Enter Bottom Button Text"/>
+          <ng-container *ngIf="emailTemplateForm.get('bottom_button_text').errors?.required">
+            Enter Bottom Button Text
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+    </form>
+</div>

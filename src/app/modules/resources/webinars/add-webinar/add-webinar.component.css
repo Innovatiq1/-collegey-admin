@@ -1,0 +1,8 @@
+.radio-label {
+    position: relative;
+    top: 3px;
+    margin-left: 15px;
+}
+.ant-list-item {
+    width: 100% !important;
+}

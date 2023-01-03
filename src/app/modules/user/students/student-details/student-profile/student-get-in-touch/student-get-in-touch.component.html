@@ -1,0 +1,108 @@
+<mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            STEP 3-WAYS TO GET IN TOUCH WITH YOU
+        </mat-panel-title>
+        <mat-panel-description>
+            click to enter your details
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form *ngIf="getInTouchForm" [formGroup]="getInTouchForm" (ngSubmit)="onSubmitForm()">
+        <ng-container formGroupName="student_profile">
+            <ng-container formGroupName="ways_to_be_in_touch">
+                <div class="row">
+                    <div class="col-md-4" formGroupName="phone_number">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <ng-select class="reduce-spacing" [items]="countryPhoneCode" bindLabel="name" bindValue="_id" [searchable]="true" [clearable]="false" placeholder="Ind +91" formControlName="extension"></ng-select>
+                            </div>
+                            <div class="col-md-7">
+                                <mat-form-field class="full-width">
+                                    <mat-label>Your Cell number</mat-label>
+                                    <input matInput type="number" formControlName="number">
+                                    <mat-error *ngIf="getInTouchForm.get('student_profile')?.get('ways_to_be_in_touch')?.get('phone_number')?.get('number').errors?.pattern">
+                                        Cell number is <strong>invalid</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <ng-container formArrayName="parents_details">
+                        <ng-container *ngFor="let item of parentsDetailsFormArray.controls; let i = index">
+                            <ng-container [formGroupName]="i">
+                                <div class="col-md-4">
+                                    <mat-form-field class="full-width">
+                                        <mat-label>{{i==0?'Father Name':'Mother Name'}}</mat-label>
+                                        <input matInput type="text" [placeholder]="i == 0? 'Father Name': 'Mother Name'" formControlName="name">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="full-width">
+                                        <mat-label>{{i==0?'Father Email':'Mother Email'}}</mat-label>
+                                        <input matInput type="text" [placeholder]="i==0? 'Father Email':'Mother Email'" formControlName="email">
+                                        <mat-error *ngIf="parentsDetailsFormArray.controls[i]?.get('email').errors?.pattern">
+                                            Email is <strong>invalid</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+                </div>
+                <div class="row" formArrayName="school_counselor">
+                    <ng-container *ngFor="let item of counselorDetailsFormArray.controls; let i = index">
+                        <ng-container [formGroupName]="i">
+                            <div class="col-md-6">
+                                <mat-form-field class="full-width">
+                                    <mat-label>Counselor Name</mat-label>
+                                    <input matInput type="text" placeholder="counselor name" formControlName="name">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-form-field class="full-width">
+                                    <mat-label>Counselor Email</mat-label>
+                                    <input matInput type="text" placeholder="counselor email" formControlName="email">
+                                    <mat-error *ngIf="counselorDetailsFormArray.controls[i]?.get('email').errors?.pattern">
+                                        Email is <strong>invalid</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                </div>
+                <div class="row">
+                    <mat-form-field class="col-md-6">
+                        <mat-label>DOB</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="dob">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <div class="row align-center" formArrayName="social_media" *ngFor="let channel of typeCastToFormArray('social_media').controls; let i=index">
+                    <ng-container formGroupName={{i}}>
+                        <div class="col-md-3">
+                            <label>Your social media channels:</label>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field class="full-width">
+                                <input matInput type="text" formControlName="channel_link" placeholder="enter your social medial channel name">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-5">
+                            <mat-form-field class="full-width">
+                                <input matInput type="text" formControlName="channel_name" placeholder="enter your social medial channel link">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-1  no-padding-right">
+                            <mat-icon (click)="onClickAddSocialMedial()">add_box</mat-icon> &nbsp;
+                            <mat-icon (click)="onRemoveSocialMedia(i)" *ngIf="i>0">
+                                indeterminate_check_box</mat-icon>
+                        </div>
+                    </ng-container>
+                </div>
+                <button class="float-right" mat-flat-button color="primary" type="submit">Save</button>
+            </ng-container>
+        </ng-container>
+    </form>
+</mat-expansion-panel>

@@ -1,0 +1,53 @@
+<nb-card style="width: 100%;">
+    <nb-card-header>
+        <nz-page-header nzTitle="Logo Uploads">
+            <nz-page-header-extra>
+                <button nz-button nzType="primary" (click)="openModal(Mode.Create, null, null)" nz-typography>Add new Logo</button>
+            </nz-page-header-extra>
+            <nz-page-header-content>
+                <nz-input-group [nzSuffix]="suffixIconSearch">
+                <input type="text" nz-input placeholder="input search text" #searchBox [(ngModel)]="searchText"/>
+                </nz-input-group>
+                <ng-template #suffixIconSearch>
+                <i nz-icon nzType="search"></i>
+                </ng-template>
+            </nz-page-header-content>
+        </nz-page-header>
+    </nb-card-header>
+        <nz-list nzGrid nzBordered>
+            <div nz-row [nzGutter]="16" *ngFor="let uploadlogo of uploadlogoList;  let j = index;">
+                <nz-list-item>
+                    <nb-card style="width: 972px !important;">
+                        <nb-card-header>
+                            <span>{{j+1}}. </span>{{uploadlogo?.title}} &nbsp;&nbsp;
+                            <nz-tag [nzColor]="'green'" *ngIf="uploadlogo.active" nz-typography>Active</nz-tag>
+                            <nz-tag [nzColor]="'red'" *ngIf="!uploadlogo.active" nz-typography>In-Active</nz-tag>
+                            <ng-container>
+                                <button nz-button nz-dropdown [nzDropdownMenu]="menu" [nzPlacement]="'bottomLeft'" style="float: right;">Actions <i nz-icon nzType="down"></i></button>
+                                <nz-dropdown-menu #menu="nzDropdownMenu">
+                                    <ul nz-menu>
+                                        <li nz-menu-item>
+                                            <a (click)="openModal(Mode.Edit, uploadlogo._id, uploadlogo)">Edit</a>
+                                        </li>
+                                        <li nz-menu-item *ngIf="!uploadlogo.active">
+                                            <a (click)="activationUploadLogo(uploadlogo._id,'active')">Active</a>
+                                        </li>
+                                        <li nz-menu-item *ngIf="uploadlogo.active">
+                                            <a (click)="activationUploadLogo(uploadlogo._id,'deactive')">De-Active</a>
+                                        </li>
+                                        <li nz-menu-item >
+                                            <a (click)="deleteUploadLogo(uploadlogo._id)">Delete</a>
+                                        </li>
+                                    </ul>
+                                </nz-dropdown-menu>
+                              </ng-container>
+                        </nb-card-header>
+                        <nb-card-body>
+                            <img src="https://s3.ap-southeast-1.amazonaws.com/storage.collegey/{{uploadlogo.imageName}}" width="10%" height="10%" />
+                        </nb-card-body> 
+                    </nb-card>
+                </nz-list-item>
+            </div>
+          </nz-list>
+</nb-card>
+<!-- <app-load-more [isLoading]="isLoading" [isHidden]="uploadlogoList.length<=0"></app-load-more> -->

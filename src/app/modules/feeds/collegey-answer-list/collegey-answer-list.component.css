@@ -1,0 +1,33 @@
+.cardFlex{
+    width: 100%;
+    margin-bottom: 15px !important;
+}
+
+.cardFlexLeft{
+    width: 80%;
+}
+
+.cardFlexRight{
+    width: 20%;
+}
+
+.cardFlexLink{
+   /* float: right;  */
+   text-decoration: none;
+   cursor: pointer;
+   color: black;
+}
+
+.headMain{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.mainLeft{
+    width: 80%;
+}
+
+.mainRight{
+    width: 20%;
+}

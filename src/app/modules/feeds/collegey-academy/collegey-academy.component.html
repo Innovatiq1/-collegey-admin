@@ -1,0 +1,67 @@
+<div class="parentDiv">
+  <form nz-form [formGroup]="academyForm"  class="ant-advanced-search-form">
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="academyTitle" nz-typography>Collegey Question Title</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+              <input nz-input type="text" formControlName="academyTitle" id="academyTitle" placeholder="Write Academy Title"/>
+              <ng-container *ngIf="academyForm.get('academyTitle').errors?.required">
+                Collegey Academy Title is required.
+              </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+          
+        <!-- <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="academySubTitle" nz-typography>Collegey Academy Suc-title</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+              <input nz-input type="text" formControlName="academySubTitle" id="academySubTitle" placeholder="Write Academy Sub-title"/>
+              <ng-container *ngIf="academyForm.get('academySubTitle').errors?.required">
+                Collegey Academy Sub-title is required.
+              </ng-container>
+            </nz-form-control>
+          </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="academyDescription" nz-typography>Collegey Academy Description</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+              <textarea nz-input type="text" class="areaControl" formControlName="academyDescription" id="academyDescription" placeholder="Write Academy Description"></textarea>
+              <ng-container *ngIf="academyForm.get('academyDescription').errors?.required">
+                Collegey Academy Description is required.
+              </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="academyBtnText" nz-typography>Collegey Academy Button Text</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+              <input nz-input type="text" formControlName="academyBtnText" id="academyBtnText" placeholder="Write Academy Button Text"/>
+              <ng-container *ngIf="academyForm.get('academyBtnText').errors?.required">
+                Collegey Academy Button Text is required.
+              </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="academyLink" nz-typography>Collegey Academy Button Text</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+              <input nz-input type="text" formControlName="academyLink" id="academyLink" placeholder="Write Academy Link"/>
+              <ng-container *ngIf="academyForm.get('academyLink').errors?.required">
+                Collegey Academy Link is required.
+              </ng-container>
+            </nz-form-control>
+          </nz-form-item> -->
+
+          <hr>
+
+          <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="questionTitle" nz-typography>Collegey Answer Title</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+              <input nz-input type="text" formControlName="questionTitle" id="questionTitle" placeholder="Write Collegey Question Title"/>
+              <ng-container *ngIf="academyForm.get('questionTitle').errors?.required">
+                Collegey Academy Link is required.
+              </ng-container>
+            </nz-form-control>
+          </nz-form-item>
+        
+  </form>
+    
+</div>

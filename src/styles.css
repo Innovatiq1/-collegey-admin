@@ -1,0 +1,238 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~@ng-select/ng-select/themes/material.theme.css";
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+mat-card-content .mat-radio-label-content {
+    color: #000 !important;
+}
+
+.mat-radio-button~.mat-radio-button {
+    margin-left: 16px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.padding-10 {
+    padding: 10px;
+}
+
+.padding-15 {
+    padding: 15px;
+}
+
+mat-dialog-container {
+    padding: 0 !important;
+}
+
+button:focus {
+    outline: none !important;
+}
+
+mat-icon {
+    cursor: pointer;
+}
+
+.app-full-bleed-dialog .mat-dialog-container {
+    padding: 0;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+table thead th {
+    white-space: nowrap;
+}
+
+.link {
+    color: #007bff !important;
+    cursor: pointer;
+}
+
+.custom-checkbox .mat-radio-outer-circle {
+    width: 15px;
+    height: 15px;
+    margin-top: 3px;
+}
+
+.custom-checkbox .mat-radio-inner-circle {
+    margin-left: -2px;
+    width: 19px;
+    height: 21px;
+}
+
+.no-padding-left {
+    padding-left: 0px !important;
+}
+
+.no-padding-right {
+    padding-right: 0px !important;
+}
+
+mat-expansion-panel {
+    margin-bottom: 20px !important;
+}
+
+mat-nav-list .active {
+    background-color: gainsboro;
+}
+
+.mat-tab-group .mat-tab-label .mat-tab-label-content {
+    font-weight: bold;
+}
+
+.mat-tab-body-content {
+    overflow: hidden !important;
+}
+
+.mat-drawer {
+    background-color: #fff !important;
+    color: #000000 !important;
+    ;
+}
+
+.mat-list-base .mat-list-item {
+    color: #000000 !important;
+}
+
+.no-padding {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+
+/* material card global css */
+
+.card {
+    border: 0;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    border-radius: 6px;
+    color: #333;
+    background: #fff;
+    width: 100%;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .14);
+}
+
+.card [class*=card-header-]:not(.card-header-icon):not(.card-header-text):not(.card-header-image) {
+    border-radius: 3px;
+    margin-top: -20px;
+    padding: 15px;
+}
+
+.card .card-header-info .card-icon,
+.card .card-header-info .card-text,
+.card .card-header-info:not(.card-header-icon):not(.card-header-text) {
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px #673ab7;
+}
+
+.card .card-header .card-title {
+    margin-bottom: 3px;
+    color: #fff;
+}
+
+.card .card-header-info .card-icon,
+.card .card-header-info .card-text,
+.card .card-header-info:not(.card-header-icon):not(.card-header-text),
+.card.bg-info,
+.card.card-rotate.bg-info .back,
+.card.card-rotate.bg-info .front {
+    /* background: linear-gradient(60deg,#26c6da,#00acc1); */
+    background: linear-gradient(60deg, #673ab7, #673ab7);
+}
+
+.card [class*=card-header-] {
+    margin: 0 15px;
+    padding: 0;
+    position: relative;
+}
+
+
+/* end of material card global css */
+
+
+/* css for checkbox background */
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: #673ab7 !important;
+}
+
+.mb-12, .angular-editor {
+    margin-bottom: 12px;
+}
+
+.profile-sidebar {
+    width: 216px;
+}
+
+.profile-container {
+    width: calc(100% - 216px - 30px);
+    margin-left: 30px;
+}
+
+.mat-expansion-panel {
+    overflow: visible !important;
+}
+
+.reduce-spacing.ng-select {
+    padding-bottom: 6px;
+}
+
+.reduce-spacing.ng-select .ng-select-container {
+    min-height: 40px;
+}
+
+.reduce-spacing.ng-select .ng-select-container .ng-value-container {
+    padding: .4375em 0 0;
+}
+
+.create-user-btn {
+    right: 0px;
+    position: absolute !important;
+    bottom: 20px;
+}
+
+mat-error {
+    font-size: 11px;
+}
+
+.mat-slide-toggle {
+    margin-bottom: 5px;
+}
+
+.label-text {
+    margin-right: 10px;
+    position: relative;
+    top: -3px;
+}
+.ant-form-item-label {
+    text-align: left !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .profile-sidebar {
+        width: 100%;
+    }
+    .profile-container {
+        width: 100%;
+    }
+}
+.clg-error-textcolor{
+    color: red;
+}

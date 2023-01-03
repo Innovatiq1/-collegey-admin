@@ -1,0 +1,34 @@
+<div>
+    <form nz-form [formGroup]="pageContentForm" class="ant-advanced-search-form">
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Title</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="title" id="title" placeholder="Enter title"/>
+            <ng-container *ngIf="pageContentForm.get('title').errors?.required">
+              Title is required.
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="status" nz-typography>Status</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback >
+            <nz-switch formControlName="status" ></nz-switch>
+            <ng-container *ngIf="pageContentForm.get('status').errors?.required">
+                Status is required.
+              </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+      <div nz-row>
+        <nz-form-label [nzXs]="24" nzFor="image" nz-typography>Add Image (Please upload around image size 190 x 28)</nz-form-label>
+        <input type="file" (change)="onFileUpload($event)" accept=".png,.jpeg,.jpg"/>
+      </div>
+      <div style="color: green;">
+        Accept only png, jpeg, jpg.
+      </div>
+      <img *ngIf="selectFile" alt="project" style="height: 100px; width: 100px;margin-top: 5px;" src="{{selectFile}}">
+      
+    </form>
+</div>

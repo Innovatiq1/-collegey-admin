@@ -1,0 +1,23 @@
+<!-- <mat-drawer-container class="sidenav-container">
+    <mat-drawer #drawer [mode]="isMobile ? 'over' : 'push'">
+        <div id="nav-container">
+            <div id="nav-header">
+                <img src="../assets/ziffy_logo.svg" alt="">
+                <h2>Collegey</h2>
+            </div>
+            <mat-nav-list dense>
+                <ng-container *ngFor="let menuitem of menuitems">
+                    <app-nav-item (menuItemClick)="drawer.toggle();" [menuitem]="menuitem"></app-nav-item>
+                </ng-container>
+            </mat-nav-list>
+        </div>
+    </mat-drawer>
+    <app-header (menuClick)="drawer.toggle();" style="position: fixed; width: 100%; z-index: 99;"></app-header>
+    <div class="dashboard-container">
+        <router-outlet></router-outlet>
+    </div>
+</mat-drawer-container> -->
+<ngx-one-column-layout>
+    <nb-menu [items]="menu"></nb-menu>
+    <router-outlet></router-outlet>
+  </ngx-one-column-layout>

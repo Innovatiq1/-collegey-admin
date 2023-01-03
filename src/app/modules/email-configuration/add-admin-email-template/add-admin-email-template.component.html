@@ -1,0 +1,22 @@
+
+<div>
+    <form nz-form [formGroup]="emailTemplateForm" class="ant-advanced-search-form">
+        <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="email_subject" nz-typography> Admin Email </nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input formControlName="email" id="email" placeholder="Enter email subject"/>
+          <ng-container *ngIf="emailTemplateForm.get('email').errors?.required">
+            Email is required.
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      
+      
+      
+    </form>
+</div>
+
+
+
+
+

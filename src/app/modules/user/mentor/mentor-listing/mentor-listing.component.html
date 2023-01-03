@@ -1,0 +1,189 @@
+<!-- <mat-progress-bar mode="indeterminate" [hidden]="!isLoading"></mat-progress-bar> -->
+<nb-card style="width: 100%;">
+    <nb-card-header>
+        <nz-page-header nzTitle="Mentor Listing">
+            <!-- <button class="create-user-btn" mat-stroked-button color="primary" (click)="openCreateBlogModal()">Create a Blog</button> -->
+            <nz-page-header-extra>                
+     
+                    <button nz-button nz-dropdown [nzDropdownMenu]="menu" [nzPlacement]="'bottomLeft'">Status <i nz-icon nzType="down"></i></button>
+                    <nz-dropdown-menu #menu="nzDropdownMenu">
+                        <ul nz-menu>
+                            <li nz-menu-item>
+                                <a (click)="getMentors('true')">Active</a>
+                            </li>
+                            <li nz-menu-item>
+                                <a (click)="getMentors('false')">Inactive</a>
+                            </li>
+                            <li nz-menu-item>
+                                <a (click)="getMentors('both')">Both</a>
+                            </li>
+                        </ul>
+                    </nz-dropdown-menu>
+
+                <button nz-button nzType="primary" (click)="DownloadAsExcel()" nz-typography>Export</button>
+                <button nz-button nzType="primary" (click)="openModal(Mode.Create, null, null, null)" nz-typography>Create a Mentor</button>
+            </nz-page-header-extra>
+            <nz-page-header-content>
+                <nz-input-group [nzSuffix]="suffixIconSearch">
+                <input type="text" nz-input placeholder="input search text" #searchBox [(ngModel)]="searchText"/>
+                </nz-input-group>
+                <ng-template #suffixIconSearch>
+                <i nz-icon nzType="search"></i>
+                </ng-template>
+            </nz-page-header-content>
+        </nz-page-header>
+    </nb-card-header>
+        <nz-list *ngIf="mentorStatus == 'both'" nzGrid nzBordered>
+            <div nz-row [nzGutter]="16" *ngFor="let blog of blogsList let j = index">
+                <nz-list-item>
+                    <nb-card style="width: 100%;">
+                        <nb-card-header>
+                            <span>{{j+1}}. </span>{{blog?.name}}
+                            <nz-tag [nzColor]="'green'" *ngIf="blog.Active == true" nz-typography>Active</nz-tag>
+                            <nz-tag [nzColor]="'red'" *ngIf="blog.Active == false" nz-typography>Blocked</nz-tag>
+                            <ng-container>
+                                <button nz-button nz-dropdown [nzDropdownMenu]="menu" [nzPlacement]="'bottomLeft'" style="float: right;">Actions <i nz-icon nzType="down"></i></button>
+                                <nz-dropdown-menu #menu="nzDropdownMenu">
+                                    <ul nz-menu>
+                                        <li nz-menu-item>
+                                            <a (click)="openModal(Mode.Edit, blog._id, blog, blog.Active)">Edit</a>
+                                        </li>
+                                        <li nz-menu-item *ngIf="!blog.Active">
+                                            <a (click)="updateUserStatus(blog._id,'active')">UnBlock</a>
+                                        </li>
+                                        <li nz-menu-item *ngIf="blog.Active">
+                                            <a (click)="updateUserStatus(blog._id,'deactive')">Block</a>
+                                        </li>
+                                        <li nz-menu-item>
+                                            <a (click)="openMentorDetailsModal(Mode.Edit, blog.id, blog)">Details</a>
+                                        </li>
+                                    </ul>
+                                </nz-dropdown-menu>
+                              </ng-container>
+                        </nb-card-header>
+                        <nb-card-body>
+                            <table class="listingTable" style="border: 0px;">
+                                <colgroup>
+                                    <col width="30%">
+                                    <col width="70%">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <b>Email : </b> {{blog?.email}}
+                                        </td>
+                                        <td *ngIf="blog?.gender"><b>Gender : </b> {{blog?.gender}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span *ngIf="blog?.mentor_profile?.profile?.professionalTitle"><b> Professional Title : </b>{{blog?.mentor_profile?.profile?.professionalTitle}}</span></td>
+                                        <td><span *ngIf="blog?.mentor_profile?.profile?.experience"><b>Experience in years : </b> {{blog?.mentor_profile?.profile?.experience}}</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><span *ngIf="blog?.mentor_profile?.profile?.linkedIn"><b>Linkedin : </b> <a href="blog?.mentor_profile?.profile?.linkedIn" target="_blank">{{blog?.mentor_profile?.profile?.linkedIn}}</a></span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </nb-card-body>
+                        <!-- <nb-card-footer>
+                            <nz-tag [nzColor]="'gray'" *ngFor="let tag of blog.tags;  let i = index;" nz-typography>{{tag}}</nz-tag>
+                        </nb-card-footer> -->
+                    </nb-card>
+                </nz-list-item>
+            </div>
+          </nz-list>
+        <nz-list *ngIf="mentorStatus == 'true'" nzGrid nzBordered>
+            <div nz-row [nzGutter]="16" *ngFor="let blog of mentorData let j = index">
+                <nz-list-item>
+                    <nb-card style="width: 100%;">
+                        <nb-card-header>
+                            <span>{{j+1}}. </span>{{blog?.name}}
+                            <nz-tag [nzColor]="'green'" *ngIf="blog.Active == true" nz-typography>Active</nz-tag>
+                            <nz-tag [nzColor]="'red'" *ngIf="blog.Active == false" nz-typography>Blocked</nz-tag>
+                            <ng-container>
+                                <button nz-button nz-dropdown [nzDropdownMenu]="menu" [nzPlacement]="'bottomLeft'" style="float: right;">Actions <i nz-icon nzType="down"></i></button>
+                                <nz-dropdown-menu #menu="nzDropdownMenu">
+                                    <ul nz-menu>
+                                        <li nz-menu-item>
+                                            <a (click)="openModal(Mode.Edit, blog._id, blog, blog.Active)">Edit</a>
+                                        </li>
+                                        <li nz-menu-item *ngIf="!blog.Active">
+                                            <a (click)="updateUserStatus(blog._id,'active')">UnBlock</a>
+                                        </li>
+                                        <li nz-menu-item *ngIf="blog.Active">
+                                            <a (click)="updateUserStatus(blog._id,'deactive')">Block</a>
+                                        </li>
+                                    </ul>
+                                </nz-dropdown-menu>
+                              </ng-container>
+                              <div>
+                                  <p style="display: flex; margin:0px; margin-top: 10px; margin-left: 5px;">Name: {{blog?.name}}</p>
+                             </div>
+                        </nb-card-header>
+                        <nb-card-body>
+                            <div>Gender: {{blog?.gender}}</div>
+                            <div>Email: {{blog?.email}}</div>
+                            <div>Slug: {{blog?.slug}}</div>
+                            <div>Qualification: {{blog?.qualification}}</div>
+                            <div>Type: {{blog?.type}}</div>
+                            <div *ngIf="blog?.mentor_profile?.profile?.professionalTitle">Professional Title: {{blog?.mentor_profile?.profile?.professionalTitle}}</div>
+                            <div *ngIf="blog?.mentor_profile?.profile?.experience">Experience: {{blog?.mentor_profile?.profile?.experience}} Year</div>
+                            <div *ngIf="blog?.mentor_profile?.profile?.website">Website: {{blog?.mentor_profile?.profile?.website}}</div>
+                        </nb-card-body>
+                        <!-- <nb-card-footer>
+                            <nz-tag [nzColor]="'gray'" *ngFor="let tag of blog.tags;  let i = index;" nz-typography>{{tag}}</nz-tag>
+                        </nb-card-footer> -->
+                    </nb-card>
+                </nz-list-item>
+            </div>
+          </nz-list>
+        <nz-list *ngIf="mentorStatus == 'false'" nzGrid nzBordered>
+            <div nz-row [nzGutter]="16" *ngFor="let blog of mentorData let j = index">
+                <nz-list-item>
+                    <nb-card style="width: 100%;">
+                        <nb-card-header>
+                            <span>{{j+1}}. </span>{{blog?.name}}
+                            <nz-tag [nzColor]="'green'" *ngIf="blog.Active == true" nz-typography>Active</nz-tag>
+                            <nz-tag [nzColor]="'red'" *ngIf="blog.Active == false" nz-typography>Blocked</nz-tag>
+                            <ng-container>
+                                <button nz-button nz-dropdown [nzDropdownMenu]="menu" [nzPlacement]="'bottomLeft'" style="float: right;">Actions <i nz-icon nzType="down"></i></button>
+                                <nz-dropdown-menu #menu="nzDropdownMenu">
+                                    <ul nz-menu>
+                                        <li nz-menu-item>
+                                            <a (click)="openModal(Mode.Edit, blog._id, blog, blog.Active)">Edit</a>
+                                        </li>
+                                        <li nz-menu-item *ngIf="!blog.Active">
+                                            <a (click)="updateUserStatus(blog._id,'active')">UnBlock</a>
+                                        </li>
+                                        <li nz-menu-item *ngIf="blog.Active">
+                                            <a (click)="updateUserStatus(blog._id,'deactive')">Block</a>
+                                        </li>
+                                    </ul>
+                                </nz-dropdown-menu>
+                              </ng-container>
+                              <div>
+                                  <p style="display: flex; margin:0px; margin-top: 10px; margin-left: 5px;">Name: {{blog?.name}}</p>
+                             </div>
+                        </nb-card-header>
+                        <nb-card-body>
+                            <div>Gender: {{blog?.gender}}</div>
+                            <div>Email: {{blog?.email}}</div>
+                            <div>Slug: {{blog?.slug}}</div>
+                            <div>Qualification: {{blog?.qualification}}</div>
+                            <div>Type: {{blog?.type}}</div>
+                        </nb-card-body>
+                        <!-- <nb-card-footer>
+                            <nz-tag [nzColor]="'gray'" *ngFor="let tag of blog.tags;  let i = index;" nz-typography>{{tag}}</nz-tag>
+                        </nb-card-footer> -->
+                    </nb-card>
+                </nz-list-item>
+            </div>
+          </nz-list>
+</nb-card>
+
+<app-load-more *ngIf="mentorStatus =='both'" [isLoading]="isLoading" [isHidden]="blogsList.length<=0 "></app-load-more>
+<div *ngIf="mentorStatus !='both' && mentorLoadMore" class="row">
+    <div class="col mt-3 mb-4 text-center">
+        <mat-spinner style="margin: 0 auto;" color="accent" [hidden]="!isLoading" [diameter]="40"></mat-spinner>
+        <button nbButton outline status="primary" (click)="_loadMore()" [hidden]="isLoading" color="primary">Load More</button>
+    </div>
+</div>

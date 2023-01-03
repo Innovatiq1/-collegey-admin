@@ -1,0 +1,77 @@
+<mat-progress-bar mode="indeterminate" [hidden]="!isLoading"></mat-progress-bar>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{conferenceDetail?.title}}</mat-card-title>
+        <span class="spacer"></span>
+        <span>
+            <button mat-icon-button (click)="editConference()">
+                <mat-icon>edit</mat-icon>
+            </button>
+        </span>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-tab-group>
+            <mat-tab label="Details">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>Title</td>
+                            <td>{{conferenceDetail?.title}}</td>
+                        </tr>
+                        <tr>
+                            <td>Slug</td>
+                            <td>{{conferenceDetail?.slug}}</td>
+                        </tr>
+                        <tr>
+                            <td>Short Description</td>
+                            <td>{{conferenceDetail?.short_description}}</td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td>{{conferenceDetail?.description}}</td>
+                        </tr>
+                        <tr>
+                            <td>Is Paid</td>
+                            <td>{{conferenceDetail?.is_paid ? 'Yes' : 'No'}}</td>
+                        </tr>
+                        <tr>
+                            <td>Cost</td>
+                            <td><span *ngIf="conferenceDetail?.is_paid">{{conferenceDetail?.cost | currency:"&#8377;"}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <td>{{conferenceDetail?.status === 1 ? 'Active' : "InActive"}}</td>
+                        </tr>
+                        <tr>
+                            <td>Redirect Link</td>
+                            <td>
+                                <a href="{{conferenceDetail?.redirect_link}}" target="_blank">
+                                    {{conferenceDetail?.redirect_link}}
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Image</td>
+                            <td>
+                                <a [href]="commonService.imagePathMaker(conferenceDetail?.image)" target="_blank">
+                                    {{conferenceDetail?.image | imageName}}
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tags</td>
+                            <td>
+                                <ul>
+                                    <li *ngFor="let tags of conferenceDetail?.tags">
+                                        {{tags}}
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </thead>
+                </table>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-card-content>
+</mat-card>

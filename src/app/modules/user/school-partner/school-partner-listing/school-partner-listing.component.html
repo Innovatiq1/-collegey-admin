@@ -1,0 +1,35 @@
+<mat-progress-bar mode="indeterminate" [hidden]="!isLoading"></mat-progress-bar>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>School Partner Listing</mat-card-title>
+        <button class="create-user-btn" mat-stroked-button color="primary" (click)="openSchoolPartnerModal()">Create School Partner</button>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>SNo.</th>
+                        <th>Slug</th>
+                        <th>School Name</th>
+                        <th>Email</th>
+                        <th>Country</th>
+                        <th>State</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let partner of schoolPartnerList;  let i = index;">
+                    <td>{{i+1}}</td>
+                    <td>{{partner?.slug}}</td>
+                    <td>{{partner?.name}}</td>
+                    <td>{{partner?.email}}</td>
+                    <td>{{partner?.country}}</td>
+                    <td>{{partner?.state}}</td>
+                    <td>
+                        <mat-icon title="view detail" [routerLink]="['/users/school-partner/' + partner?._id]">visibility</mat-icon>
+                    </td>
+                </tbody>
+            </table>
+        </div>
+    </mat-card-content>
+</mat-card>

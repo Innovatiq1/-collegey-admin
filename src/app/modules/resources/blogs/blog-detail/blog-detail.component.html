@@ -1,0 +1,65 @@
+<mat-progress-bar mode="indeterminate" [hidden]="!isLoading"></mat-progress-bar>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>View Blog Detail</mat-card-title>
+        <!-- <mat-card-subtitle>{{blogInfo?.title}}</mat-card-subtitle> -->
+        <span class="spacer"></span>
+        <span>
+            <button mat-icon-button (click)="openUpdateModal()">
+                <mat-icon>edit</mat-icon>
+            </button>
+        </span>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-tab-group>
+            <mat-tab label="Details">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>Status</td>
+                            <td>{{blogInfo?.status ==1 ? 'Active' : 'Inactive'}}</td>
+                        </tr>
+                        <tr>
+                            <td>Title</td>
+                            <td>{{blogInfo?.title}}</td>
+                        </tr>
+                        <tr>
+                            <td>Slug</td>
+                            <td>{{blogInfo?.slug}}</td>
+                        </tr>
+                        <tr>
+                            <td>Author</td>
+                            <td>{{blogInfo?.author}}</td>
+                        </tr>
+                        <tr>
+                            <td>Short Description</td>
+                            <td>{{blogInfo?.short_description}}</td>
+                        </tr>
+                        <!-- <tr>
+                            <td>Description</td>
+                            <td>{{blogInfo?.description}}</td>
+                        </tr> -->
+                        <tr>
+                            <td>Redirect Link</td>
+                            <td><a href="blogInfo?.redirect_link" target="_blank">
+                                {{blogInfo?.redirect_link}}
+                            </a></td>
+                        </tr>
+                        <tr>
+                            <td>Is Paid</td>
+                            <td>{{blogInfo?.is_paid ? 'Yes' : 'No'}}</td>
+                        </tr>
+                        <tr>
+                            <td>Cost</td>
+                            <td><span *ngIf="blogInfo?.is_paid">{{blogInfo?.cost}}</span></td>
+                        </tr>
+                        <tr>
+                            <td>Images</td>
+                            <td><a [href]="commonService.imagePathMaker(blogInfo?.image)" target="_blank">{{blogInfo?.image | imageName}}</a></td>
+                        </tr>
+                    </thead>
+                </table>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-card-content>
+</mat-card>

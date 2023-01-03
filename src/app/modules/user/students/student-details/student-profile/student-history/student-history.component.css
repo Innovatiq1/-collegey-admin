@@ -1,0 +1,49 @@
+ng-select {
+    display: inline-block;
+}
+
+.checkbox-margin {
+    margin: 0 10px;
+}
+
+.history-container {
+    align-items: center;
+}
+
+.education-container {
+    border: 1px solid lightgoldenrodyellow;
+    position: relative;
+    left: 16px;
+    padding-bottom: 20px;
+}
+
+.history-action-section {
+    position: relative;
+    left: 10px;
+}
+
+.add-grade-container .grade-section {
+    align-items: baseline;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.checkbox-section {
+    display: flex;
+    align-items: baseline;
+}
+
+.fw-400 {
+    font-weight: 500;
+}
+
+.align-baseline {
+    align-items: baseline;
+}
+
+.mb-15 {
+    margin-bottom: 15px;
+}

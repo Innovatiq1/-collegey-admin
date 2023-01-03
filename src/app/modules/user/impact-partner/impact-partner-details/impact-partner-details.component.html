@@ -1,0 +1,35 @@
+<div class="row m-0">
+    <div class="profile-sidebar">
+        <mat-card>
+            <img mat-card-image
+                src="./assets/no-img-default.jpeg">
+            <mat-card-header>
+                <mat-card-title>{{impactPartnerInfo?.name}}</mat-card-title>
+                <mat-card-subtitle>{{impactPartnerInfo?.email}}</mat-card-subtitle>
+                <mat-card-subtitle>{{impactPartnerInfo?.phone_number[0].extension}} {{impactPartnerInfo?.phone_number[0].number}}</mat-card-subtitle>
+                <span class="spacer"></span>
+                <button class="d-md-none" mat-icon-button (click)="toggleMenu()">
+                    <mat-icon>menu</mat-icon>
+                </button>
+            </mat-card-header>
+            <mat-card-content [hidden]="!isMenuOpen && isMobile">
+                <br />
+                <mat-nav-list dense style="margin: -16px;">
+                    <mat-divider></mat-divider>
+
+                    <a [routerLink]="[ menuitem.action ]" (click)="toggleMenu()" *ngFor="let menuitem of menuItems">
+                        <mat-list-item routerLinkActive="active">
+                            <mat-icon matListIcon>{{menuitem.icon}}</mat-icon>
+                            <a matLine> {{ menuitem.title }}</a>
+                        </mat-list-item>
+                    </a>
+
+                </mat-nav-list>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="profile-container">
+        <mat-progress-bar [hidden]="!isLoading" mode="indeterminate"></mat-progress-bar>
+        <router-outlet></router-outlet>
+    </div>
+</div>

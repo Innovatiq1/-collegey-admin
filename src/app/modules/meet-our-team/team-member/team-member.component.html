@@ -1,0 +1,88 @@
+<div class="parentDiv">
+    <form nz-form [formGroup]="teamForm" class="ant-advanced-search-form">
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="name" nz-typography>Team Member's Name</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input type="text" formControlName="name" id="name" placeholder="Write Team Member's Name"/>
+          <ng-container *ngIf="teamForm.get('name').errors?.required">
+            Team Member's Name is required.
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+  
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="designation" nz-typography>Team Member's Designation</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input type="text" formControlName="designation" id="designation" placeholder="Write Team Member's Designation"/>
+          <ng-container *ngIf="teamForm.get('designation').errors?.required">
+            Team Member's Designation is required.
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+  
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="description" nz-typography>Team Member's Description</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <textarea nz-input type="text" class="areaControl" formControlName="description" id="description"
+            placeholder="Write Team Member's Description"></textarea>
+          <ng-container *ngIf="teamForm.get('description').errors?.required">
+            Team Member's Description is required.
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="lindkin" nz-typography>Team Member's LinkedIn Link</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input type="text" formControlName="lindkin" id="lindkin" placeholder="Write Team Member's LinkedIn Link"/>
+          <ng-container *ngIf="teamForm.get('lindkin').errors?.required">
+            Team Member's LinkedIn Link is required.
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="image" nz-typography>Team Member's Image</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input type="text" formControlName="image" id="image" placeholder="Write Team Member's Image"/>
+          <ng-container *ngIf="teamForm.get('image').errors?.required">
+            Team Member's Image is required.
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item> -->
+
+      <div nz-row>
+        <input type="file" (change)="onFileUpload($event)" accept=".png,.jpeg,.jpg" />
+      </div>
+      <div style="color: green;">
+        Accept only png, jpeg, jpg.
+      </div>
+      <div style="color: red;" *ngIf="!selectFile">
+        Team Member's Profile Photo is required.
+      </div>
+      
+      <img *ngIf="selectFile && !itemData" alt="member" style="height: 100px; width: 100px;margin-top: 5px;" src="{{selectFile.url}}">
+      <img *ngIf="itemData && selectFile" [src]="imagePathS3(itemData?.image)" alt="member" style="height: 100px; width: 100px;margin-top: 5px;">
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="position" nz-typography>Team Member's Position</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input type="text" formControlName="position" id="position" placeholder="Write Team Member's Position"/>
+          <ng-container *ngIf="teamForm.get('position').errors?.required">
+            Team Member's Position is required.
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+  
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="active" nz-typography>Active</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <nz-switch formControlName="active"></nz-switch>
+            <ng-container *ngIf="teamForm.get('active').errors?.required">
+                Status is required.
+            </ng-container>
+        </nz-form-control>
+     </nz-form-item>
+  
+    </form>
+  </div>

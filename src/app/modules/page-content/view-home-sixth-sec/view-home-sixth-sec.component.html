@@ -1,0 +1,44 @@
+<nb-card style="width: 100%;">
+    <nb-card-header>
+        <nz-page-header nzTitle="Meet our team">
+            <!-- <nz-page-header-extra>
+                <button nz-button nzType="primary" (click)="openModal(Mode.Create, null, null)" nz-typography>Add New</button>
+            </nz-page-header-extra> -->
+        </nz-page-header>
+    </nb-card-header>
+        <nz-list nzGrid nzBordered>
+            <div nz-row [nzGutter]="16" *ngFor="let dataList of assignData;  let j = index;">
+                <nz-list-item class="w-100">
+                    <nb-card style="width: 100%;">
+                        <nb-card-header>
+                            {{dataList?.name}}
+                            <nz-tag [nzColor]="'red'" *ngIf="dataList?.status == false" nz-typography>Deleted</nz-tag>
+                            <ng-container>
+                                <button nz-button nz-dropdown [nzDropdownMenu]="menu" [nzPlacement]="'bottomLeft'" style="float: right;">Actions <i nz-icon nzType="down"></i></button>
+                                <nz-dropdown-menu #menu="nzDropdownMenu">
+                                    <ul nz-menu>
+                                        <li nz-menu-item>
+                                            <a (click)="openModal(Mode.Edit,j,dataList)">Edit</a>
+                                        </li>
+                                        <!-- <li nz-menu-item>
+                                            <a (click)="deleteHome(j)">Delete</a>
+                                        </li>
+                                        <li nz-menu-item *ngIf="dataList?.status == false">
+                                            <a>Delete</a>
+                                        </li> -->
+                                    </ul>
+                                </nz-dropdown-menu>
+                              </ng-container>
+                        </nb-card-header>
+                        <nb-card-body>
+                            <img *ngIf="dataList?.imagePath" alt="project" style="height: 100px; width: 100px;margin-top: 5px;" src="{{dataList?.imagePath}}">
+                        </nb-card-body>
+                    </nb-card>
+                </nz-list-item>
+            </div>
+          </nz-list>
+</nb-card>
+
+<div *ngIf="show_loader" class="collegy_loader">
+    <img src="../../../../assets/images/loading-buffering.gif">
+</div>

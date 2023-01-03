@@ -1,0 +1,124 @@
+<!-- {{ProfileData?.mentor_profile?.profile?.fullLegalName}} -->
+<div class="clg-student-location-info">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th colspan="2"><h5 style="font-size: 18px;margin: 0;">Profile</h5></th>
+            </tr>
+        </thead>
+        <tbody *ngIf="ProfileData?.mentor_profile?.profile">
+            <tr>
+                <td> <b>Full Legal Name : </b> {{ProfileData?.mentor_profile?.profile?.fullLegalName}} </td>
+                <td> <b>Gender : </b> {{mentorData?.gender}} </td>
+            </tr>
+            <tr>
+                <td colspan="2"> <b>Email : </b> {{mentorData?.email}} </td>
+            </tr>
+            <tr>
+                <td> <b>State : </b> {{ProfileData?.statename}}  </td>
+                <td> <b>City : </b> {{ProfileData?.cityname}}  </td>
+            </tr>
+            <tr>
+                <td> <b>Country : </b> {{ProfileData?.countryname}}  </td>
+                <td> <b>Time Zone : </b> {{ProfileData?.mentor_profile?.profile?.timezone}}  </td>
+            </tr>
+            <tr>
+                <td> <b>Professional Title : </b> {{ProfileData?.mentor_profile?.profile?.professionalTitle}}  </td>
+                <td> <b>Experience in Year : </b> {{ProfileData?.mentor_profile?.profile?.experience}}  </td>
+            </tr>
+            <tr>
+                <td colspan="2"> <b>Website : </b> <a href="ProfileData?.mentor_profile?.profile?.website" target="_blank">{{ProfileData?.mentor_profile?.profile?.website}}</a> </td>
+            </tr>
+            <tr>
+                <td> <b>Last Education Institute : </b> {{ProfileData?.mentor_profile?.profile?.lastEducationalInstitutionAttended}}  </td>
+                <td> <b>Last Education Degree : </b> {{ProfileData?.mentor_profile?.profile?.lastCollegeDegree}}  </td>
+            </tr>
+            <tr>
+                <td colspan="2"> <b>Industry : </b> {{ProfileData?.mentor_profile?.profile?.industry}}  </td>
+            </tr>
+            <tr>
+                <td colspan="2"> <b>Your Area of Expertise : </b> 
+                    <nz-tag [nzColor]="'gray'" *ngFor="let expertise of ProfileData?.mentor_profile?.profile?.expertise; let i=index;" nz-typography>{{expertise}}</nz-tag>
+                 </td>
+            </tr>
+            <tr>
+                <td colspan="2"> <b>Project Interests : </b> 
+                    <nz-tag [nzColor]="'gray'" *ngFor="let interest of ProfileData?.mentor_profile?.profile?.interest; let i=index;" nz-typography>{{interest}}</nz-tag>
+                 </td>
+            </tr>
+            <tr>
+                <td colspan="2"> <b>How Can You Contribute? : </b>
+                    <nz-tag [nzColor]="'gray'" *ngFor="let can_help of ProfileData?.mentor_profile?.profile?.can_help; let i=index;" nz-typography>{{can_help}}</nz-tag>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"> <b>Favorite Book : </b>
+                    <nz-tag [nzColor]="'gray'" *ngFor="let book of ProfileData?.mentor_profile?.profile?.favBooks; let i=index;" nz-typography>{{book}}</nz-tag>
+                  </td>
+            </tr>
+            <tr>
+                <td colspan="2">  <b>Linkedin : </b> <a href="ProfileData?.mentor_profile?.profile?.linkedIn" target="_blank">{{ProfileData?.mentor_profile?.profile?.linkedIn}}  </a></td>
+            </tr>
+            <tr>
+                <td colspan="2"> <b>About Yourself : </b> {{ProfileData?.mentor_profile?.profile?.aboutYou}}  </td>
+            </tr>
+            <tr>
+                <td colspan="2"> <b>What is your most important advice to young people : </b> {{ProfileData?.mentor_profile?.profile?.adviceToYoungPeople}}  </td>
+            </tr>
+        </tbody>
+
+        <tbody *ngIf="!ProfileData?.mentor_profile?.profile">
+            <tr>
+                <td> <b>Full Legal Name : </b> {{ProfileData?.name}} {{ProfileData?.last_name}} </td>
+                <td> <b>Gender : </b> {{mentorData?.gender}} </td>
+            </tr>
+            <tr>
+                <td colspan="2"> <b>Email : </b> {{mentorData?.email}} </td>
+            </tr>
+            <tr *ngIf="ProfileData?.statename && ProfileData?.cityname">
+                <td> <b>State : </b> {{ProfileData?.statename}}  </td>
+                <td> <b>City : </b> {{ProfileData?.cityname}}  </td>
+            </tr>
+            <tr *ngIf="ProfileData?.statename && ProfileData?.cityname">
+                <td colspan="2"> <b>Country : </b> {{ProfileData?.countryname}}  </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="clg-student-Interests-info"  *ngIf="ProfileData?.mentor_profile?.officeHours.length > 0">
+    <table class="table table-bordered">
+        <colgroup>
+            <col width="25%">
+            <col width="25%">
+            <col width="25%">
+            <col width="25%">
+        </colgroup>
+        <thead>
+            <tr>
+                <th colspan="4"><h5 style="font-size: 18px;margin: 0;">Office Hours</h5></th>
+            </tr>
+            <tr>
+                <td colspan="4"> <b>Timezone : </b> {{ProfileData?.mentor_profile?.officeTimezone?.timezoneName}}</td>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <th > <b>Days</b></th>
+                <th > <b>Start Time </b></th>
+                <th > <b>End Time </b></th>
+                <th > <b>Open/Close </b></th>
+            </tr>
+            <tr *ngFor="let officeHours of ProfileData?.mentor_profile?.officeHours; let i=index;">
+                <td>{{officeHours.days}}</td>
+                <td *ngIf="officeHours.start_time">{{officeHours.start_time}}</td>
+                <td *ngIf="!officeHours.start_time">00:00</td>
+                <td *ngIf="officeHours.end_time">{{officeHours.end_time}}</td>
+                <td *ngIf="!officeHours.end_time">00:00</td>
+                <td *ngIf="officeHours.closed == 'true'">Closed</td>
+                <td *ngIf="officeHours.closed == 'false'">Open</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

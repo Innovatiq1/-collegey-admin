@@ -1,0 +1,90 @@
+<nb-card style="width: 100%;">
+    <nb-card-header>
+        <nz-page-header nzTitle="All User Listing">
+            <nz-page-header-extra>
+                <button nz-button nzType="primary" (click)="DownloadAsExcel()" nz-typography>Export</button>
+                <button nz-button nzType="primary" (click)="openModal(Mode.Create, null, null)" nz-typography>Create a
+                    User</button>
+            </nz-page-header-extra>
+            <nz-page-header-content>
+                <nz-input-group [nzSuffix]="suffixIconSearch">
+                    <input type="text" nz-input placeholder="input search text" #searchBox [(ngModel)]="searchText" />
+                </nz-input-group>
+                <ng-template #suffixIconSearch>
+                    <i nz-icon nzType="search"></i>
+                </ng-template>
+            </nz-page-header-content>
+        </nz-page-header>
+    </nb-card-header>
+    <nz-list nzGrid nzBordered>
+        <div nz-row [nzGutter]="16" *ngFor="let blog of blogsList let j = index">
+            <nz-list-item>
+                <nb-card style="width: 100%;">
+                    <nb-card-header>
+                        <span>{{j+1}}. </span>{{blog?.name}}
+                        <nz-tag [nzColor]="'green'" *ngIf="blog.Active == true" nz-typography>Active</nz-tag>
+                        <nz-tag [nzColor]="'red'" *ngIf="blog.Active == false" nz-typography>In-Active</nz-tag>
+                        <ng-container>
+                            <button nz-button nz-dropdown [nzDropdownMenu]="menu" [nzPlacement]="'bottomLeft'"
+                                style="float: right;">Actions <i nz-icon nzType="down"></i></button>
+                            <nz-dropdown-menu #menu="nzDropdownMenu">
+                                <ul nz-menu>
+                                    <li nz-menu-item>
+                                        <a (click)="openModal(Mode.Edit, blog._id, blog)">Edit</a>
+                                    </li>
+                                </ul>
+                            </nz-dropdown-menu>
+                        </ng-container>
+                        <!-- <div>
+                            <p style="display: flex; margin:0px; margin-top: 10px; margin-left: 5px;">Name:
+                                {{blog?.name}}</p>
+                        </div> -->
+                    </nb-card-header>
+                    <nb-card-body>
+                        <table class="listingTable" style="border: 0px;">
+                            <colgroup>
+                                <col width="30%">
+                                <col width="70%">
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <b>Email : </b> {{blog?.email}}
+                                    </td>
+                                    <td *ngIf="blog?.gender"><b>Gender : </b> {{blog?.gender}}</td>
+                                </tr>
+                                <tr>
+                                    <td *ngIf="blog?.slug">
+                                       <b> Slug : </b>{{blog?.slug}}
+                                    </td>
+                                    <td *ngIf="blog?.qualification">
+                                       <b>Qualification : </b> {{blog?.qualification}}
+                                    </td>
+                                </tr>
+                                <tr *ngIf="blog?.slug">
+                                    <td>
+                                       <b>User Type : </b>{{blog?.type}}
+                                    </td>
+                                </tr>
+                                <tr  *ngIf="blog?.type == 'student'">
+                                    <td><span *ngIf="blog?.student_profile?.ways_to_be_in_touch?.school_counselor[0]?.name"><b> School Counselor Name : </b>{{blog?.student_profile?.ways_to_be_in_touch?.school_counselor[0]?.name}}</span></td>
+                                    <td><span *ngIf="blog?.student_profile?.ways_to_be_in_touch?.school_counselor[0]?.email"><b>School Counselor Email : </b> {{blog?.student_profile?.ways_to_be_in_touch?.school_counselor[0]?.email}}</span></td>
+                                </tr>
+                                <tr *ngIf="blog?.type == 'mentor'">
+                                    <td><span *ngIf="blog?.mentor_profile?.profile?.professionalTitle"><b> Professional Title : </b>{{blog?.mentor_profile?.profile?.professionalTitle}}</span></td>
+                                    <td><span *ngIf="blog?.mentor_profile?.profile?.experience"><b>Experience in years : </b> {{blog?.mentor_profile?.profile?.experience}}</span></td>
+                                </tr>
+                                <tr *ngIf="blog?.type == 'mentor'">
+                                    <td><span *ngIf="blog?.mentor_profile?.profile?.linkedIn"><b>Linkedin : </b> <a href="blog?.mentor_profile?.profile?.linkedIn" target="_blank">{{blog?.mentor_profile?.profile?.linkedIn}}</a></span></td>
+                                    <td><span *ngIf="blog?.mentor_profile?.profile?.website"><b>Website : </b> <a href="blog?.mentor_profile?.profile?.website" target="_blank">{{blog?.mentor_profile?.profile?.linkedIn}}</a></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </nb-card-body>
+                </nb-card>
+            </nz-list-item>
+        </div>
+    </nz-list>
+</nb-card>
+
+<app-load-more [isLoading]="isLoading" [isHidden]="blogsList.length<=0"></app-load-more>

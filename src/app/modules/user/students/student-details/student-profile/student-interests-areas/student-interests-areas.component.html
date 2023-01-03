@@ -1,0 +1,19 @@
+<mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            STEP 5-WHAT INTERESTS YOU?
+        </mat-panel-title>
+        <mat-panel-description>
+            click to enter your details
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form *ngIf="studentInterestForm" [formGroup]="studentInterestForm" (ngSubmit)="onSubmitForm()">
+        <div class="row" formGroupName="student_profile">
+            <ng-container formGroupName="interest">
+                <ng-select class="col-md-4 reduce-spacing" [items]="interestAreas" [addTag]="addTagFn" [multiple]="true" bindLabel="name" bindValue="name" [searchable]="true" [clearable]="false" placeholder="Select your interest areas" formControlName="interest_area"></ng-select>
+                <ng-select [items]="studentFavoriteSubjects" class="reduce-spacing col-md-4" [addTag]="addTagFn" [multiple]="true" bindLabel="name" bindValue="name" [searchable]="true" [clearable]="false" placeholder="List your favourite subjects" formControlName="fav_subjects"></ng-select>
+            </ng-container>
+        </div>
+        <button class="float-right" mat-flat-button color="primary" type="submit">Save</button>
+    </form>
+</mat-expansion-panel>

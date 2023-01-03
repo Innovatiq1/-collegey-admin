@@ -1,0 +1,215 @@
+<!-- <mat-progress-bar mode="indeterminate" [hidden]="!isLoading"></mat-progress-bar>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{!programme ? 'Add Programs' : 'Update Programs'}}</mat-card-title>
+        <span class="spacer"></span>
+        <span>
+      <button mat-icon-button>
+        <mat-icon (click)="dialogRef.close()">close</mat-icon>
+      </button>
+    </span>
+    </mat-card-header>
+    <mat-card-content style="width: 700px;">
+        <mat-dialog-content class="m-0">
+            <form [formGroup]="programmeForm" *ngIf="programmeForm">
+                <div class="row">
+                    <mat-form-field class="col-12 col-sm-12 col-md-6">
+                        <input formControlName="title" matInput placeholder="Enter Programme title" type="text">
+                        <app-input-validation [control]="programmeForm.get('title')"></app-input-validation>
+                    </mat-form-field>
+                    <mat-form-field class="col-12 col-sm-12 col-md-6">
+                        <input formControlName="short_description" matInput placeholder="Enter short description" type="text">
+                        <app-input-validation [control]="programmeForm.get('short_description')"></app-input-validation>
+                    </mat-form-field>
+
+                    <mat-form-field class="col-12 col-sm-12 col-md-6">
+                        <input formControlName="redirect_link" matInput placeholder="Enter Redirect link" type="text">
+                        <app-input-validation [control]="programmeForm.get('redirect_link')"></app-input-validation>
+                    </mat-form-field>
+                    <div class="col-12 col-sm-12 col-md-6 validation-spacing">
+                        <ng-select class="reduce-spacing" [addTag]="true" [multiple]="true" [searchable]="true" [clearable]="false" placeholder="Add Tag" formControlName="tags"></ng-select>
+                        <app-input-validation [control]="programmeForm.get('tags')"></app-input-validation>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6">
+                        <label class="label-text">Is paid:</label>
+                        <mat-radio-group class="radio-label" aria-label="Select an option" formControlName="is_paid">
+                            <mat-radio-button [value]="true">Yes</mat-radio-button>
+                            <mat-radio-button [value]="false">No</mat-radio-button>
+                        </mat-radio-group>
+                        <app-input-validation [control]="programmeForm.get('is_paid')"></app-input-validation>
+                    </div>
+                    <mat-form-field class="col-12 col-sm-12 col-md-3" *ngIf="programmeForm.get('is_paid').value===true">
+                        <input formControlName="cost" matInput placeholder="Enter cost" type="number">
+                        <app-input-validation [control]="programmeForm.get('cost')"></app-input-validation>
+                    </mat-form-field>
+                    <div class="col-12 col-sm-12 col-md-3">
+                        <mat-slide-toggle formControlName="status">
+                            Status
+                        </mat-slide-toggle>
+                        <app-input-validation [control]="programmeForm.get('status')"></app-input-validation>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-12" style="margin-top: 20px;">
+                        <app-upload-dialog [documentList]="documentList" [imageSource]="imageSource" [multipleSelection]="false" (onFileUploadSuccess)="onFileUpload($event)"></app-upload-dialog>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <button class="float-right" (click)="onSubmitForm()" mat-flat-button color="primary">Submit</button>
+                </div>
+            </form>
+        </mat-dialog-content>
+    </mat-card-content>
+</mat-card> -->
+<div>
+    <form nz-form [formGroup]="programmeForm" class="ant-advanced-search-form">
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Enter Programme title</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="title" id="title" placeholder="Enter Programme title"/>
+            <ng-container *ngIf="submitted && programmeForm.get('title').errors?.required">
+              <span style="color: #f00;">Title is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="short_description" nz-typography>Enter short description</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="short_description" id="short_description" placeholder="Enter short description"/>
+            <ng-container *ngIf="submitted && programmeForm.get('short_description').errors?.required">
+              <span style="color: #f00;">Short Description is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="tags" nz-typography>Tags</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <nz-select nzMode="tags" nzPlaceHolder="Add Tag" formControlName="tags">
+              </nz-select>
+            <ng-container *ngIf="submitted && programmeForm.get('tags').errors?.required">
+              <span style="color: #f00;">Tags are required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="redirect_link" nz-typography>Enter redirect link</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="redirect_link" id="redirect_link" placeholder="Enter redirect link"/>
+            <ng-container *ngIf="submitted && programmeForm.get('redirect_link').errors?.required">
+              <span style="color: #f00;">Redirect Link is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="including_tax" nz-typography>Including taxes</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="including_tax" id="including_tax" placeholder="Enter Including taxes"/>
+            <ng-container *ngIf="submitted && programmeForm.get('including_tax').errors?.required">
+              <span style="color: #f00;">is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="program_hour_text" nz-typography>Program hour text</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="program_hour_text" id="program_hour_text" placeholder="Program hour text"/>
+            <ng-container *ngIf="submitted && programmeForm.get('program_hour_text').errors?.required">
+              <span style="color: #f00;">is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="deliverable" nz-typography>Enter Deliverable</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <quill-editor
+            formControlName="deliverable" aria-placeholder="Enter deliverable"
+            ></quill-editor>
+            <ng-container *ngIf="submitted && programmeForm.get('deliverable').errors?.required">
+              <span style="color: #f00;">is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="category" nz-typography>Select Category</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <select name="category" formControlName="category" class="select_category">
+                <option value="">Select Category</option>
+                <option value="student">Student</option>
+                <option value="high-schools">High Schools</option>
+                <option value="higher-ed">Higher Ed</option>
+            </select>
+            <ng-container *ngIf="submitted && programmeForm.get('category').errors?.required">
+              <span style="color: #f00;">is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+      <ng-container>
+        <div nz-col [nzSpan]="8">
+            <nz-form-item>
+                <nz-form-label [nzXs]="24" nzFor="mentor" nz-typography>Program Mentor</nz-form-label>
+                <nz-form-control [nzXs]="24" nzHasFeedback>
+                    <nz-select nzPlaceHolder="Choose Mentor" formControlName="mentor">
+                        <nz-option *ngFor="let mentor of mentorList" [nzLabel]="mentor.name" [nzValue]="mentor._id"></nz-option>
+                    </nz-select>
+                    <!-- <ng-container *ngIf="projectForm.get('project_mentor')?.get('mentor').errors?.required">
+                       Required
+                    </ng-container> -->
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </ng-container>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="is_paid" nz-typography>Is paid</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback >
+            <nz-radio-group formControlName="is_paid">
+                <label nz-radio [nzValue]="true">Yes</label>
+                <label nz-radio [nzValue]="false">No</label>
+              </nz-radio-group>
+            <ng-container *ngIf="submitted && programmeForm.get('is_paid').errors?.required">
+              <span style="color: #f00;">is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item *ngIf="programmeForm.get('is_paid').value===true">
+        <nz-form-label [nzXs]="24" nzRequired nzFor="cost" nz-typography>Cost</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input formControlName="cost" id="cost" placeholder="Enter cost"/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+
+        <nz-form-label [nzXs]="24" nzRequired nzFor="status" nz-typography>Status</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback >
+            <nz-switch formControlName="status" ></nz-switch>
+            <ng-container *ngIf="submitted && programmeForm.get('status').errors?.required">
+              <span style="color: #f00;">is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <div nz-row>
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="description" nz-typography>Enter description</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <quill-editor
+                formControlName="description" aria-placeholder="Enter description"
+                ></quill-editor>
+                <ng-container *ngIf="submitted && programmeForm.get('description').errors?.required">
+                  <span style="color: #f00;">is required.</span>
+                </ng-container>
+            </nz-form-control>
+          </nz-form-item>
+      </div>
+      <div nz-row>
+        <app-upload-dialog [documentList]="documentList" [imageSource]="imageSource" [multipleSelection]="false" (onFileUploadSuccess)="onFileUpload($event)"></app-upload-dialog>
+      </div>
+    </form>
+</div>

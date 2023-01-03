@@ -1,0 +1,19 @@
+.headMain{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.mainLeft{
+    width: 33.33%;
+}
+
+.mainLeft .group-img{
+    width: 60px;
+}
+
+.cardFlexLink{
+    /* float: right;  */
+    text-decoration: none;
+    cursor: pointer;
+ }

@@ -1,0 +1,113 @@
+<mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            STEP 4-WHERE ARE YOU HEADED?
+        </mat-panel-title>
+        <mat-panel-description>
+            click to enter your details
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form *ngIf="studentHeadedForm" [formGroup]="studentHeadedForm" (ngSubmit)="onSubmitForm()">
+        <ng-container formGroupName="student_profile">
+            <ng-container formGroupName="headed">
+                <div class="row">
+                    <ng-container formGroupName="expected_year_to_start">
+                        <div class="col-md-6 mb-12">
+                            <label class="fw-400">Expected year to start undergraduate/post graduate program:</label>
+                            <mat-radio-group aria-label="Select an option" formControlName="grade">
+                                <mat-radio-button value="ug">Undegraduate</mat-radio-button>
+                                <mat-radio-button value="pg">Postgraduate</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field class="full-width">
+                                <mat-label>Year</mat-label>
+                                <input matInput type="text" formControlName='year'>
+                            </mat-form-field>
+                        </div>
+                    </ng-container>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <ng-select [items]="countries" [multiple]="true" bindLabel="name" bindValue="_id" [searchable]="true" [clearable]="false"
+                         placeholder="Your preferred countries for further education" formControlName="preferred_countries"></ng-select>
+                    </div>
+                </div>
+                <div class="row" formArrayName="test_info" *ngFor="let test of typeCastToFormArray(studentHeadedForm.get('student_profile').get('headed').get('test_info')).controls; let i=index">
+                    <ng-container [formGroupName]="i">
+                        <div [ngClass]="typeCastToFormArray(studentHeadedForm.get('student_profile').get('headed').get('test_info')).controls[i].value.test_name==='Other' ? 'col-md-3' : 'col-md-6'">
+                            <mat-form-field class="full-width">
+                                <mat-label>Have you taken or plan to take any of the following tests?</mat-label>
+                                <mat-select formControlName="test_name">
+                                    <mat-option *ngFor="let test of studentTests" [value]="test">{{test}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3" *ngIf="typeCastToFormArray(studentHeadedForm.get('student_profile').get('headed').get('test_info')).controls[i].value.test_name==='Other'">
+                            <mat-form-field class="full-width">
+                                <mat-label>enter your test name</mat-label>
+                                <input matInput type="text" formControlName="other_text">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field class="full-width">
+                                <mat-label>Test status</mat-label>
+                                <mat-select formControlName="test_status">
+                                    <mat-option value="taken">Taken</mat-option>
+                                    <mat-option value="plan">Plan</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-2" *ngIf="typeCastToFormArray(studentHeadedForm.get('student_profile').get('headed').get('test_info')).controls[i].value.test_status ==='taken'">
+                            <mat-form-field class="full-width">
+                                <mat-label>Current Score</mat-label>
+                                <input matInput type="number" formControlName="current_score">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-2" *ngIf="typeCastToFormArray(studentHeadedForm.get('student_profile').get('headed').get('test_info')).controls[i].value.test_status ==='plan'">
+                            <mat-form-field class="full-width">
+                                <mat-label>Test Date</mat-label>
+                                <input matInput [matDatepicker]="picker" formControlName="test_date">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-1 add_box">
+                            <mat-icon (click)="onAddStudentTests()">add_box</mat-icon>&nbsp;
+                            <mat-icon *ngIf="i>0" (click)="removeStudentTests(i)">indeterminate_check_box</mat-icon>
+                        </div>
+                    </ng-container>
+                </div>
+                <div class="row" formGroupName="wish_to_study">
+                    <div class="col-md-6 mb-12">
+                        <label>What do wish to study in undergraduate/post-graduate level?</label>
+                        <mat-radio-group formControlName="grade" aria-label="Select an option">
+                            <mat-radio-button value="ug">Undergraduate</mat-radio-button>
+                            <mat-radio-button value="pg">Postgraduate</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <div [ngClass]="studentHeadedForm.get('student_profile').get('headed').get('wish_to_study').get('subjects').value ==='Other' ? 'col-md-3' : 'col-md-6' " *ngIf="studentHeadedForm.get('student_profile').get('headed').get('wish_to_study').get('grade').value">
+                        <mat-form-field class="full-width">
+                            <mat-label>select undergraduate/postgraduate level study</mat-label>
+                            <mat-select formControlName="subjects">
+                                <mat-option *ngFor="let subject of studentSubjects" [value]="subject.key">{{subject.key}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3" *ngIf="studentHeadedForm.get('student_profile').get('headed').get('wish_to_study').get('subjects').value == 'Other'">
+                        <mat-form-field class="full-width">
+                            <mat-label>enter your subject</mat-label>
+                            <input matInput type="text" formControlName="other_text">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-12" *ngIf="studentHeadedForm.get('student_profile').get('headed').get('wish_to_study').get('subjects').value">
+                        <mat-form-field class="full-width">
+                            <input matInput type="text" placeholder="specify major subject" formControlName="majors">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <button class="float-right" mat-flat-button color="primary" type="submit">Save</button>
+            </ng-container>
+        </ng-container>
+    </form>
+</mat-expansion-panel>

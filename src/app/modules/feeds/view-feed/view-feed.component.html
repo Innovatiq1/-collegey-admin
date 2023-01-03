@@ -1,0 +1,24 @@
+<div>    
+    <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="question" nz-typography>Post Text</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <p>{{feedData?.postText}}</p>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="questioner" nz-typography>Posted By</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <p>{{feedData?.user?.name}}</p>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="tags" nz-typography>Image</nz-form-label>
+        <nz-form-control [nzXs]="24"  nzHasFeedback>
+
+            <img *ngIf="feedData?.postImageUrl && !feedData?.postImageUrl.includes('http')" alt="project" style="height: 100px; width: 100px;margin-top: 5px;" [src]="commonService.imagePathS3(feedData?.postImageUrl)">
+
+            <img *ngIf="feedData?.postImageUrl && feedData?.postImageUrl.includes('http')" alt="project" style="height: 100px; width: 100px;margin-top: 5px;" [src]="feedData?.postImageUrl">
+
+        </nz-form-control>
+    </nz-form-item>
+  </div>

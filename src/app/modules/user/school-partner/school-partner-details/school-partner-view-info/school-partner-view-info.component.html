@@ -1,0 +1,59 @@
+<mat-progress-bar mode="indeterminate" [hidden]="!isLoading"></mat-progress-bar>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>View Partner Info &nbsp;&nbsp;
+        </mat-card-title>
+        <span class="spacer"></span>
+        <span>
+      <button mat-icon-button>
+         <mat-icon (click)="openUpdateModal()">edit</mat-icon>
+      </button>
+    </span>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-dialog-content class="m-0">
+            <div class="table-responsive">
+                <table class="table table-sm table-hover">
+                    <thead>
+                        <tr>
+                            <td>School Name</td>
+                            <td>{{schoolPartnerInfo?.name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Slug</td>
+                            <td>{{schoolPartnerInfo?.slug}}</td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>{{schoolPartnerInfo?.email}}</td>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <td>{{schoolPartnerInfo?.status}}</td>
+                        </tr>
+                        <tr>
+                            <td>Type</td>
+                            <td>{{schoolPartnerInfo?.type}}</td>
+                        </tr>
+                        <tr>
+                            <td>Principal Name</td>
+                            <td>{{schoolPartnerInfo?.school_partner?.principal_name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Counselor Name</td>
+                            <td>{{schoolPartnerInfo?.school_partner?.counselor_name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Curriculum</td>
+                            <td>{{schoolPartnerInfo?.school_partner?.curriculum}}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </mat-dialog-content>
+    </mat-card-content>
+</mat-card>

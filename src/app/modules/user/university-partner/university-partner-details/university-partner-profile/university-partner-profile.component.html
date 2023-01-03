@@ -1,0 +1,43 @@
+<mat-progress-bar [hidden]="!isLoading" mode="indeterminate"></mat-progress-bar>
+<div class="card">
+  <div class="card-header card-header-info">
+    <div class="card-title">
+      University Partner Profile
+    </div>
+  </div>
+  <form *ngIf="profileForm" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+
+    <div class="row" style="padding: 45px;">
+      <ng-container formGroupName="offer_courses">
+        <div class="col-md-6 mb-12">
+          <label>What do wish to study in undergraduate/post-graduate level?</label>
+        </div>
+        <div class="col-md-4 mb-12">
+          <mat-radio-group formControlName="grade" aria-label="Select an option">
+            <mat-radio-button value="ug">Undergraduate</mat-radio-button>
+            <mat-radio-button value="pg">Postgraduate</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <mat-form-field class="col-12 col-sm-12 col-md-6 mb-12">
+          <mat-label>select undergraduate/postgraduate level study</mat-label>
+          <mat-select formControlName="subjects">
+            <mat-option *ngFor="let subject of studentSubjects" [value]="subject.key">{{subject.key}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="col-12 col-sm-12 col-md-6 mb-12"
+          *ngIf="profileForm.get('offer_courses').get('subjects').value === 'Other'">
+          <input matInput formControlName="majors" type="text" placeholder="specify major subject">
+        </mat-form-field>
+      </ng-container>
+      <div class="col-md-6">
+        <ng-select class="reduce-spacing mb-12" [items]="universityPartnerTests" [multiple]="true" [searchable]="true"
+          [clearable]="false" placeholder="Standardized tests " formControlName="test_required"></ng-select>
+      </div>
+      <mat-form-field class="col-12 col-sm-12 col-md-6 mb-12">
+        <input matInput formControlName="scholarships_details" type="text" placeholder="Mention scholarships if any">
+      </mat-form-field>
+    </div>
+    <button class="float-right save-btn" mat-flat-button color="primary" type="submit">Save</button>
+    <!-- <pre>{{profileForm.value | json}}</pre> -->
+  </form>

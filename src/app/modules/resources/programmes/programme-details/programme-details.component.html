@@ -1,0 +1,73 @@
+<mat-progress-bar mode="indeterminate" [hidden]="!isLoading"></mat-progress-bar>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{programmeDetails?.title}}</mat-card-title>
+        <span class="spacer"></span>
+        <span>
+            <button mat-icon-button (click)="editProgramme()">
+                <mat-icon>edit</mat-icon>
+            </button>
+        </span>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-tab-group>
+            <mat-tab label="Details">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>Title</td>
+                            <td>{{programmeDetails?.title}}</td>
+                        </tr>
+                        <tr>
+                            <td>Slug</td>
+                            <td>{{programmeDetails?.slug}}</td>
+                        </tr>
+                        <tr>
+                            <td>Short Description</td>
+                            <td>{{programmeDetails?.short_description}}</td>
+                        </tr>
+                        <tr>
+                            <td>Is Paid</td>
+                            <td>{{programmeDetails?.is_paid ? 'Yes' : 'No'}}</td>
+                        </tr>
+                        <tr>
+                            <td>Cost</td>
+                            <td><span *ngIf="programmeDetails?.is_paid">{{programmeDetails?.cost | currency:"&#8377;"}}</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>status</td>
+                            <td>{{programmeDetails?.status === 1 ? 'Active' : "InActive"}}</td>
+                        </tr>
+                        <tr>
+                            <td>Redirect link</td>
+                            <td>
+                                <a href="{{programmeDetails?.redirect_link}}" target="_blank">
+                                    {{programmeDetails?.redirect_link}}
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Image</td>
+                            <td>
+                                <a [href]="commonService.imagePathMaker(programmeDetails?.image)" target="_blank">
+                                    {{programmeDetails?.image | imageName}}
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tags</td>
+                            <td>
+                                <ul>
+                                    <li *ngFor="let tags of programmeDetails?.tags">
+                                        {{tags}}
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </thead>
+                </table>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-card-content>
+</mat-card>

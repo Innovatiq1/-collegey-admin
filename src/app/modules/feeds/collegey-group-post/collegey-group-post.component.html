@@ -1,0 +1,103 @@
+<nb-card style="width: 100%;">
+  <nb-card-header>
+    <nz-page-header nzTitle="Collegey Group:{{groupTitle}}">
+      <!-- <nz-page-header-extra>
+              <button nz-button nzType="primary" (click)="openModal(Mode.Create, null, null)" nz-typography>Add Academy Box</button>
+          </nz-page-header-extra> -->
+    </nz-page-header>
+  </nb-card-header>
+  <nz-list nzGrid nzBordered>
+    <div nz-row [nzGutter]="16" *ngFor="let feed of responseGroup;  let j = index;">
+      <nz-list-item class="w-100">
+        <nb-card style="width: 100%;">
+          <nb-card-header>
+            <div class="headMainImage"> 
+              <div class="mainLeftImage">
+                <div class="join-author">
+                  <span>
+                    <span><b>{{j+1}}.</b></span>
+                    <img *ngIf="feed?.user?.avatar" [src]="imagePathS3(feed?.user?.avatar)"
+                      alt="{{feed?.user?.name}}">
+                  </span>
+                  <div class="mainLeftImage">
+                    <h6 class="text-capitalize">{{feed?.user?.name}} {{feed?.user?.last_name}}</h6>
+                    <p class="half-opac" style="color:#AFAFAF !important">{{feed.timeago}}</p>
+                  </div>
+                </div>
+              </div>
+    
+              <div>
+                <div class="postImg" *ngIf="feed.postType == 'image'">
+                  <img *ngIf="!feed?.posturl" [src]="imagePathS3(feed.postImageUrl)" class="pb-3">
+                  <img *ngIf="feed?.posturl && !feed?.postImageUrl.includes('http')"
+                    [src]="imagePathS3(feed.postImageUrl)" class="pb-3">
+                  <img *ngIf="feed?.posturl && feed?.postImageUrl.includes('http')" [src]="feed?.postImageUrl" class="pb-3">
+                </div>
+              </div>
+            </div>
+             
+          </nb-card-header>
+          <nb-card-body>
+
+            <div class="mb-4 imgLink" *ngIf="feed.postType == 'text'">
+              <h6 class="mb-1 text-break">{{feed?.postText}}</h6>
+              <p class="postDesc" *ngIf="feed?.postData" [ngClass]="{'readLess': feed.readLess}"><span
+                  *ngIf="feed?.posturl"><a href="{{feed?.posturl}}" target="_blank">{{feed?.posturl}}</a></span></p>
+            </div>
+
+            <div class="mb-4 imgLink" *ngIf="feed.postType == 'image'">
+              <h6 class="mb-1 text-break">{{feed?.postText}}</h6>
+              <!-- <img *ngIf="!feed?.posturl" [src]="commonService.imagePathS3(feed.postImageUrl)" class="pb-3">
+              <img *ngIf="feed?.posturl && !feed?.postImageUrl.includes('http')"
+                [src]="commonService.imagePathS3(feed.postImageUrl)" class="pb-3">
+              <img *ngIf="feed?.posturl && feed?.postImageUrl.includes('http')" [src]="feed?.postImageUrl" class="pb-3"> -->
+  
+              <a *ngIf="feed?.posturl" [href]="feed?.posturl" class="postDesc" target="_blank"
+                [ngClass]="{'readLess': feed.readLess}">
+                {{feed?.postData}}</a>
+  
+              <p class="postDesc" *ngIf="feed?.postData && !feed?.posturl" [ngClass]="{'readLess': feed.readLess}">
+                {{feed?.postData}}</p>
+  
+            </div>
+
+            <div class="headMain">
+              <div class="mainLeft">
+                <i class="fa fa-heart"></i>
+                <span> {{feed?.likes.length}} Likes</span>
+             </div>
+            
+             <div class="mainLeft">
+              <i class="fa fa-comment"></i>
+              <span>{{feed?.comment.length}} Comments</span>
+            </div>
+            
+            <div class="mainLeft">
+              <i class="fa fa-share"></i>
+              <span> {{feed?.share.length}} Share</span>
+            </div>
+            </div>
+           
+  
+          </nb-card-body>
+        </nb-card>
+      </nz-list-item>
+    </div>
+  </nz-list>
+</nb-card>
+
+<div class="row" [hidden]="!isHidden">
+  <div class="col mt-3 mb-4 text-center">
+    <span>No More Data Found</span>
+  </div>
+</div>
+
+<div class="row" [hidden]="isHidden">
+  <div class="col mt-3 mb-4 text-center">
+    <mat-spinner style="margin: 0 auto;" color="accent" [hidden]="!isLoading" [diameter]="40"></mat-spinner>
+    <button nbButton outline status="primary" (click)="pagination()" [hidden]="isLoading" color="primary">Load
+      More</button>
+  </div>
+</div>
+
+

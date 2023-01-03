@@ -1,0 +1,79 @@
+<nb-card style="width: 100%;">
+    <nb-card-header>
+        <nz-page-header nzTitle="Collegey Group List">
+            <!-- <nz-page-header-extra>
+                <button nz-button nzType="primary" (click)="openModal(Mode.Create, null, null)" nz-typography>Add Academy Box</button>
+            </nz-page-header-extra> -->
+        </nz-page-header>
+    </nb-card-header>
+        <nz-list nzGrid nzBordered>
+            <div nz-row [nzGutter]="16" *ngFor="let listdata of assignData;  let j = index;">
+                <nz-list-item class="w-100">
+                    <nb-card style="width: 100%;">
+                        <nb-card-header>
+                            <div class="headMain">
+                                <div class="mainLeft">
+                                    <span>{{j+1}}. </span>{{listdata.groupName}} &nbsp;
+                                </div>
+
+                                <div class="mainLeft">
+                                    <span><img *ngIf="listdata?.groupIcon" [src]="listdata?.groupIcon" alt="" class="group-img">
+                                        <img *ngIf="!listdata?.groupIcon" src="./../../../assets/images/collegey-logo.png" alt="" class="group-img"></span>    
+                                </div>
+
+                               <div class="mainLeft">
+                                <ng-container>
+                                    <button nz-button nz-dropdown [nzDropdownMenu]="menu" [nzPlacement]="'bottomLeft'" style="float: right;">Actions <i nz-icon nzType="down"></i></button>
+                                    <nz-dropdown-menu #menu="nzDropdownMenu">
+                                        <ul nz-menu>
+                                            <li nz-menu-item>
+                                                <a (click)="openModal(listdata._id)">View</a>
+                                            </li> 
+                                        </ul>
+                                    </nz-dropdown-menu>
+                                  </ng-container> 
+                               </div>               
+                            </div>
+                        </nb-card-header>
+                        <nb-card-body>
+                            <div class="headMain">
+                                <div class="mainLeft">
+                                    <span>{{listdata.groupType === 'public'? 'Public' : 'Private'}} Group</span>
+                                </div>
+                                <div class="mainLeft">
+                                    <span> Members: {{listdata?.userList?.length}}</span>
+                                </div>
+                                <div class="mainLeft">
+                                    <span> Times Ago: {{listdata?.timeago}}</span>
+                                </div>
+                            </div>
+                            <div>
+                                 <div>
+                                    <span> Group Owner:</span>
+                                    <span>
+                                        <a class="cardFlexLink" href="{{frontEndUrl}}profile/{{listdata.groupOwner}}/{{listdata.groupOwnerName}}" target="_blank">{{listdata?.groupOwnerName}}</a>
+                                    </span>
+                                </div>
+                                <span>Description: {{listdata?.description}}</span>
+                            </div>
+                        </nb-card-body>
+                    </nb-card>
+                </nz-list-item>
+            </div>
+          </nz-list>
+</nb-card>
+
+<div class="row" [hidden]="isHidden">
+    <div class="col mt-3 mb-4 text-center">
+        <mat-spinner style="margin: 0 auto;" color="accent" [hidden]="!isLoading" [diameter]="40"></mat-spinner>
+        <button nbButton outline status="primary" (click)="pagination()" [hidden]="isLoading" color="primary">Load More</button>
+    </div>
+</div>
+
+<div class="row" [hidden]="!isHidden">
+    <div class="col mt-3 mb-4 text-center">
+        <span>No More Data Found</span>
+    </div>
+   
+</div>
+

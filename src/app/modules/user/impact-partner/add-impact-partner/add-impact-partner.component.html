@@ -1,0 +1,114 @@
+<mat-progress-bar mode="indeterminate" [hidden]="!isLoading"></mat-progress-bar>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{!partner ? 'Add Impact Partner' : 'Update Impact Partner'}}</mat-card-title>
+    <span class="spacer"></span>
+    <span>
+      <button mat-icon-button>
+        <mat-icon (click)="closeModal()">close</mat-icon>
+      </button>
+    </span>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-dialog-content class="m-0" style="max-width: 700px;">
+      <form [formGroup]="impactPartnerFormGroup" (ngSubmit)="onSubmitForm()">
+        <div class="row">
+          <mat-form-field class="col-12 col-sm-12 col-md-6">
+            <input formControlName="name" matInput placeholder="Organization Name">
+            <app-input-validation [control]="impactPartnerFormGroup.get('name')"></app-input-validation>
+          </mat-form-field>
+          <mat-form-field class="col-12 col-sm-12 col-md-6">
+            <input formControlName="email" matInput placeholder="Ex. user@example.com">
+            <app-input-validation [control]="impactPartnerFormGroup.get('email')"></app-input-validation>
+          </mat-form-field>
+          <mat-form-field class="col-12 col-sm-12 col-md-6">
+            <input formControlName="password" matInput placeholder="Password" type="password">
+            <app-input-validation [control]="impactPartnerFormGroup.get('password')"></app-input-validation>
+          </mat-form-field>
+          <div class="col-12 col-sm-12 col-md-6">
+            <ng-select class="reduce-spacing" [items]="countries" bindLabel="name" bindValue="id" [searchable]="true"
+              [clearable]="false" placeholder="Countries" formControlName="country" (change)="onSelectCountry($event)">
+            </ng-select>
+            <app-input-validation [control]="impactPartnerFormGroup.get('country')"></app-input-validation>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6">
+            <ng-select class="reduce-spacing mb-12" [items]="states" bindLabel="name" bindValue="id" [searchable]="true"
+              [clearable]="false" placeholder="States" formControlName="state" (change)="onSelectState($event)">
+            </ng-select>
+            <app-input-validation [control]="impactPartnerFormGroup.get('state')"></app-input-validation>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6">
+            <ng-select class="reduce-spacing mb-12" [items]="cities" formControlName="city" bindLabel="name"
+              bindValue="id" [searchable]="true" [clearable]="false" placeholder="Cities"></ng-select>
+            <app-input-validation [control]="impactPartnerFormGroup.get('city')"></app-input-validation>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 no-padding" style="display: flex;" formArrayName="phone_number">
+            <ng-container *ngFor="let item of phoneNumberFormArray.controls; let i = index">
+              <ng-container formGroupName="{{i}}">
+                <div class="col-md-5">
+                  <ng-select class="reduce-spacing" [items]="countryPhoneCode" bindLabel="name" bindValue="_id"
+                    [searchable]="true" [clearable]="false" placeholder="Ind +91" formControlName="extension">
+                  </ng-select>
+                  <app-input-validation [control]="phoneNumberFormArray.controls[i].get('extension')">
+                  </app-input-validation>
+                </div>
+                <div class="col-md-7">
+                  <mat-form-field class="full-width">
+                    <mat-label>Your Cell number</mat-label>
+                    <input matInput type="text" formControlName="number">
+                    <app-input-validation [control]="phoneNumberFormArray.controls[i].get('number')">
+                    </app-input-validation>
+                  </mat-form-field>
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
+          <ng-container formGroupName="impact_partner">
+            <!-- <mat-form-field class="col-12 col-sm-12 col-md-6">
+              <input formControlName="organization_name" matInput placeholder="Organization name">
+              <app-input-validation [control]="impactPartnerFormGroup.get('impact_partner').get('organization_name')">
+              </app-input-validation>
+            </mat-form-field> -->
+            <ng-container formArrayName="contact_person_for_collegey">
+              <ng-container *ngFor="let item of contactPersonFormArray.controls;let i = index">
+                <ng-container formGroupName="{{i}}">
+                  <mat-form-field class="col-12 col-sm-12 col-md-6">
+                    <input formControlName="name" matInput placeholder="contact person name">
+                    <app-input-validation [control]="contactPersonFormArray.controls[i].get('name')">
+                    </app-input-validation>
+                  </mat-form-field>
+
+                  <div class="col-12 col-sm-12 col-md-6 no-padding" style="display: flex;" formGroupName="phone_number">
+                    <div class="col-md-5">
+                      <ng-select class="reduce-spacing" [items]="countryPhoneCode" bindLabel="name" bindValue="_id"
+                        [searchable]="true" [clearable]="false" placeholder="Ind +91" formControlName="extension">
+                      </ng-select>
+                      <app-input-validation [control]="contactPersonFormArray.controls[i].get('phone_number').get('extension')">
+                      </app-input-validation>
+                    </div>
+                    <div class="col-md-7">
+                      <mat-form-field class="full-width">
+                        <mat-label>contact person cell number</mat-label>
+                        <input matInput type="text" formControlName="number">
+                        <app-input-validation [control]="contactPersonFormArray.controls[i].get('phone_number').get('number')">
+                        </app-input-validation>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </ng-container>
+
+              </ng-container>
+            </ng-container>
+            <mat-form-field class="col-12 col-sm-12 col-md-6">
+              <input formControlName="website" matInput placeholder="Website Name">
+              <app-input-validation [control]="impactPartnerFormGroup.get('impact_partner').get('website')"></app-input-validation>
+            </mat-form-field>
+          </ng-container>
+        </div>
+        <div class="col-md-12">
+          <button class="float-right" type="submit" mat-flat-button color="primary">Submit</button>
+        </div>
+      </form>
+    </mat-dialog-content>
+  </mat-card-content>
+</mat-card>

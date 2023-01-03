@@ -1,0 +1,48 @@
+<nb-card style="width: 100%;">
+    <nb-card-header>
+        <nz-page-header nzTitle="Q&A Listing">
+            <!-- <nz-page-header-extra>
+                <button nz-button nzType="primary" (click)="openModal(Mode.Create, null, null)" nz-typography>Create An Announcement</button>
+            </nz-page-header-extra> -->
+        </nz-page-header>
+    </nb-card-header>
+        <nz-list nzGrid nzBordered>
+            <div nz-row [nzGutter]="16" *ngFor="let qnaList of qnaData;  let j = index;">
+                <nz-list-item class="w-100">
+                    <nb-card style="width: 100%;">
+                        <nb-card-header>
+                            {{qnaList?.question}} 
+                            <nz-tag [nzColor]="'green'" *ngIf="qnaList.active == true" nz-typography>Active</nz-tag>
+                            <nz-tag [nzColor]="'red'" *ngIf="qnaList.active == false" nz-typography>Deactivated</nz-tag>
+                            <ng-container>
+                                <button nz-button nz-dropdown [nzDropdownMenu]="menu" [nzPlacement]="'bottomLeft'" style="float: right;">Actions <i nz-icon nzType="down"></i></button>
+                                <nz-dropdown-menu #menu="nzDropdownMenu">
+                                    <ul nz-menu>
+                                        <!-- <li nz-menu-item>
+                                            <a (click)="deleteQuestion(qnaList._id)">Delete</a>
+                                        </li> -->
+                                        <li nz-menu-item>
+                                            <a (click)="viewQuestion(qnaList._id, qnaList)">View</a>
+                                        </li>
+                                        <li nz-menu-item *ngIf="!qnaList.active">
+                                            <a (click)="deleteQuestion(qnaList._id, true)">Activate</a>
+                                        </li>
+                                        <li nz-menu-item *ngIf="qnaList.active">
+                                            <a (click)="deleteQuestion(qnaList._id, false)">Deactivate</a>
+                                        </li>
+                                        <!-- <li nz-menu-item>
+                                            <a (click)="openModal(Mode.Edit, qnaList._id, qnaList)">Edit</a>
+                                        </li> -->
+                                    </ul>
+                                </nz-dropdown-menu>
+                              </ng-container>
+                        </nb-card-header>
+                        <nb-card-body>
+                            Asked By: {{qnaList?.user?.name}}
+                        </nb-card-body>
+                    </nb-card>
+                </nz-list-item>
+            </div>
+          </nz-list>
+</nb-card>
+<app-load-more [isLoading]="isLoading" [isHidden]="qnaData?.length<=0"></app-load-more>

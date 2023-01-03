@@ -1,0 +1,45 @@
+<nb-card style="width: 100%;">
+    <nb-card-header>
+        <nz-page-header nzTitle="Home First Section">
+            <!-- <nz-page-header-extra *ngIf="assignData.length == 0">
+                <button nz-button nzType="primary" (click)="openModal(Mode.Create, null, null)" nz-typography>Add First
+                    Section Data</button>
+            </nz-page-header-extra> -->
+        </nz-page-header>
+    </nb-card-header>
+    <nz-list nzGrid nzBordered>
+        <div nz-row [nzGutter]="16" *ngFor="let dataList of assignData;  let j = index;">
+            <nz-list-item class="w-100">
+                <nb-card style="width: 100%;">
+                    <nb-card-header>
+                        <p>Banner Text :- {{dataList?.bannerText}}</p>
+                        <p>Banner Mid Text :- {{dataList?.midleTitle}}</p>
+                        <p>Banner Sub Text :- {{dataList?.bannerSubText}}</p>
+                        <nz-tag [nzColor]="'red'" *ngIf="dataList?.status == false" nz-typography>Deleted</nz-tag>
+                        <ng-container>
+                            <button nz-button nz-dropdown [nzDropdownMenu]="menu" [nzPlacement]="'bottomLeft'"
+                                style="float: right;">Actions <i nz-icon nzType="down"></i></button>
+                            <nz-dropdown-menu #menu="nzDropdownMenu">
+                                <ul nz-menu>
+                                    <li nz-menu-item>
+                                        <a (click)="openModal(Mode.Edit,j,dataList)">Edit</a>
+                                    </li>
+                                    <!-- <li nz-menu-item>
+                                        <a (click)="deleteHome(j)">Delete</a>
+                                    </li> -->
+                                    <li nz-menu-item *ngIf="dataList?.status == false">
+                                        <a>Delete</a>
+                                    </li>
+                                </ul>
+                            </nz-dropdown-menu>
+                        </ng-container>
+                    </nb-card-header>
+                    <nb-card-body>
+                        <img *ngIf="dataList?.bannerImg" alt="project"
+                            style="height: 100px; width: 100px;margin-top: 5px;" src="{{dataList?.bannerImg}}">
+                    </nb-card-body>
+                </nb-card>
+            </nz-list-item>
+        </div>
+    </nz-list>
+</nb-card>

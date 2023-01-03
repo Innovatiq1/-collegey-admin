@@ -1,0 +1,56 @@
+<nb-card class="login-card">
+  <!-- <nb-card-header >
+        <nb-card>
+            <nb-card-body class="text-center">
+                Login
+            </nb-card-body>
+        </nb-card>
+    </nb-card-header> -->
+  <nb-card-body class="text-center">
+    <form [hidden]="isLoading" [formGroup]="loginForm" class="full-width">
+      <nz-form-item class="full-width">
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="user">
+            <input type="text" nz-input formControlName="email" placeholder="Email" [errorStateMatcher]="matcher" />
+          </nz-input-group>
+          <ng-container
+            *ngIf="loginForm.get('email').hasError('email') && !loginForm.get('email').hasError('required')">
+            <p style="color: red;"> Please enter a valid email address</p>
+          </ng-container>
+          <ng-container *ngIf="submitted && loginForm.get('email').hasError('required')">
+            <p style="color: red;"> Email is <strong>required</strong></p>
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <!-- <mat-form-field class="full-width">
+                <input formControlName="email" matInput [errorStateMatcher]="matcher"
+                placeholder="Ex. user@example.com">
+                <mat-error *ngIf="loginForm.get('email').hasError('email') && !loginForm.get('email').hasError('required')">
+                    Please enter a valid email address
+                  </mat-error>
+                  <mat-error *ngIf="loginForm.get('email').hasError('required')">
+                    Email is <strong>required</strong>
+                  </mat-error>
+            </mat-form-field> -->
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="lock">
+            <input type="password" nz-input (keyup.enter)="loginUser()" formControlName="password"
+              placeholder="Password" />
+          </nz-input-group>
+          <ng-container *ngIf="submitted && loginForm.get('password').hasError('required')">
+            <p style="color: red;">Password is <strong>required</strong></p>
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <!-- <mat-form-field class="full-width">
+                <input (keyup.enter)="loginUser()" formControlName="password" matInput placeholder="Password" type="password">
+                <mat-error *ngIf="loginForm.get('password').hasError('required')">
+                    Password is <strong>required</strong>
+                </mat-error>
+            </mat-form-field> -->
+    </form>
+    <mat-spinner style="margin: 0 auto;" [hidden]="!isLoading"></mat-spinner>
+    <button class="btn-block" [disabled]="isLoading" (click)="loginUser()" nz-button color="primary">Login</button>
+  </nb-card-body>
+</nb-card>

@@ -1,0 +1,53 @@
+.clg-student-education-info ul, .clg-student-project-info ul {
+    list-style: none;
+    margin-bottom: 10px;
+}
+.clg-student-education-info h5{
+    margin: 0;
+    font-size: 18px;
+}
+.clg-student-education-info h6{
+    margin-bottom: 3px;
+    font-size: 16px;
+}
+.clg-student-education-info .batch-year {
+    color: #444444;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+.clg-student-education-info .college-branch{
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 2;
+    letter-spacing: normal;
+    text-align: left;
+    color: #111111;
+    margin-bottom: 0px;
+}
+.clg-student-education-info .college-desc {
+    margin-bottom: 0;
+    color: #777777;
+    font-weight: 600;
+    font-size: 16px;
+}
+.clg-student-favorites-info h6{
+    margin-bottom: 3px;
+    font-size: 16px;
+}
+.clg-student-project-info h6{
+    margin-bottom: 9px;
+    font-size: 16px;
+}
+.clg-student-project-info ul li p {
+    margin-bottom: 2px;
+    font-size: 15px;
+}
+.clg-student-project-info .profile-detail p
+{
+    margin-bottom: 2px;
+    font-size: 15px;
+}
+.clg-student-future-education-info h6, .clg-student-preferences-info h6, .clg-student-personal-info h6{
+    margin-bottom: 0px;
+    font-size: 16px;
+}

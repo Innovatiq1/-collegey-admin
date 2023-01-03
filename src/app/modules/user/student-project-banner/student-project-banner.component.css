@@ -1,0 +1,20 @@
+.imageDiv {
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  }
+#delButton {
+    margin-left: 730px;
+    top: -40px;
+}
+a.clgadm-remaction {
+  color: #fff;
+  text-decoration: none;
+  background-color: #f00;
+  box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+  padding: 5px 10px;
+  border-radius: 5px;
+  line-height: 1;
+  font-size: 13px;
+}

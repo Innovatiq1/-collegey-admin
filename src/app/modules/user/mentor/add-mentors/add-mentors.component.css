@@ -1,0 +1,17 @@
+.radio-label {
+    position: relative;
+    top: 3px;
+    margin-left: 15px;
+}
+.mt-20 {
+    margin-top: 20px;
+}
+
+::ng-deep .angular-editor 
+.angular-editor-wrapper 
+.angular-editor-textarea {
+    padding: 0.5rem 1.0rem 1rem !important;
+}
+.clg-input-error{
+    color: red;
+}

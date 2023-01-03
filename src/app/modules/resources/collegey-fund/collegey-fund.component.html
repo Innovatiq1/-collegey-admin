@@ -1,0 +1,62 @@
+<nb-card>
+    <nb-card-header>
+        <nz-page-header nzTitle="Collegey Fund List">
+            <nz-page-header-extra>
+                <button nz-button nzType="primary" (click)="DownloadAsExcel()" nz-typography>Export CSV</button>
+            </nz-page-header-extra>
+        </nz-page-header>
+    </nb-card-header>
+    <nb-card-body>
+        <nz-list nzGrid nzBordered>
+            <div nz-row [nzGutter]="16" *ngFor="let fundInfo of fundResponse;  let j = index;">
+                <nz-list-item>
+                    <nb-card style="width: 100%;"> 
+                        <nb-card-header>
+                            <span>{{j+1}}. </span>{{fundInfo?.name}}
+                            <nz-tag [nzColor]="'green'" nz-typography style="float: right;">{{fundInfo?.fundAmount |
+                                number:'1.2-2' }}</nz-tag>
+                            <!-- <ng-container>
+                        <button nz-button [nzColor]="'green'" [nzPlacement]="'bottomLeft'" style="float: right;"> {{fundInfo?.fundAmount | number:'1.2-2' }}</button>
+                    </ng-container> -->
+                        </nb-card-header>
+                        <nb-card-body>
+                            <table class="listingTable" style="border: 0px;">
+                                <colgroup>
+                                    <col width="30%">
+                                    <col width="70%">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <b>Email : </b> {{fundInfo?.email}}
+                                        </td>
+                                        <td>
+                                            <b>Date : </b> {{fundInfo?.createdAt | date:'dd-MM-yyyy' }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Country Code : </b>{{fundInfo?.countryCode}} 
+                                        </td>
+                                        <td>
+                                            <b>Contact Number : </b>{{fundInfo?.mobile}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                           <b> City : </b>  {{fundInfo?.city}}
+                                        </td>
+                                        <td>
+                                           <b> County : </b>  {{fundInfo?.country}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </nb-card-body>
+                    </nb-card>
+                </nz-list-item>
+            </div>
+        </nz-list>
+    </nb-card-body>
+</nb-card>
+<app-load-more [isLoading]="isLoading" [isHidden]="fundResponse?.length<=0"></app-load-more>

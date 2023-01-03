@@ -1,0 +1,28 @@
+.mat-form-field + .mat-form-field {
+    margin-left: 8px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.checkbox-margin {
+    margin: 0 10px;
+}
+
+.checkbox-section {
+    display: flex;
+    align-items: baseline;
+}
+
+.fw-400 {
+    font-weight: 500;
+}
+
+.align-baseline {
+    align-items: baseline;
+}
+
+.mb-15 {
+    margin-bottom: 15px;
+}

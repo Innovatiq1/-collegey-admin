@@ -1,0 +1,97 @@
+<!-- <mat-progress-bar mode="indeterminate" [hidden]="!isLoading"></mat-progress-bar> -->
+<nb-card style="width: 100%;">
+    <nb-card-header>
+        <nz-page-header nzTitle="Student Listing">
+            <!-- <button class="create-user-btn" mat-stroked-button color="primary" (click)="openCreateBlogModal()">Create a Blog</button> -->
+            <nz-page-header-extra>
+                <button nz-button nzType="primary" (click)="DownloadAsExcel()" nz-typography>Export</button>
+                <button nz-button nzType="primary" (click)="openModal(Mode.Create, null, null)" nz-typography>Create a Student</button>
+            </nz-page-header-extra>
+            <nz-page-header-content>
+                <nz-input-group [nzSuffix]="suffixIconSearch">
+                  <input type="text" nz-input placeholder="input search text" (keyup)="searchUsers(searchBox.value)" #searchBox [(ngModel)]="searchText"/>
+                </nz-input-group>
+                <ng-template #suffixIconSearch>
+                <i nz-icon nzType="search"></i>
+                </ng-template>
+            </nz-page-header-content>
+        </nz-page-header>
+    </nb-card-header>
+        <nz-list nzGrid nzBordered>
+            <div nz-row [nzGutter]="16" *ngFor="let blog of blogsList; let j = index">
+                <nz-list-item>
+                    <nb-card style="width: 100%;">
+                        <nb-card-header>
+                            <span>{{j+1}}. </span>{{blog?.name}} 
+                            <nz-tag [nzColor]="'green'" *ngIf="blog.Active == true" nz-typography>Active</nz-tag>
+                            <nz-tag [nzColor]="'red'" *ngIf="blog.Active == false" nz-typography>Blocked</nz-tag>
+                            <ng-container>
+                                <button nz-button nz-dropdown [nzDropdownMenu]="menu" [nzPlacement]="'bottomLeft'" style="float: right;">Actions <i nz-icon nzType="down"></i></button>
+                                <nz-dropdown-menu #menu="nzDropdownMenu">
+                                    <ul nz-menu>
+                                        <li nz-menu-item>
+                                            <a (click)="openModal(Mode.Edit, blog.id, blog)">Edit</a>
+                                        </li>
+                                        <li nz-menu-item *ngIf="!blog.Active">
+                                            <a (click)="updateUserStatus(blog._id,'active')">UnBlock</a>
+                                        </li>
+                                        <li nz-menu-item *ngIf="blog.Active">
+                                            <a (click)="updateUserStatus(blog._id,'deactive')">Block</a>
+                                        </li>
+                                        <li nz-menu-item>
+                                            <a [routerLink]="['/users/reward/' + blog?._id]" style="text-decoration: none;color: #222b45;">View Rewards</a>
+                                        </li>
+                                        <li nz-menu-item>
+                                            <a (click)="openStudentDetailsModal(Mode.Edit, blog.id, blog)">Details</a>
+                                        </li>
+                                        <!-- 
+                                        <li nz-menu-item>
+                                            <a (click)="openModal(Mode.Edit, blog.id, blog)">Edit</a>
+                                        </li>
+                                        <li nz-menu-item>
+                                            <a (click)="openModal(Mode.Edit, blog.id, blog)">Edit</a>
+                                        </li> -->
+                                    </ul>
+                                </nz-dropdown-menu>
+                              </ng-container> 
+                        </nb-card-header>
+                        <nb-card-body>
+                            <table class="listingTable" style="border: 0px;">
+                                <colgroup>
+                                    <col width="30%">
+                                    <col width="70%">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <b>Email : </b> {{blog?.email}}
+                                        </td>
+                                        <td><b>Student Type : </b> {{blog?.studentType}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span *ngIf="blog?.gender"><b> Gender : </b>{{blog?.gender}}</span></td>
+                                        <td><span *ngIf="blog?.student_profile?.ways_to_be_in_touch?.dob"><b>Date of birth : </b> {{blog?.student_profile?.ways_to_be_in_touch?.dob | date:'MMM d, y'}}</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span *ngIf="blog?.student_profile?.ways_to_be_in_touch?.age"><b>Age : </b> {{blog?.student_profile?.ways_to_be_in_touch?.age}}</span></td>
+                                        <td> <span *ngIf="blog?.student_profile?.ways_to_be_in_touch?.school_counselor[0]?.name"><b>School Counselor Name : </b> 
+                                            {{blog?.student_profile?.ways_to_be_in_touch?.school_counselor[0]?.name}}</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>  <span *ngIf="blog?.student_profile?.ways_to_be_in_touch?.school_counselor[0]?.email"><b>Counselor Email : </b> 
+                                                {{blog?.student_profile?.ways_to_be_in_touch?.school_counselor[0]?.email}}</span></td>
+                                        <td> <span *ngIf="blog?.student_profile?.ways_to_be_in_touch?.phone_number && blog?.student_profile?.ways_to_be_in_touch?.phone_number?.number"><b>Phone : </b>  {{blog?.student_profile?.ways_to_be_in_touch?.phone_number?.extension +'-'+ blog?.student_profile?.ways_to_be_in_touch?.phone_number?.number}}</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </nb-card-body>
+                        <!-- <nb-card-footer>
+                            <nz-tag [nzColor]="'gray'" *ngFor="let tag of blog.tags;  let i = index;" nz-typography>{{tag}}</nz-tag>
+                        </nb-card-footer> -->
+                    </nb-card>
+                </nz-list-item>
+            </div>
+          </nz-list>
+</nb-card>
+
+<app-load-more [isLoading]="isLoading" [isHidden]="blogsList.length<=0"></app-load-more>

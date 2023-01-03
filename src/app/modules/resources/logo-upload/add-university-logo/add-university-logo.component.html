@@ -1,0 +1,17 @@
+<div>
+    <form nz-form [formGroup]="uploaduniversitylogoForm" class="ant-advanced-search-form">
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Enter upload university logo title</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="title" id="title" placeholder="Enter upload university logo title"/>
+            <ng-container *ngIf="uploaduniversitylogoForm.get('title').errors?.required">
+                Title is required.
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <div nz-row>
+        <app-upload-dialog [documentList] = "documentList" [imageSource] = "imageSource.UNIVERSITY_LOGO"
+        [multipleSelection] ="false" (onFileUploadSuccess)="onFileUpload($event)"></app-upload-dialog>
+      </div>
+    </form>
+</div>

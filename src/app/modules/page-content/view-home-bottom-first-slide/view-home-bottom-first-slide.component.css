@@ -1,0 +1,14 @@
+.collegy_loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    text-align: center;
+    background-color: rgba(0,0,0,0.5);
+}
+.collegy_loader img {
+    max-width: 70px;
+    margin-top: 45vh;
+}

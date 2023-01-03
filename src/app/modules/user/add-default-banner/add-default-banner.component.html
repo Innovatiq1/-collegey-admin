@@ -1,0 +1,119 @@
+<!-- <nb-card style="width: 100%;">
+    
+    <nb-card-header>
+        <nz-page-header nzTitle="Add Banner">
+        </nz-page-header>
+    </nb-card-header>
+        
+<div>
+    <form [formGroup]="addDefaultBanner">
+        <label for="bannerFor">BannerFor</label>
+        <select formControlName="bannerFor">
+            <option value="">Banner For*</option>
+            <option value="profile">Profile</option>
+            <option value="mentor">Mentor</option>
+            <option value="student">Student</option>
+        </select>
+        <br>
+
+        <input formControlName="imagePath" id="file-input-project-banner" type="file" (change)="bannerUpload($event)"
+        accept=".png,.jpeg,.jpg" />
+        <br>
+   
+         <img *ngIf="bannerImage" [src]="bannerImage" class="img-fluid"
+        style="width: 150px;height: 150px;" />
+        <br>
+
+        <button (click)="onSubmitForm()">Add Banner</button>
+    </form>
+</div>
+
+
+</nb-card> -->
+<!-- <nb-card style="width: 100%;">
+    <div class="formDiv">
+        <nb-card-header>
+            <nz-page-header nzTitle="Add Banner">
+            </nz-page-header>
+        </nb-card-header>
+        <form [formGroup]="addDefaultBanner">
+        
+            <label for="bannerFor" class="ant-form-item-required">Banner For<span style="color: red;">*</span></label><br>
+            <div class="form-group">
+                <select class="form-control" formControlName="bannerFor">
+                    <option value="">Banner For</option>
+                    <option value="profile">Profile</option>
+                    <option value="mentor">Mentor</option>
+                    <option value="student">Student</option>
+                </select>
+            </div> 
+            <span *ngIf="isSubmitted && hasErrorEvent('bannerFor','required')" class="d-block" style="color: red;">Please Select banner For.</span>
+            <div class="form-group no-m-b">
+                <input hidden #chooseFiles multiple formControlName="imageFile" accept="image/*" accept=".png,.jpeg,.jpg" type="file" (change)="bannerUpload($event)" />
+                <button (click)="chooseFiles.click()" color="primary" mat-flat-button>Choose Picture</button>
+            </div>
+            <span *ngIf="isSubmitted && hasErrorEvent('imageFile','required')" class="d-block" style="color: red;">Please upload an image.</span>
+        
+          <div style="color: green;">
+            Accept only png, jpeg, jpg
+          </div>
+    
+          <img *ngIf="bannerImage" [src]="bannerImage" class="img-fluid"
+          style="width: 150px;height: 150px;" />
+          <br>
+
+          <div class="form-group">
+
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" formControlName="isActivated" id="isActivated">
+                <label class="custom-control-label" for="isActivated">Activated</label>
+            </div>
+        </div>
+          
+    
+          <button class="ant-btn ant-btn-primary" (click)="onSubmitForm()">Add Banner</button>
+        </form>
+    </div>
+    
+</nb-card> -->
+
+<div>
+    <form nz-form [formGroup]="addDefaultBanner" class="ant-advanced-search-form">
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzFor="bannerfor" nz-typography>Banner for</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+              <nz-select formControlName="bannerFor" nzPlaceHolder="Banner for">
+                <nz-option nzLabel="Profile" nzValue="profile"></nz-option>
+                <nz-option nzLabel="Mentor" nzValue="mentor"></nz-option>
+                <nz-option nzLabel="Student" nzValue="student"></nz-option>
+              </nz-select>
+            </nz-form-control>
+            <span *ngIf="isSubmitted && hasErrorEvent('bannerFor','required')" class="d-block" style="color: red;">Please Select banner For.</span>
+        </nz-form-item>
+        <nz-form-item>
+            <input hidden #chooseFiles multiple formControlName="imagePath" accept="image/*" accept=".png,.jpeg,.jpg" type="file" (change)="bannerUpload($event)" />
+            <button (click)="chooseFiles.click()" color="primary" mat-flat-button>Choose Picture</button>
+        </nz-form-item>
+        <span *ngIf="isSubmitted && hasErrorEvent('imagePath','required')" class="d-block" style="color: red;">Please upload an image.</span>
+        <div style="color: green;">
+            Accept only png, jpeg, jpg
+        </div>
+        <nz-form-item *ngIf="bannerImage" >
+            <img                 
+                [src]="bannerImage" 
+                class="img-fluid"
+                style="width: 150px;height: 150px;" 
+            />
+            <br>
+        </nz-form-item>
+        <nz-form-item>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" formControlName="isActivated" id="isActivated">
+                <label class="custom-control-label" for="isActivated">Activated</label>
+            </div>
+        </nz-form-item>
+    </form>
+</div>
+
+
+

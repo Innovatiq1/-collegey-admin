@@ -1,0 +1,55 @@
+<div>
+    <form nz-form [formGroup]="reviewForm" class="ant-advanced-search-form">
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="name" nz-typography>Enter name</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="name" id="tinametle" placeholder="Enter name"/>
+            <ng-container *ngIf="reviewForm.get('name').errors?.required">
+                Name is required.
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="qualification" nz-typography>Qualification</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="qualification" id="qualification" placeholder="Enter Qualification"/>
+            <ng-container *ngIf="reviewForm.get('qualification').errors?.required">
+                Qualification is required.
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="country" nz-typography>Country</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="country" id="country" placeholder="Country"/>
+            <ng-container *ngIf="reviewForm.get('country').errors?.required">
+                Country is required.
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="url" nz-typography>Enter Youtube Video Embeded Url</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="url" id="url" placeholder="Enter Youtube Video Embeded Url"/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="text" nz-typography>Review</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input formControlName="text" id="text" placeholder="Enter Review"/>
+          <ng-container *ngIf="reviewForm.get('text').errors?.required">
+            Review is required.
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="position" nz-typography>Position</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input formControlName="position" id="position" placeholder="Enter Review"/>
+          <ng-container *ngIf="reviewForm.get('position').errors?.required">
+            Position is required.
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+</div>

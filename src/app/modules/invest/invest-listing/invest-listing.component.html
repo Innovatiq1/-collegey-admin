@@ -1,0 +1,58 @@
+<nb-card>
+    <nb-card-header>
+        <nz-page-header nzTitle="Invest in Collegey">
+            <nz-page-header-extra>
+                <button nz-button nzType="primary"  (click)="DownloadAsExcel()" nz-typography>Export CSV</button>
+            </nz-page-header-extra>
+        </nz-page-header>
+    </nb-card-header>
+    <nb-card-body>
+        <nz-list nzGrid nzBordered>
+            <div nz-row [nzGutter]="16" *ngFor="let profile of investProfileData;  let j = index;">
+            <nz-list-item>
+            <nb-card style="width: 100%;">
+                <nb-card-header>
+                    <span>{{j+1}}. </span>{{profile?.name}}
+                </nb-card-header>
+                <nb-card-body> 
+                    <div>
+                    <table class="listingTable" style="border: 0px;">
+                        <colgroup>
+                            <col width="30%">
+                            <col width="70%">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <td colspan="2">
+                                    <b>Email : </b> {{profile?.email}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                   <b> City : </b>  {{profile?.city}}
+                                </td>
+                                <td>
+                                   <b> County : </b>  {{profile?.country}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <b>Organisation Website URL : </b> <a href="profile?.organisation" target="_blank">{{profile?.organisation}}</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                    <!-- <div style="margin: 10px;">
+                        <nz-tag [nzColor]="'gray'" nz-typography>{{profile?.city}}</nz-tag>
+                        <nz-tag [nzColor]="'gray'" nz-typography>{{profile?.country}}</nz-tag>
+                        <nz-tag [nzColor]="'gray'" nz-typography>{{profile?.organisation}}</nz-tag>
+                    </div> -->
+                </nb-card-body>
+            </nb-card>
+            </nz-list-item>
+        </div>
+        </nz-list>
+    </nb-card-body>
+</nb-card>
+<app-load-more [isLoading]="isLoading" [isHidden]="investProfileData.length <= 0"></app-load-more>

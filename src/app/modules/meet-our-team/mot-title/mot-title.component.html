@@ -1,0 +1,47 @@
+<div class="parentDiv">
+  <form nz-form [formGroup]="titleForm" class="ant-advanced-search-form">
+    <nz-form-item>
+      <nz-form-label [nzXs]="24" nzRequired nzFor="mainTitle" nz-typography>Title</nz-form-label>
+      <nz-form-control [nzXs]="24" nzHasFeedback>
+        <textarea nz-input type="text" class="areaControl" formControlName="mainTitle" id="mainTitle"
+          placeholder="Write Main Title"></textarea>
+        <ng-container *ngIf="titleForm.get('mainTitle').errors?.required">
+          Main Title is required.
+        </ng-container>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzXs]="24" nzRequired nzFor="subTitle1" nz-typography>First Sub-title</nz-form-label>
+      <nz-form-control [nzXs]="24" nzHasFeedback>
+        <textarea nz-input type="text" class="areaControl" formControlName="subTitle1" id="subTitle1"
+          placeholder="Write First Sub-title"></textarea>
+        <ng-container *ngIf="titleForm.get('subTitle1').errors?.required">
+          First Sub-title is required.
+        </ng-container>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzXs]="24" nzRequired nzFor="subTitle2" nz-typography>Second Sub-title</nz-form-label>
+      <nz-form-control [nzXs]="24" nzHasFeedback>
+        <textarea nz-input type="text" class="areaControl" formControlName="subTitle2" id="subTitle2"
+          placeholder="Write Second Sub-title"></textarea>
+        <ng-container *ngIf="titleForm.get('subTitle2').errors?.required">
+          Second Sub-title is required.
+        </ng-container>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- <nz-form-item>
+      <nz-form-label [nzXs]="24" nzRequired nzFor="status" nz-typography>Status</nz-form-label>
+      <nz-form-control [nzXs]="24" nzHasFeedback>
+          <nz-switch formControlName="status"></nz-switch>
+          <ng-container *ngIf="titleForm.get('status').errors?.required">
+              Status is required.
+          </ng-container>
+      </nz-form-control>
+   </nz-form-item> -->
+
+  </form>
+</div>

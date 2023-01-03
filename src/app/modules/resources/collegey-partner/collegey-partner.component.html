@@ -1,0 +1,54 @@
+<nb-card>
+    <nb-card-header>
+        <nz-page-header nzTitle="Collegey Partner List">
+            <nz-page-header-extra>
+                <button nz-button nzType="primary" (click)="DownloadAsExcel()" nz-typography>Export CSV</button>
+            </nz-page-header-extra>
+        </nz-page-header>
+    </nb-card-header>
+    <nb-card-body>
+        <nz-list nzGrid nzBordered>
+            <div nz-row [nzGutter]="16" *ngFor="let partnerInfo of fundResponse;  let j = index;">
+                <nz-list-item>
+                    <nb-card style="width: 100%;"> 
+                        <nb-card-header>
+                            <span>{{j+1}}. </span>{{partnerInfo?.name}}
+                        </nb-card-header>
+                        <nb-card-body>
+                            <table class="listingTable" style="border: 0px;">
+                                <colgroup>
+                                    <col width="30%">
+                                    <col width="70%">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <b>Organisation : </b> {{partnerInfo?.organisation}}
+                                        </td>
+                                        <td>
+                                            <b>Email : </b> {{partnerInfo?.email}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b> City : </b>  {{partnerInfo?.city}}
+                                        </td>
+                                        <td>
+                                            <b> County : </b>  {{partnerInfo?.country}}
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="partnerInfo?.bestText">
+                                        <td colspan="2">
+                                            <b>Best Text : </b>{{partnerInfo?.bestText}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </nb-card-body>
+                    </nb-card>
+                </nz-list-item>
+            </div>
+        </nz-list>
+    </nb-card-body>
+</nb-card>
+<app-load-more [isLoading]="isLoading" [isHidden]="fundResponse?.length<=0"></app-load-more>

@@ -1,0 +1,19 @@
+mat-card-header {
+    position: relative;
+    padding: 15px 0px;
+}
+.ant-list-item {
+    width: 100% !important;
+}
+.ant-list-item .nb-theme-default nb-card {
+    width: 100% !important;
+}
+.listingTable{
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+}
+.listingTable td{
+    padding: 0.50rem;
+    vertical-align: top;
+}

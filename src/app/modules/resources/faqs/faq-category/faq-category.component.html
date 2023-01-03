@@ -1,0 +1,30 @@
+<div>
+    <form nz-form [formGroup]="categoryForm" class="ant-advanced-search-form">
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="category" nz-typography>Enter category</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="category" id="category" placeholder="Enter category"/>
+            <ng-container *ngIf="submitted && categoryForm.get('category').errors?.required">
+              <span class="clg-error-textcolor">Category is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <!-- <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="position" nz-typography>Enter position</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="position" id="position" placeholder="Enter position"/>
+        </nz-form-control>
+      </nz-form-item> -->
+      <nz-form-item>
+        <nz-form-label nzRequired [nzXs]="24" nzFor="position" nz-typography>Enter position</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <nz-select formControlName="position" nzPlaceHolder="Enter position">
+            <nz-option nzLabel="positionArray" *ngFor="let option of categoryPositionArray" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+          <ng-container *ngIf="submitted && categoryForm.get('position').errors?.required">
+            <span class="clg-error-textcolor">Position is required.</span>
+          </ng-container>
+        </nz-form-control>
+    </nz-form-item>
+    </form>
+</div>

@@ -1,0 +1,119 @@
+<div *ngIf="formType">
+    <form nz-form [formGroup]="pageContentForm1" class="ant-advanced-search-form">
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Title</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="title" id="title" placeholder="Enter Title" />
+                <ng-container *ngIf="pageContentForm1.get('title').errors?.required && formOneSubmit">
+                    Title is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Bottom Title</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="bottomTitle" id="title" placeholder="Enter Bottom Title" />
+                <ng-container *ngIf="pageContentForm1.get('bottomTitle').errors?.required && formOneSubmit">
+                    Bottom Title is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Bottom Button One - Add Text
+            </nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="btnOneText" id="title" placeholder="Enter Bottom One Title" />
+                <ng-container *ngIf="pageContentForm1.get('btnOneText').errors?.required && formOneSubmit">
+                    Bottom Button Title is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Bottom Button One - Add Link
+            </nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="btnOneLink" id="title" placeholder="Enter Bottom Button One Link" />
+                <ng-container *ngIf="pageContentForm1.get('btnOneLink').errors?.required && formOneSubmit">
+                    Bottom Button Text is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Bottom Button Two - Add Text
+            </nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="btnTwoText" id="title" placeholder="Enter Bottom Two Title" />
+                <ng-container *ngIf="pageContentForm1.get('btnTwoText').errors?.required && formOneSubmit">
+                    Bottom Button Title is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Bottom Button Two - Add Link
+            </nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="btnTwoLink" id="title" placeholder="Enter Bottom Button Two Link" />
+                <ng-container *ngIf="pageContentForm1.get('btnTwoLink').errors?.required && formOneSubmit">
+                    Bottom Button Link is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Bottom Button Three - Add Text
+            </nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="btnThreeText" id="title" placeholder="Enter Bottom Three Title" />
+                <ng-container *ngIf="pageContentForm1.get('btnThreeText').errors?.required && formOneSubmit">
+                    Bottom Button Title is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Bottom Button Three - Add Link
+            </nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="btnThreeLink" id="title"
+                    placeholder="Enter Bottom Button Three Link" />
+                <ng-container *ngIf="pageContentForm1.get('btnThreeLink').errors?.required && formOneSubmit">
+                    Bottom Button Link is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</div>
+<div *ngIf="!formType">
+    <form nz-form [formGroup]="pageContentForm" class="ant-advanced-search-form">
+
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="description" nz-typography>Text</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <textarea matInput formControlName="text" id="title" placeholder="Enter title" 
+                    style="padding: 5px 5px;width: 100%;resize: none;height: 80px;"></textarea>
+                    <ng-container *ngIf="pageContentForm.get('text').errors?.required">
+                    Text is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+       
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="status" nz-typography>Status</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <nz-switch formControlName="status"></nz-switch>
+                <ng-container *ngIf="pageContentForm.get('status').errors?.required">
+                    Status is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+
+        <div nz-row>
+            <input type="file" (change)="onFileUpload($event)" accept=".png,.jpeg,.jpg" />
+        </div>
+        <div style="color: green;">
+            Accept only png, jpeg, jpg.
+        </div>
+        <img *ngIf="selectFile" alt="project" style="height: 100px; width: 100px;margin-top: 5px;" src="{{selectFile}}">
+
+    </form>
+</div>

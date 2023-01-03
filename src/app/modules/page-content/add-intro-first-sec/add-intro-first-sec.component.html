@@ -1,0 +1,63 @@
+<div *ngIf="formType">
+  <form nz-form [formGroup]="pageContentForm1" class="ant-advanced-search-form">
+
+    <nz-form-item>
+      <nz-form-label [nzXs]="24" nzRequired nzFor="description" nz-typography>Second Section Title</nz-form-label>
+      <nz-form-control [nzXs]="24" nzHasFeedback>
+        <textarea matInput formControlName="title" id="title" placeholder="Enter title"
+          style="padding: 5px 5px;width: 100%;resize: none;height: 80px;"></textarea>
+        <ng-container *ngIf="pageContentForm1.get('title').errors?.required">
+          Title is required.
+        </ng-container>
+      </nz-form-control>
+    </nz-form-item>
+
+    <div nz-row>
+      <input type="file" (change)="onFileUpload($event)" accept=".png,.jpeg,.jpg" />
+    </div>
+    <div style="color: green;">
+      Accept only png, jpeg, jpg. <span> (Please upload around image size 1500 x 500)</span>
+    </div>
+    <img *ngIf="selectFile" alt="project" style="height: 100px; width: 100px;margin-top: 5px;" src="{{selectFile}}">
+
+  </form>
+</div>
+<div *ngIf="!formType">
+  <form nz-form [formGroup]="pageContentForm" class="ant-advanced-search-form">
+
+    <nz-form-item>
+      <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Title</nz-form-label>
+      <nz-form-control [nzXs]="24" nzHasFeedback>
+        <input nz-input formControlName="title" id="title" placeholder="Enter title" />
+        <ng-container *ngIf="pageContentForm.get('title').errors?.required">
+          Title is required.
+        </ng-container>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzXs]="24" nzRequired nzFor="description" nz-typography>Description</nz-form-label>
+      <nz-form-control [nzXs]="24" nzHasFeedback>
+          <!-- <textarea matInput formControlName="description" placeholder="Enter description" style="padding: 5px 5px;width: 100%;resize: none;height: 80px;"></textarea> -->
+        
+          <quill-editor
+            formControlName="description" aria-placeholder="Enter description"
+            ></quill-editor>
+
+          <ng-container *ngIf="pageContentForm.get('description').errors?.required">
+              Description is required.
+          </ng-container>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzXs]="24" nzRequired nzFor="status" nz-typography>Status</nz-form-label>
+      <nz-form-control [nzXs]="24" nzHasFeedback>
+        <nz-switch formControlName="status"></nz-switch>
+        <ng-container *ngIf="pageContentForm.get('status').errors?.required">
+          Status is required.
+        </ng-container>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+</div>

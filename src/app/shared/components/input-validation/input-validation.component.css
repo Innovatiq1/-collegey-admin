@@ -1,0 +1,10 @@
+.error-message {
+    position: absolute;
+    bottom: -12px;
+    color: red;
+    font-size: 10px;
+}
+
+.validation-spacing .error-message {
+    bottom: -2px;
+}

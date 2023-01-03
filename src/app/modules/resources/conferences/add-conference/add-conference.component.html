@@ -1,0 +1,147 @@
+<!-- <mat-progress-bar mode="indeterminate" [hidden]="!isLoading"></mat-progress-bar>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{!conference ? 'Add Conference' : 'Update Conference'}}</mat-card-title>
+        <span class="spacer"></span>
+        <span>
+      <button mat-icon-button>
+        <mat-icon (click)="dialogRef.close()">close</mat-icon>
+      </button>
+    </span>
+    </mat-card-header>
+    <mat-card-content style="width: 700px;">
+        <mat-dialog-content class="m-0">
+            <form [formGroup]="conferenceForm" *ngIf="conferenceForm">
+                <div class="row">
+                    <mat-form-field class="col-12 col-sm-12 col-md-6">
+                        <input formControlName="title" matInput placeholder="Enter conference title" type="text">
+                        <app-input-validation [control]="conferenceForm.get('title')"></app-input-validation>
+                    </mat-form-field>
+                    <mat-form-field class="col-12 col-sm-12 col-md-6">
+                        <input formControlName="short_description" matInput placeholder="Enter short description" type="text">
+                        <app-input-validation [control]="conferenceForm.get('short_description')"></app-input-validation>
+                    </mat-form-field>
+                    <mat-form-field class="col-12 col-sm-12 col-md-12">
+                        <textarea formControlName="description" matInput placeholder="Enter description" type="textarea"></textarea>
+                        <app-input-validation [control]="conferenceForm.get('description')"></app-input-validation>
+                    </mat-form-field>
+                    <mat-form-field class="col-12 col-sm-12 col-md-6">
+                        <input formControlName="redirect_link" matInput placeholder="Enter redirect link" type="text">
+                        <app-input-validation [control]="conferenceForm.get('redirect_link')"></app-input-validation>
+                    </mat-form-field>
+                    <div class="col-12 col-sm-12 col-md-6 validation-spacing">
+                        <ng-select class="reduce-spacing" [addTag]="true" [multiple]="true" [searchable]="true" [clearable]="false" placeholder="Add Tag" formControlName="tags"></ng-select>
+                        <app-input-validation [control]="conferenceForm.get('tags')"></app-input-validation>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6">
+                        <label class="label-text">Is paid:</label>
+                        <mat-radio-group class="radio-label" aria-label="Select an option" formControlName="is_paid">
+                            <mat-radio-button [value]="true">Yes</mat-radio-button>
+                            <mat-radio-button [value]="false">No</mat-radio-button>
+                        </mat-radio-group>
+                        <app-input-validation [control]="conferenceForm.get('is_paid')"></app-input-validation>
+                    </div>
+                    <mat-form-field class="col-12 col-sm-12 col-md-3" *ngIf="conferenceForm.get('is_paid').value===true">
+                        <input formControlName="cost" matInput placeholder="Enter cost" type="number">
+                    </mat-form-field>
+                    <div class="col-12 col-sm-12 col-md-3">
+                        <mat-slide-toggle formControlName="status">
+                            Status
+                        </mat-slide-toggle>
+                        <app-input-validation [control]="conferenceForm.get('status')"></app-input-validation>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-12" style="margin-top: 20px;">
+                        <app-upload-dialog [documentList] = "documentList" [imageSource] = "imageSource"
+                        [multipleSelection] ="false" (onFileUploadSuccess)="onFileUpload($event)"></app-upload-dialog>
+                    </div>
+
+                </div>
+                <div class="col-md-12">
+                    <button class="float-right" (click)="onSubmitForm()" mat-flat-button color="primary">Submit</button>
+                </div>
+            </form>
+        </mat-dialog-content>
+    </mat-card-content>
+</mat-card> -->
+<div>
+    <form nz-form [formGroup]="conferenceForm" class="ant-advanced-search-form">
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Enter conference title</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="title" id="title" placeholder="Enter conference title"/>
+            <ng-container *ngIf="submitted && conferenceForm.get('title').errors?.required">
+              <span class="clg-error-textcolor">Title is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="short_description" nz-typography>Short Description</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="short_description" id="short_description" placeholder="Enter short description"/>
+            <ng-container *ngIf="submitted && conferenceForm.get('short_description').errors?.required">
+              <span class="clg-error-textcolor"> Short Description is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="description" nz-typography>Enter description</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="description" id="description" placeholder="Enter description"/>
+            <ng-container *ngIf="submitted && conferenceForm.get('description').errors?.required">
+              <span class="clg-error-textcolor">Description is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="tags" nz-typography>Tags</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <nz-select nzMode="tags" nzPlaceHolder="Add Tag" formControlName="tags">
+              </nz-select>
+            <ng-container *ngIf="submitted && conferenceForm.get('tags').errors?.required">
+              <span class="clg-error-textcolor"> Tags are required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="redirect_link" nz-typography>Enter redirect link</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="redirect_link" id="redirect_link" placeholder="Enter redirect link"/>
+            <!-- <ng-container *ngIf="conferenceForm.get('redirect_link').errors?.required">
+                Redirect Link is required.
+            </ng-container> -->
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="is_paid" nz-typography>Is paid</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback >
+            <nz-radio-group formControlName="is_paid">
+                <label nz-radio [nzValue]="true">Yes</label>
+                <label nz-radio [nzValue]="false">No</label>
+              </nz-radio-group><br>
+            <ng-container *ngIf="submitted && conferenceForm.get('is_paid').errors?.required">
+              <span class="clg-error-textcolor"> Paid is required</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item *ngIf="conferenceForm.get('is_paid').value===true">
+        <nz-form-label [nzXs]="24" nzRequired nzFor="cost" nz-typography>Cost</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input formControlName="cost" id="cost" placeholder="Enter cost"/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="status" nz-typography>Status</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback >
+            <nz-switch formControlName="status" ></nz-switch>
+            <ng-container *ngIf="submitted && conferenceForm.get('status').errors?.required">
+              <span class="clg-error-textcolor"> Status is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <div nz-row>
+        <app-upload-dialog [documentList] = "documentList" [imageSource] = "imageSource"
+        [multipleSelection] ="false" (onFileUploadSuccess)="onFileUpload($event)"></app-upload-dialog>
+      </div>
+    </form>
+</div>

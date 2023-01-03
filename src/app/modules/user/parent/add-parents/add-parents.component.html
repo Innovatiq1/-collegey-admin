@@ -1,0 +1,58 @@
+<div>
+  <form nz-form [formGroup]="blogFormGroup" class="ant-advanced-search-form">
+    <nz-form-item>
+      <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Name</nz-form-label>
+      <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input formControlName="name" id="name" placeholder="Enter Name"/>
+          <ng-container *ngIf="blogFormGroup.get('name').errors?.required">
+              Name is required.
+          </ng-container>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzXs]="24" nzRequired nzFor="email" nz-typography>Email</nz-form-label>
+      <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input formControlName="email" id="email" placeholder="Enter Email"/>
+          <ng-container *ngIf="blogFormGroup.get('email').errors?.required">
+              Email is required.
+          </ng-container>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzXs]="24" nzRequired nzFor="password" nz-typography>Password</nz-form-label>
+      <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input formControlName="password" id="password" placeholder="Enter Password"/>
+          <ng-container *ngIf="blogFormGroup.get('password').errors?.required">
+              Password is required.
+          </ng-container>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzXs]="24" nzRequired nzFor="qualification" nz-typography>Qualification</nz-form-label>
+      <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input formControlName="qualification" id="qualification" placeholder="Enter Qualification"/>
+          <ng-container *ngIf="blogFormGroup.get('qualification').errors?.required">
+              Qualification is required.
+          </ng-container>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzXs]="24" nzRequired nzFor="tags" nz-typography>Phone Number</nz-form-label>
+      <nz-form-control [nzXs]="24" nzHasFeedback>
+        <input nz-input formControlName="phone_number" id="phone_number" placeholder="Enter Phone Number"/>
+        <ng-container *ngIf="blogFormGroup.get('phone_number').errors?.required">
+            Phone Number is required.
+        </ng-container>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzXs]="24" nzRequired nzFor="status" nz-typography>Status</nz-form-label>
+      <nz-form-control [nzXs]="24" nzHasFeedback >
+          <nz-switch formControlName="status" ></nz-switch>
+          <ng-container *ngIf="blogFormGroup.get('status').errors?.required">
+            Status is required.
+          </ng-container>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>

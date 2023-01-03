@@ -1,0 +1,31 @@
+<nb-card style="width: 100%;">
+    <nb-card-header>
+        <nz-page-header nzTitle="{{title}}">
+        <nz-page-header-extra>
+                <!-- <button nz-button nzType="primary" (click)="openModal(Mode.Create, null, null)" nz-typography>Add Academy Box</button> -->
+                <span>Total Answer:</span><span class="font-weight-bold">{{totalCount}}</span>
+            </nz-page-header-extra> 
+        </nz-page-header>
+    </nb-card-header>
+        <nz-list nzGrid nzBordered>
+            <div nz-row [nzGutter]="16" *ngFor="let listdata of assignData;  let j = index;">
+                <nz-list-item class="w-100">
+                    <nb-card class="cardFlex">
+                        <nb-card-header>
+                            <div class="headMain">
+                                <div class="mainLeft">
+                                    <span>{{j+1}}. </span>{{listdata.Answer}} &nbsp;
+                                </div>
+                                <div class="mainRight">
+                                    <a class="cardFlexLink" href="{{frontEndUrl}}profile/{{listdata.UserId}}/{{listdata.name}}" target="_blank">User Name:{{listdata.name}}</a>
+                                </div>
+                            </div>
+                        </nb-card-header>
+                        <!-- <nb-card-header class="cardFlexRight">
+                            <a href="{{frontEndUrl}}profile/{{listdata.UserId}}/{{listdata.name}}" target="_blank">User Name:{{listdata.name}}</a>
+                        </nb-card-header> -->
+                    </nb-card>
+                </nz-list-item>
+            </div>
+          </nz-list>
+</nb-card>

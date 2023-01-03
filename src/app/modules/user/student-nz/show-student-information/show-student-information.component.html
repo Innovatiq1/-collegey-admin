@@ -1,0 +1,513 @@
+<div class="clg-student-location-info">
+    <table class="table table-bordered">
+        <colgroup>
+            <col width="30%">
+            <col width="70%">
+        </colgroup>
+        <thead>
+            <tr>
+                <th colspan="2"><h5 style="font-size: 18px;margin: 0;">Location</h5></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td> <b>Country :</b> {{ProfileData?.countryname}} </td>
+                <td> <b>State :</b> {{ProfileData?.statename}}  </td>
+            </tr>
+            <tr>
+                <td> <b>City :</b> {{ProfileData?.cityname}}  </td>
+                <td> <b>Citizenship :</b> {{ProfileData?.student_profile?.geography?.citizenship}}  </td>
+            </tr>
+            <tr>
+                <td> <b>Time Zone :</b> {{ProfileData?.student_profile?.geography?.timezone}}  </td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="clg-student-education-info" *ngIf="ProfileData?.student_profile?.history_updated?.education?.length > 0">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th><h5>Education</h5></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let listeducation of ProfileData?.student_profile?.history_updated?.education; let i=index;">
+                <td>
+                    <h6 *ngIf="listeducation?.name">{{listeducation?.name}} <span *ngIf="listeducation?.locationCity"> | {{listeducation?.locationCity}} </span></h6>
+
+                    <div *ngIf="listeducation?.type != 'college student'">
+                        <p *ngFor="let gradeChosen of listeducation?.grade">
+                            <span *ngIf="gradeChosen?.tbd == undefined || gradeChosen?.tbd == false"> 
+                            Grade {{gradeChosen.name}} |
+                            {{gradeChosen.start_year}} - {{gradeChosen.end_year}} |
+                            grade - 
+                            <span *ngIf="gradeChosen.scoreType == 'Percentage'">{{gradeChosen.score}}%</span>
+                            <span *ngIf="gradeChosen.scoreType == 'GPA'">{{gradeChosen.score}} GPA</span>
+                            <span *ngIf="gradeChosen.scoreType == 'Score'">{{gradeChosen.score}} Score</span>
+                            <span *ngIf="gradeChosen.scoreType == 'Points'">{{gradeChosen.score}} Points</span>
+
+                            <a *ngIf="gradeChosen?.school_fileName != null" class="fa fa-file-text-o mx-2 mt-3 h4" aria-hidden="true" target="_blank" [href]="gradeChosen?.school_fileName"></a>
+                                
+                            <span style="display: block;" *ngFor="let listesubject of gradeChosen.field_of_study; let i=index;">
+                                {{listesubject}}
+                            </span>
+                        </span>
+                            
+                            <span *ngIf="gradeChosen.tbd == true">
+                            Grade {{gradeChosen.name}} |
+                            {{gradeChosen.start_year}} - {{gradeChosen.end_year}} |
+                            grade - TBD
+                           
+                            <a *ngIf="gradeChosen?.school_fileName != null" class="fa fa-file-text-o mx-2 mt-3 h4" aria-hidden="true" target="_blank" [href]="gradeChosen?.school_fileName"></a>
+
+                            <span style="display: block;" *ngFor="let listesubject of gradeChosen.field_of_study; let i=index;">
+                                {{listesubject}}
+                            </span>
+                        </span>
+                            
+                        </p>
+                    </div>
+
+                    <div *ngIf="listeducation?.type == 'college student'">
+                        {{listeducation?.start_year}} - {{listeducation?.end_year}}
+                        <p *ngFor="let gradeChosen of listeducation?.collegegrade">
+                            {{gradeChosen.name}} |
+                            grade - 
+                            <span *ngIf="gradeChosen.scoreType == 'Percentage'">{{gradeChosen.score}}%</span>
+                            <span *ngIf="gradeChosen.scoreType == 'GPA'">{{gradeChosen.score}} gpa</span>
+                            <span *ngIf="gradeChosen.scoreType == 'Score'">{{gradeChosen.score}} Score</span>
+                            <span *ngIf="gradeChosen.scoreType == 'Points'">{{gradeChosen.score}} Points</span>
+
+                            <a *ngIf="gradeChosen?.college_fileName != null" class="fa fa-file-text-o mx-2 mt-3 h4" aria-hidden="true" target="_blank" [href]="gradeChosen?.college_fileName"></a>
+
+                            <span style="display: block;" *ngFor="let listesubject of gradeChosen.field_of_study; let i=index;">
+                                {{listesubject}}
+                            </span>
+                        </p>
+                    </div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<div class="clg-student-Interests-info">
+    <table class="table table-bordered">
+        <colgroup>
+            <col width="50%">
+            <col width="50%">
+        </colgroup>
+        <thead>
+            <tr>
+                <th colspan="2"><h5 style="font-size: 18px;margin: 0;">Interests</h5></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td> <b>What are your main interest areas?</b> </td>
+                <td>
+                    <nz-tag [nzColor]="'gray'" *ngFor="let listInterest of ProfileData?.student_profile?.interest?.interest_area; let i=index;" nz-typography>{{listInterest}}</nz-tag>
+                </td>
+            </tr>
+            <tr>
+                <td> <b>List your favorite subjects</b> </td>
+                <td>
+                    <nz-tag [nzColor]="'gray'" *ngFor="let listInterestSubject of ProfileData?.student_profile?.interest?.fav_subjects; let i=index;" nz-typography>{{listInterestSubject}}</nz-tag>
+                </td>
+            </tr>
+            <tr>
+                <td> <b>What are two key problems that you think Abrama has?</b> </td>
+                <td>
+                    <nz-tag [nzColor]="'gray'" *ngIf="ProfileData?.student_profile?.interest?.key_problems" nz-typography>{{ProfileData?.student_profile?.interest?.key_problems}}</nz-tag>
+                    <nz-tag [nzColor]="'gray'" *ngIf="ProfileData?.student_profile?.interest?.secondkey_problems" nz-typography>{{ProfileData?.student_profile?.interest?.secondkey_problems}}</nz-tag>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="clg-student-favorites-info">
+    <table class="table table-bordered">
+        <colgroup>
+            <col width="50%">
+            <col width="50%">
+        </colgroup>
+        <thead>
+            <tr>
+                <th colspan="2"><h5 style="font-size: 18px;margin: 0;">Favorites</h5></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="2">
+                    <h6>Name 2 people who inspire you</h6>
+                </td>
+            </tr>
+            <tr>
+                <td *ngIf="ProfileData?.student_profile?.know_you_better?.people_who_inspire_you[0]?.name"> <b>Answer 1 :</b> {{ProfileData?.student_profile?.know_you_better?.people_who_inspire_you[0]?.name}}</td>
+                <td *ngIf="ProfileData?.student_profile?.know_you_better?.people_who_inspire_you[1]?.name"> <b>Answer 2 :</b> {{ProfileData?.student_profile?.know_you_better?.people_who_inspire_you[1]?.name}}</td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h6>List 2 of your favourite books</h6>
+                </td>
+            </tr>
+            <tr>
+                <td *ngIf="ProfileData?.student_profile?.know_you_better?.fav_books[0]?.name"> <b>Answer 1 :</b> {{ProfileData?.student_profile?.know_you_better?.fav_books[0]?.name}}</td>
+                <td *ngIf="ProfileData?.student_profile?.know_you_better?.fav_books[1]?.name"> <b>Answer 2 :</b> {{ProfileData?.student_profile?.know_you_better?.fav_books[1]?.name}}</td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h6>List 2 of your favourite documentaries/ movies</h6>
+                </td>
+            </tr>
+            <tr>
+                <td *ngIf="ProfileData?.student_profile?.know_you_better?.fav_movies[0]?.name"> <b>Answer 1 :</b> {{ProfileData?.student_profile?.know_you_better?.fav_movies[0]?.name}}</td>
+                <td *ngIf="ProfileData?.student_profile?.know_you_better?.fav_movies[1]?.name"> <b>Answer 2 :</b> {{ProfileData?.student_profile?.know_you_better?.fav_movies[1]?.name}}</td>
+            </tr>
+           
+            <tr>
+                <td colspan="2">
+                    <h6>List 2 of your favorite activities on the internet.</h6>
+                </td>
+            </tr>
+            <tr>
+                <td *ngIf="ProfileData?.student_profile?.know_you_better?.fav_movies[0]?.name"> <b>Answer 1 :</b> {{ProfileData?.student_profile?.know_you_better?.fav_movies[0]?.name}}</td>
+                <td *ngIf="ProfileData?.student_profile?.know_you_better?.fav_movies[1]?.name"> <b>Answer 2 :</b> {{ProfileData?.student_profile?.know_you_better?.fav_movies[1]?.name}}</td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h6>Your 3 favourite websites</h6>
+                </td>
+            </tr>
+            <tr>
+                <td *ngIf="ProfileData?.student_profile?.know_you_better?.fav_websites1"> <b>Website 1 :</b> {{ProfileData?.student_profile?.know_you_better?.fav_websites1}}</td>
+                <td *ngIf="ProfileData?.student_profile?.know_you_better?.fav_websites2"> <b>Website 2 :</b> {{ProfileData?.student_profile?.know_you_better?.fav_websites2}}</td>
+            </tr>
+            <tr>
+                <td *ngIf="ProfileData?.student_profile?.know_you_better?.fav_websites3"> <b>Website 3 :</b> {{ProfileData?.student_profile?.know_you_better?.fav_websites3}}</td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h6>Your favorite text messaging service</h6>
+                </td>
+            </tr>
+            <tr>
+                <td *ngIf="ProfileData?.student_profile?.know_you_better?.fav_message_service"> <b>Messaging Services:</b> {{ProfileData?.student_profile?.know_you_better?.fav_message_service}}</td>
+                <td></td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+
+<div class="clg-student-project-info">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th><h5 style="font-size: 18px;margin: 0;">Project & Accomplishments</h5></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <td>
+                    <h6>Describe any independent or class project that you have done</h6>
+                    <ul *ngFor="let listeProject of ProfileData?.student_profile?.projects?.describe_any_project; let i=index;">
+                        <li><p class="project-title"><b>{{listeProject?.title}}</b></p></li>
+                        <li><p class="project-dec"> {{listeProject?.description}} </p></li>
+                        <li><p><a href="{{listeProject?.project_url}}">{{listeProject?.project_url}}</a></p></li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <h6>Share any writing sample, essays or any of your published or in-progress work that you wish to share</h6>
+                    <div class="profile-detail" *ngFor="let listeProject of ProfileData?.student_profile?.projects?.writing_sample; let i=index;">
+                            <p><b>{{listeProject?.title}}</b></p>
+                            <p>{{listeProject?.description}}</p>
+                            <ul>
+                                <li *ngFor="let image of listeProject?.file">
+                                    <p class="document-uploaded">
+                                        <a [href]="commonService.imagePathS3(image)" style="color: #007bff;">{{sliceImageName(image)}}</a>
+                                    </p>
+                                </li>
+                            </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <h6>Upload your Letters of Recommendation (LoRs) or References.</h6>
+                    <div class="profile-detail" *ngFor="let listeProjectFile of ProfileData?.student_profile?.projects?.someone_said_something_or_recommendation; let i=index;">
+                            <p><b>{{listeProjectFile?.title}}</b></p>
+                            <p>{{listeProjectFile?.description}}</p>
+                            <ul>
+                                <li *ngFor="let image of listeProjectFile?.file">
+                                    <p class="document-uploaded">
+                                        <a [href]="commonService.imagePathS3(image)" style="color: #007bff;">{{sliceImageName(image)}}</a>
+                                    </p>
+                                </li>
+                            </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <h6>Let’s showcase your credentials</h6>
+                    <div class="profile-detail" *ngFor="let award of ProfileData?.student_profile?.projects?.award; let i=index;">
+                            <p><b>{{award?.title}} ({{award?.type}})</b></p>
+                            <p>{{award?.duration[0]}} , {{award?.duration[1]}}</p>
+                    </div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<div class="clg-student-future-education-info">
+    <table class="table table-bordered">
+        <colgroup>
+            <col width="50%">
+            <col width="50%">
+        </colgroup>
+        <thead>
+            <tr>
+                <th colspan="2"><h5 style="font-size: 18px;margin: 0;">Future Education Plans</h5></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="2">
+                    <h6>Help us curate events, conversations, and resources for your better future options</h6>
+                </td>
+            </tr>
+            <tr>
+                <td *ngIf="ProfileData?.student_profile?.headed?.expected_year_to_start?.grade"> <b>You Want To Pursue: </b> {{ProfileData?.student_profile?.headed?.expected_year_to_start?.grade}}</td>
+                <td *ngIf="ProfileData?.student_profile?.headed?.expected_year_to_start?.year"> <b>Expected Year Of Complitetion  :</b> {{ProfileData?.student_profile?.headed?.expected_year_to_start?.year}}</td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h6>Select country</h6>
+                </td>
+            </tr>
+            <tr>
+                <td *ngIf="ProfileData?.student_profile?.headed?.preferred_countries?.length > 0">
+                    <nz-tag [nzColor]="'gray'" *ngFor="let listPreferredCountry of ProfileData?.student_profile?.headed?.preferred_countries; let i=index;" nz-typography>{{listPreferredCountry?.item_text}}</nz-tag>
+                </td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h6>10 universities/colleges you wish to attend</h6>
+                </td>
+            </tr>
+            <tr>
+                <td *ngIf="ProfileData?.student_profile?.headed?.institutes_Wishlist?.length > 0">
+                    <nz-tag [nzColor]="'gray'" *ngFor="let listWishInstitute of ProfileData?.student_profile?.headed?.institutes_Wishlist; let i=index;" nz-typography>{{listWishInstitute?.institute_name}}</nz-tag>
+                </td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h6>Have you taken or plan to take any of the following tests?</h6>
+                </td>
+            </tr>
+            <tr *ngIf="ProfileData?.student_profile?.headed?.test_info?.length > 0">
+                <td colspan="2">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th><b>Test:</b></th>
+                                <th><b>Taken:</b></th>
+                                <th><b>Date:</b></th>
+                                <th><b>Score:</b></th>
+                            </tr>
+                            <tr *ngFor="let listTest of ProfileData?.student_profile?.headed?.test_info; let i=index;">
+                                <td> {{listTest?.test_name}}</td>
+                                <td> {{listTest?.test_status}}</td>
+                                <td> {{listTest?.test_date | date: 'yyyy-MM-dd'}}</td>
+                                <td> {{listTest?.current_score}}</td>
+                            </tr>
+                        </tbody>
+                        
+                    </table>
+                </td>
+            </tr>
+           
+            <tr>
+                <td colspan="2">
+                    <h6>What do you wish to study?</h6>
+                </td>
+            </tr>
+
+            <tr *ngFor="let listWish of ProfileData?.student_profile?.headed?.wish_to_study; let i=index;">
+                <td> <b>You Want To Pursue:</b> {{listWish?.subjects}}</td>
+                <td> <b>Specify Major:</b> {{listWish?.majors}}</td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<div class="clg-student-preferences-info">
+    <table class="table table-bordered">
+        <colgroup>
+            <col width="50%">
+            <col width="50%">
+        </colgroup>
+        <thead>
+            <tr>
+                <th colspan="2"><h5 style="font-size: 18px;margin: 0;">Preferences</h5></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="2">
+                    <h6>For your education, Do you wish to apply for scholarships?</h6>
+                </td>
+            </tr>
+            <tr>
+                <td *ngIf="ProfileData?.student_profile?.prefrences?.wish_to_apply_for_scholarships">Yes</td>
+                <td *ngIf="!ProfileData?.student_profile?.prefrences?.wish_to_apply_for_scholarships">No</td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h6>How Important is it?</h6>
+                </td>
+            </tr>
+            <tr>
+                <td *ngIf="ProfileData?.student_profile?.prefrences?.wish_to_apply_for_scholarships?.imoprtance">{{ProfileData?.student_profile?.prefrences?.wish_to_apply_for_scholarships?.imoprtance}}</td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h6>How much you would like to pay per year for your future education?</h6>
+                </td>
+            </tr>
+            <tr>
+                <td *ngIf="ProfileData?.student_profile?.prefrences?.how_would_like_to_pay"> <b>Amount:</b> {{ProfileData?.student_profile?.prefrences?.how_would_like_to_pay}}</td>
+                <td *ngIf="ProfileData?.student_profile?.prefrences?.future_privacy"> <b>Privacy:</b> {{ProfileData?.student_profile?.prefrences?.future_privacy}}</td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h6>Approximate family income per year (For records only. Collegey does not sell your data)</h6>
+                </td>
+            </tr>
+            <tr>
+                <td *ngIf="ProfileData?.student_profile?.prefrences?.family_income"> <b>Amount:</b> {{ProfileData?.student_profile?.prefrences?.family_income}}</td>
+                <td *ngIf="ProfileData?.student_profile?.prefrences?.privacy"> <b>Privacy:</b> {{ProfileData?.student_profile?.prefrences?.privacy}}</td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h6>Are you interested in taking a Gap Year or a Summer Program?</h6>
+                </td>
+            </tr>
+            <tr>
+                <td *ngIf="ProfileData?.student_profile?.prefrences?.interested_in_gap">{{ProfileData?.student_profile?.prefrences?.interested_in_gap}}</td>
+                <td></td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+
+
+<div class="clg-student-personal-info">
+    <table class="table table-bordered">
+        <colgroup>
+            <col width="50%">
+            <col width="50%">
+        </colgroup>
+        <thead>
+            <tr>
+                <th colspan="2"><h5 style="font-size: 18px;margin: 0;">Personal</h5></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td colspan="2">
+                    <h6>Personal Info</h6>
+                </td>
+            </tr>
+            <tr>
+                <td> <b>Full Name:</b> {{ProfileData?.name}} {{ProfileData?.last_name}}</td>
+                <td> <b>Date of Birth:</b> {{ProfileData?.student_profile?.ways_to_be_in_touch?.dob | date:'MMM d, y'}}</td>
+            </tr>
+            <tr>
+                <td> <b>Age:</b>  {{ProfileData?.student_profile?.ways_to_be_in_touch?.age }} Year</td>
+                <td> <b>Email:</b>  {{ProfileData?.email}}</td>
+            </tr>
+            <tr>
+                <td> <b>Mobile Number:</b> {{ProfileData?.student_profile?.ways_to_be_in_touch?.phone_number?.extension}}  {{ProfileData?.student_profile?.ways_to_be_in_touch?.phone_number?.number}}</td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h6>Family/Mother/Guardian Info</h6>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                     <b *ngIf="ProfileData?.student_profile?.ways_to_be_in_touch?.parents_details?.relation == 'father'">Father’s Name:</b>    
+                     <b *ngIf="ProfileData?.student_profile?.ways_to_be_in_touch?.parents_details?.relation == 'mother'">Mother's Name:</b>    
+                     <b *ngIf="ProfileData?.student_profile?.ways_to_be_in_touch?.parents_details?.relation == 'guardian'">Guardian's Name:</b>    
+                    Test</td>
+                <td> <b>Email:</b> {{ProfileData?.student_profile?.ways_to_be_in_touch?.parents_details?.email}}</td>
+            </tr>
+            <tr>
+                <td> <b>Mobile Number:</b> {{ProfileData?.student_profile?.ways_to_be_in_touch?.parents_details?.phone_number?.extension}} {{ProfileData?.student_profile?.ways_to_be_in_touch?.parents_details?.phone_number?.number}}</td>
+                <td> <b>Privacy:</b> {{ProfileData?.student_profile?.ways_to_be_in_touch?.parents_details?.privacy}}</td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h6>School Counselor Info</h6>
+                </td>
+            </tr>
+            <tr>
+                <td style="word-break:break-all"> <b>Full Name:</b> {{ProfileData?.student_profile?.ways_to_be_in_touch?.school_counselor[0]?.name}}</td>
+                <td style="word-break:break-all"> <b>Email:</b> {{ProfileData?.student_profile?.ways_to_be_in_touch?.school_counselor[0]?.email}}</td>
+            </tr>          
+            <tr>
+                <td> <b>Privacy:</b> {{ProfileData?.student_profile?.ways_to_be_in_touch?.school_counselor[0]?.privacy}}</td>
+            </tr>
+               
+            <tr>
+                <td colspan="2">
+                    <h6>Your Social Media Info</h6>
+                </td>
+            </tr>
+            <tr *ngFor="let socialMediaData of ProfileData?.student_profile?.ways_to_be_in_touch?.social_media">
+                <td> <b>Channel Name:</b> {{socialMediaData.channel_name}}</td>
+                <td> <b>Url: </b> <a href="{{socialMediaData.channel_link}}" target="_blank">{{socialMediaData.channel_link}}</a></td>
+            </tr>
+           
+        </tbody>
+    </table>
+</div>

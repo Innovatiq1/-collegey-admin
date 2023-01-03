@@ -1,0 +1,86 @@
+<mat-progress-bar mode="indeterminate" [hidden]="!isLoading"></mat-progress-bar>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{webinarDetail?.title}}</mat-card-title>
+        <span class="spacer"></span>
+        <span>
+            <button mat-icon-button (click)="editWebinar()">
+                <mat-icon>edit</mat-icon>
+            </button>
+        </span>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-tab-group>
+            <mat-tab label="Details">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>Title</td>
+                            <td>{{webinarDetail?.title}}</td>
+                        </tr>
+                        <tr>
+                            <td>Date</td>
+                            <td>{{webinarDetail?.date | date: 'yyyy-MM-dd'}}</td>
+                        </tr>
+                        <tr>
+                            <td>Slug</td>
+                            <td>{{webinarDetail?.slug}}</td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td>{{webinarDetail?.description}}</td>
+                        </tr>
+                        <tr>
+                            <td>Is Paid</td>
+                            <td>{{webinarDetail?.is_paid ? 'Yes' : 'No'}}</td>
+                        </tr>
+                        <tr>
+                            <td>Cost</td>
+                            <td><span *ngIf="webinarDetail?.is_paid">{{webinarDetail?.cost | currency:"&#8377;"}}</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>status</td>
+                            <td>{{webinarDetail?.status === 1 ? 'Active' : "InActive"}}</td>
+                        </tr>
+                        <tr>
+                            <td>Video Url</td>
+                            <td>
+                                <a href="webinarDetail?.video_url" target="_blank">
+                                    {{webinarDetail?.video_url}}
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Image</td>
+                            <td>
+                                <a [href]="commonService.imagePathMaker(webinarDetail?.image)" target="_blank">
+                                    {{webinarDetail?.image | imageName}}
+                                </a>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Tags</td>
+                            <td>
+                                <ul>
+                                    <li *ngFor="let tags of webinarDetail?.tags">
+                                        {{tags}}
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Updated at</td>
+                            <td>{{webinarDetail?.updatedAt | date: 'yyyy-MM-dd'}}</td>
+                        </tr>
+                        <tr>
+                            <td>Created at</td>
+                            <td>{{webinarDetail?.createdAt | date: 'yyyy-MM-dd'}}</td>
+                        </tr>
+                    </thead>
+                </table>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-card-content>
+</mat-card>

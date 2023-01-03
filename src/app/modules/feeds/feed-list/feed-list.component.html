@@ -1,0 +1,51 @@
+<nb-card style="width: 100%;">
+    <nb-card-header>
+        <nz-page-header nzTitle="Collegey Feeds Listing">
+            <!-- <nz-page-header-extra>
+                <button nz-button nzType="primary" (click)="openModal(Mode.Create, null, null)" nz-typography>Create An Announcement</button>
+            </nz-page-header-extra> -->
+        </nz-page-header>
+    </nb-card-header>
+        <nz-list nzGrid nzBordered>
+            <div nz-row [nzGutter]="16" *ngFor="let feed of feedData;  let j = index;">
+                <nz-list-item class="w-100">
+                    <nb-card style="width: 100%;">
+                        <nb-card-header>
+                            {{feed?.postText}} 
+                            <nz-tag [nzColor]="'green'" *ngIf="feed.isDeleted == false" nz-typography>Active</nz-tag>
+                            <nz-tag [nzColor]="'red'" *ngIf="feed.isDeleted == true" nz-typography>Deactivated</nz-tag>
+                            <ng-container>
+                                <button nz-button nz-dropdown [nzDropdownMenu]="menu" [nzPlacement]="'bottomLeft'" style="float: right;">Actions <i nz-icon nzType="down"></i></button>
+                                <nz-dropdown-menu #menu="nzDropdownMenu">
+                                    <ul nz-menu>
+                                        <!-- <li nz-menu-item>
+                                            <a (click)="deleteFeed(feed._id)">Deactivate</a>
+                                        </li> -->
+                                        <li nz-menu-item>
+                                            <a (click)="viewFeed(feed._id, feed)">View</a>
+                                        </li>
+                                        <li nz-menu-item>
+                                            <a (click)="editFeed(feed._id, feed)">Edit</a>
+                                        </li>
+                                        <li nz-menu-item *ngIf="feed.isDeleted">
+                                            <a (click)="deleteFeed(feed._id, false)">Activate</a>
+                                        </li>
+                                        <li nz-menu-item *ngIf="!feed.isDeleted">
+                                            <a (click)="deleteFeed(feed._id, true)">Deactivate</a>
+                                        </li>
+                                        <!-- <li nz-menu-item>
+                                            <a (click)="openModal(Mode.Edit, qnaList._id, qnaList)">Edit</a>
+                                        </li> -->
+                                    </ul>
+                                </nz-dropdown-menu>
+                              </ng-container>
+                        </nb-card-header>
+                        <nb-card-body>
+                            Posted By: {{feed?.user?.name}}
+                        </nb-card-body>
+                    </nb-card>
+                </nz-list-item>
+            </div>
+          </nz-list>
+</nb-card>
+<app-load-more [isLoading]="isLoading" [isHidden]="feedData?.length<=0"></app-load-more>

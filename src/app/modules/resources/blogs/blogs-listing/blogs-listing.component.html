@@ -1,0 +1,58 @@
+<!-- <mat-progress-bar mode="indeterminate" [hidden]="!isLoading"></mat-progress-bar> -->
+<nb-card style="width: 100%;">
+    <nb-card-header>
+        <nz-page-header nzTitle="Blog Listing">
+            <!-- <button class="create-user-btn" mat-stroked-button color="primary" (click)="openCreateBlogModal()">Create a Blog</button> -->
+            <nz-page-header-extra>
+                <button nz-button nzType="primary" (click)="openModal(Mode.Create, null, null)" nz-typography>Create a Blog</button>
+            </nz-page-header-extra>
+            <nz-page-header-content>
+                <nz-input-group [nzSuffix]="suffixIconSearch">
+                <input type="text" nz-input placeholder="input search text" #searchBox [(ngModel)]="searchText"/>
+                </nz-input-group>
+                <ng-template #suffixIconSearch>
+                <i nz-icon nzType="search"></i>
+                </ng-template>
+            </nz-page-header-content>
+        </nz-page-header>
+    </nb-card-header>
+        <nz-list nzGrid nzBordered>
+            <div nz-row [nzGutter]="16" *ngFor="let blog of blogsList let j = index">
+                <nz-list-item>
+                    <nb-card style="width: 100%;">
+                        <nb-card-header>
+                            <span>{{j+1}}. </span>{{blog?.title}}
+                            <nz-tag [nzColor]="'green'" *ngIf="blog.status == 1" nz-typography>Active</nz-tag>
+                            <nz-tag [nzColor]="'red'" *ngIf="blog.status == 2" nz-typography>In-Active</nz-tag>
+                            <ng-container>
+                                <button nz-button nz-dropdown [nzDropdownMenu]="menu" [nzPlacement]="'bottomLeft'" style="float: right;">Actions <i nz-icon nzType="down"></i></button>
+                                <nz-dropdown-menu #menu="nzDropdownMenu">
+                                    <ul nz-menu>
+                                        <li nz-menu-item>
+                                            <a (click)="openModal(Mode.Edit, blog._id, blog)">Edit</a>
+                                        </li>
+                                    </ul>
+                                </nz-dropdown-menu>
+                              </ng-container>
+                              <div>
+                                  <p style="display: flex; margin:0px; margin-top: 10px; margin-left: 5px;">Author: {{blog?.author}}</p>
+                              </div>
+                        </nb-card-header>
+                        <nb-card-body>
+                            {{blog?.short_description}}
+                            <div style="margin: 10px;">
+                                <!-- <nz-tag [nzColor]="'gold'" nz-typography>{{blog?.is_paid ? 'Paid' : 'Not Paid'}}</nz-tag> -->
+                                <!-- <nz-tag [nzColor]="'gold'" *ngIf="blog.is_paid" nz-typography>{{blog?.cost}}</nz-tag> -->
+                                <!-- <nz-tag [nzColor]="'gold'" *ngIf="blog.editorPick"nz-typography>Editor's Pick</nz-tag> -->
+                            </div>
+                        </nb-card-body>
+                        <nb-card-footer>
+                            <nz-tag [nzColor]="'gray'" *ngFor="let tag of blog.tags;  let i = index;" nz-typography>{{tag}}</nz-tag>
+                        </nb-card-footer>
+                    </nb-card>
+                </nz-list-item>
+            </div>
+          </nz-list>
+</nb-card>
+
+<app-load-more [isLoading]="isLoading" [isHidden]="blogsList.length<=0"></app-load-more>

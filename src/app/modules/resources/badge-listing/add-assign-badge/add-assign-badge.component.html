@@ -1,0 +1,48 @@
+<div>
+    <form nz-form [formGroup]="uploadLogoForm" class="ant-advanced-search-form">
+      
+      <div class="col-md-12" style="padding-top:10px;">
+        <label for="badgeId">Select Badge</label>
+        <select class="form-control" id="badgeId" formControlName="badgeId" name="badgeId">
+          <option value="">Select Badge</option>
+          <option *ngFor="let item of badgeList" value="{{item._id}}">{{item.title}}</option>
+        </select>
+        <span *ngIf="uploadLogoForm && hasErrorEvent('badgeId','required')" class="d-block" style="color: red;">Select badge is required.</span>
+      </div>
+
+      <div class="col-md-12" style="padding-top:10px;">
+        <label for="userType">Select User Type</label>
+        <select class="form-control" id="userType" formControlName="userType" name="userType" (change)="updateuserType($event.target.value)">
+          <option value="">Select User Type</option> 
+          <option value="student">Student</option>
+          <option value="mentor">Mentor</option>
+        </select>
+        <span *ngIf="uploadLogoForm && hasErrorEvent('userType','required')" class="d-block" style="color: red;">Select user type is required.</span>
+      </div>
+      <div class="col-md-12" style="padding-top:10px;">
+        <label for="assignUserId">Select Users</label>
+        <select class="form-control" id="assignUserId" formControlName="assignUserId" name="assignUserId">
+          <option value="">Select Users</option>
+          <option *ngFor="let users of usersList" value="{{users._id}}">{{users.name}} {{users.last_name}}</option>
+        </select>
+        <span *ngIf="uploadLogoForm && hasErrorEvent('assignUserId','required')" class="d-block" style="color: red;">Select user is required.</span>
+      </div>
+      <!-- 
+      <div class="form-row" style="padding-top:10px;">
+         <div class="col-md-12" style="padding-top:10px;">
+          <label for="assignUserId">Select Users</label>
+          <ng-multiselect-dropdown
+            formControlName="assignUserId" 
+            [placeholder]="'Select Invite Guests'" 
+            [settings]="dropdownSettings" 
+            [data]="userListOptions"  
+            (onSelect)="addingGuest($event)"
+          >      
+          </ng-multiselect-dropdown> 
+          <span *ngIf="uploadLogoForm && hasErrorEvent('assignUserId','required')" class="d-block" style="color: red;">Please select user</span>
+        </div> 
+      </div>-->
+    </form>
+</div>
+
+ 

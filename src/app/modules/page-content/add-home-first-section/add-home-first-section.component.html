@@ -1,0 +1,54 @@
+<div>
+    <form nz-form [formGroup]="pageContentForm" class="ant-advanced-search-form">
+
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="description" nz-typography>Banner Text</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <textarea matInput formControlName="title" id="title" placeholder="Enter Banner Text"
+                    style="padding: 5px 5px;width: 100%;resize: none;height: 80px;"></textarea>
+                <ng-container *ngIf="pageContentForm.get('title').errors?.required && submit">
+                    Banner Text is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="midleTitle" nz-typography>Mid Banner Text</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="midleTitle" id="midleTitle" placeholder="Enter Mid Banner Text" />
+                <ng-container *ngIf="pageContentForm.get('midleTitle').errors?.required && submit">
+                    Mid Banner Text is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Sub Banner Text</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="subTitle" id="title" placeholder="Enter Sub Banner Text" />
+                <ng-container *ngIf="pageContentForm.get('subTitle').errors?.required && submit">
+                    Sub Banner Text is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="status" nz-typography>Status</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <nz-switch formControlName="status"></nz-switch>
+                <ng-container *ngIf="pageContentForm.get('status').errors?.required && submit">
+                    Status is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+
+        <div nz-row>
+            <input type="file" (change)="onFileUpload($event)"  accept=".png,.jpeg,.jpg" />
+        </div>
+        <div style="color: green;">
+            Accept only png, jpeg, jpg. <span> (Please upload around image size 1800 x 700)</span>
+        </div>
+        <img *ngIf="selectFile" alt="project" style="height: 100px; width: 100px;margin-top: 5px;" src="{{selectFile}}">
+
+    </form>
+</div>

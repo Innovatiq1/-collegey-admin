@@ -1,0 +1,9 @@
+.ant-list-item {
+    width: 100% !important;
+}
+.ant-list-item .nb-theme-default nb-card {
+    width: 100% !important;
+}
+.desc {
+    margin: 10px;
+}

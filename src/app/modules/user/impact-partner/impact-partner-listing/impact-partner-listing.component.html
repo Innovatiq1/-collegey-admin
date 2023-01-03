@@ -1,0 +1,34 @@
+<mat-progress-bar mode="indeterminate" [hidden]="!isLoading"></mat-progress-bar>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Impact Partner Listing</mat-card-title>
+    <button class="create-user-btn" mat-stroked-button color="primary"
+    (click)="openCreateImpactPartnerModal()">Create Impact Partner</button>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>SNo.</th>
+            <th>Slug</th>
+            <th>Organization Name</th>
+            <th>Phone Number</th>
+            <th>Email</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let partner of impactPartnerList;  let i = index;">
+            <td>{{i+1}}</td>
+            <td>{{partner?.slug}}</td>
+            <td>{{partner?.name}}</td>
+            <td>{{partner?.phone_number[0]?.extension}} {{partner?.phone_number[0]?.number}}</td>
+            <td>{{partner?.email}}</td>
+            <td><mat-icon title="view detail" [routerLink]="['/users/impact-partner/' + partner?._id]">visibility</mat-icon>
+            </td> 
+
+        </tbody>
+      </table>
+    </div>
+  </mat-card-content>
+</mat-card>

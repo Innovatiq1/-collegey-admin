@@ -1,0 +1,54 @@
+<mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            STEP 8 - PREFERENCES
+        </mat-panel-title>
+        <mat-panel-description>
+            click to enter your details
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form *ngIf="studentPreferencesForm" [formGroup]="studentPreferencesForm" (ngSubmit)="onSubmitForm()">
+        <ng-container formGroupName="student_profile">
+            <ng-container formGroupName="prefrences">
+                <div class="row">
+                    <div class="col-md-6 mb-12">
+                        <label class="label-form">Are you interested in taking a Gap Year or a Summer Program?</label>
+                        <mat-radio-group aria-label="Select an option" formControlName="interested_in_gap">
+                            <mat-radio-button [value]="true">Yes</mat-radio-button>
+                            <mat-radio-button [value]="false">No</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <div class="col-md-6">
+                        <ng-select [items]="studentPayPerYears" class="reduce-spacing" [multiple]="true" bindLabel="name" bindValue="name" [searchable]="true" [clearable]="false" placeholder="How much you would like to pay per year for your graduate?" formControlName="how_would_like_to_pay"></ng-select>
+                    </div>
+                    <div class="col-md-6" formGroupName="wish_to_apply_for_scholarships">
+                        <label class="label-form">Do you wish to apply for scholarships?</label>
+                        <mat-radio-group aria-label="Select an option" formControlName="answer">
+                            <mat-radio-button [value]="true">Yes</mat-radio-button>
+                            <mat-radio-button [value]="false">No</mat-radio-button>
+                        </mat-radio-group>
+                        <div class="show-fields-box" *ngIf="studentPreferencesForm.get('student_profile').get('prefrences').get('wish_to_apply_for_scholarships').get('answer').value===true">
+                            <label class="label-form">How important is this for you:</label>
+                            <mat-radio-group aria-label="Select an option" formControlName="imoprtance">
+                                <mat-radio-button value="Very important">Very important</mat-radio-button>
+                                <mat-radio-button value="Good to have">Good to have</mat-radio-button>
+                                <mat-radio-button value="don’t care much">don’t care much</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="full-width">
+                            <mat-label>Approximate family income (per year)</mat-label>
+                            <mat-select formControlName="family_income" placeholder="How would like to pay">
+                                <mat-option *ngFor="let studentFamilyIncome of studentFamilyIncomes" [value]="studentFamilyIncome">
+                                    {{studentFamilyIncome}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
+        <button class="float-right" mat-flat-button color="primary" type="submit">Save</button>
+    </form>
+
+</mat-expansion-panel>

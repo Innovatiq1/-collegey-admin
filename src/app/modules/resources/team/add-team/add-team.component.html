@@ -1,0 +1,53 @@
+<div>
+    <form nz-form [formGroup]="teamForm" class="ant-advanced-search-form">
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="name" nz-typography>Enter name</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="name" id="name" placeholder="Enter name"/>
+            <ng-container *ngIf="submitted && teamForm.get('name').errors?.required">
+              <span class="clg-error-textcolor">Name is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="designation" nz-typography>Enter Designation</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="designation" id="designation" placeholder="Enter Designation"/>
+            <ng-container *ngIf="submitted && teamForm.get('designation').errors?.required">
+              <span class="clg-error-textcolor">Designation is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="description" nz-typography>Enter description</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="description" id="description" placeholder="Enter description"/>
+            <ng-container *ngIf="submitted && teamForm.get('description').errors?.required">
+              <span class="clg-error-textcolor">Description is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="lindkin" nz-typography>Enter linkden link</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="lindkin" id="lindkin" placeholder="Enter linkden link"/>
+            <ng-container *ngIf="submitted && teamForm.get('lindkin').errors?.required">
+              <span class="clg-error-textcolor">Description is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="position" nz-typography>Enter position</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="position" id="position" placeholder="Enter position"/>
+            <ng-container *ngIf="submitted && teamForm.get('position').errors?.required">
+              <span class="clg-error-textcolor">Description is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <div nz-row>
+        <app-upload-dialog [documentList] = "documentList" [imageSource] = "imageSource"
+        [multipleSelection] ="false" (onFileUploadSuccess)="onFileUpload($event)"></app-upload-dialog>
+      </div>
+    </form>
+</div>

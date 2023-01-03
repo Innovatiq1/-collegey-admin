@@ -1,0 +1,73 @@
+<mat-progress-bar mode="indeterminate" [hidden]="!isLoading"></mat-progress-bar>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{!partner ? 'Add School Partner' : 'Update School Partner'}}</mat-card-title>
+        <span class="spacer"></span>
+        <span>
+      <button mat-icon-button>
+        <mat-icon (click)="closeModal()">close</mat-icon>
+      </button>
+    </span>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-dialog-content class="m-0" style="max-width: 700px;">
+            <form [formGroup]="schoolPartnerGroup" (ngSubmit)="onSubmitForm()">
+                <div class="row">
+                    <mat-form-field class="col-12 col-sm-12 col-md-6">
+                        <input formControlName="name" matInput placeholder="School name">
+                        <app-input-validation [control]="schoolPartnerGroup.get('name')"></app-input-validation>
+                    </mat-form-field>
+                    <mat-form-field class="col-12 col-sm-12 col-md-6">
+                        <input formControlName="email" matInput placeholder="Ex. user@example.com">
+                        <app-input-validation [control]="schoolPartnerGroup.get('email')"></app-input-validation>
+                    </mat-form-field>
+                    <mat-form-field class="col-12 col-sm-12 col-md-6">
+                        <input formControlName="password" matInput placeholder="Password" type="password">
+                        <app-input-validation [control]="schoolPartnerGroup.get('password')"></app-input-validation>
+                    </mat-form-field>
+                    <div class="col-12 col-sm-12 col-md-6">
+                        <ng-select class="reduce-spacing" [items]="countries" bindLabel="name" bindValue="id" [searchable]="true" [clearable]="false" placeholder="Countries" formControlName="country" (change)="onSelectCountry($event)">
+                        </ng-select>
+                        <app-input-validation [control]="schoolPartnerGroup.get('country')"></app-input-validation>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6">
+                        <ng-select class="reduce-spacing mb-12" [items]="states" bindLabel="name" bindValue="id" [searchable]="true" [clearable]="false" placeholder="States" formControlName="state" (change)="onSelectState($event)">
+                        </ng-select>
+                        <app-input-validation [control]="schoolPartnerGroup.get('state')"></app-input-validation>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6">
+                        <ng-select class="reduce-spacing mb-12" [items]="cities" formControlName="city" bindLabel="name" bindValue="id" [searchable]="true" [clearable]="false" placeholder="Cities"></ng-select>
+                        <app-input-validation [control]="schoolPartnerGroup.get('city')"></app-input-validation>
+                    </div>
+                    <ng-container formGroupName="school_partner">
+                        <mat-form-field class="col-12 col-sm-12 col-md-6">
+                            <input formControlName="principal_name" matInput placeholder="Principal name">
+                            <app-input-validation [control]="schoolPartnerGroup.get('school_partner').get('principal_name')">
+                            </app-input-validation>
+                        </mat-form-field>
+                        <mat-form-field class="col-12 col-sm-12 col-md-6">
+                            <input formControlName="counselor_name" matInput placeholder="Counselor name">
+                            <app-input-validation [control]="schoolPartnerGroup.get('school_partner').get('counselor_name')">
+                            </app-input-validation>
+                        </mat-form-field>
+                        <mat-form-field class="col-md-6 full-width">
+                            <mat-select formControlName="curriculum" placeholder="Which curriculum do you offer">
+                                <mat-option *ngFor="let studentSchoolBoard of studentSchoolBoards" [value]="studentSchoolBoard">{{studentSchoolBoard}}</mat-option>
+                            </mat-select>
+                            <app-input-validation [control]="schoolPartnerGroup.get('school_partner').get('curriculum')">
+                            </app-input-validation>
+                        </mat-form-field>
+                        <mat-form-field class="full-width col-md-6" *ngIf="schoolPartnerGroup.get('school_partner').get('curriculum').value==='State board/other'">
+                            <input matInput type="text" formControlName="other_text" placeholder="Enter your school curriculum">
+                            <app-input-validation [control]="schoolPartnerGroup.get('school_partner').get('other_text')">
+                            </app-input-validation>
+                        </mat-form-field>
+                    </ng-container>
+                </div>
+                <div class="col-md-12">
+                    <button class="float-right" type="submit" mat-flat-button color="primary">Submit</button>
+                </div>
+            </form>
+        </mat-dialog-content>
+    </mat-card-content>
+</mat-card>

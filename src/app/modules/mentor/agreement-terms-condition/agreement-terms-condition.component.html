@@ -1,0 +1,31 @@
+<div>
+  <form nz-form [formGroup]="aggrementForm" class="ant-advanced-search-form">
+    
+    <nz-form-item>
+      <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Title</nz-form-label>
+      <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input formControlName="title" id="title" placeholder="Enter resource title"/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzXs]="24" nzRequired nzFor="description" nz-typography>Enter description</nz-form-label>
+      <nz-form-control [nzXs]="24" nzHasFeedback>
+          <quill-editor
+          formControlName="description" aria-placeholder="Enter description"
+          ></quill-editor>
+      </nz-form-control>
+    </nz-form-item>
+    
+    <nz-form-item>
+      <nz-form-label [nzXs]="24" nzRequired nzFor="status" nz-typography>Status</nz-form-label>
+      <nz-form-control [nzXs]="24" nzHasFeedback >
+          <nz-switch formControlName="status" ></nz-switch>
+          <ng-container *ngIf="aggrementForm.get('status').errors?.required">
+            Status is required.
+          </ng-container>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+</div>

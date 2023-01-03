@@ -1,0 +1,8 @@
+::ng-deep .mat-card-header {
+    margin-bottom: 15px;
+}
+
+::ng-deep .mat-card-header button {
+    position: absolute;
+    right: 22px;
+}

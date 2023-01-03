@@ -1,0 +1,360 @@
+<div>
+    <form nz-form [formGroup]="projectForm" class="ant-advanced-search-form">
+        <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Enter project title</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="title" id="title" placeholder="Enter project title"/>
+            <ng-container *ngIf="projectForm.get('title').errors?.required">
+                Title is required.
+            </ng-container>
+        </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="keyword" nz-typography>Enter project keyword</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="keyword" id="keyword" placeholder="Enter project keyword"/>
+                <ng-container *ngIf="projectForm.get('keyword').errors?.required">
+                    keyword is required.
+                </ng-container>
+            </nz-form-control>
+            </nz-form-item>
+        <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="impact" nz-typography>Write Project Impact</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="impact" id="impact" placeholder="Write Project Impact"/>
+        </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzFor="location" nz-typography>Project location</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="location" id="location" placeholder="Project location"/>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzFor="studentOutcome" nz-typography>Student Outcome</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="studentOutcome" id="studentOutcome" placeholder="Student Outcome"/>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzFor="Milestones" nz-typography>Student Milestones</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="Milestones" id="Milestones" placeholder="Student Milestones"/>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="description" nz-typography>Enter  description</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="description" id="description" placeholder="Enter short description"/>
+                <ng-container *ngIf="projectForm.get('description').errors?.required">
+                    Description is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+        
+        <nz-form-item>
+            <nz-form-label [nzXs]="24"  nzFor="week1Duration" nz-typography>Week 1 Description</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="week1Duration" id="week1Duration" placeholder="Week 1 Description"/>
+            </nz-form-control>
+        </nz-form-item>
+        
+        <nz-form-item>
+            <nz-form-label [nzXs]="24"  nzFor="week2Duration" nz-typography>Week 2 Description</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="week2Duration" id="week2Duration" placeholder="Week 2 Description"/>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzXs]="24"  nzFor="week3Duration" nz-typography>Week 3 Description</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="week3Duration" id="week3Duration" placeholder="Week 3 Description"/>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzXs]="24"  nzFor="week4Duration" nz-typography>Week 4 Description</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="week4Duration" id="week4Duration" placeholder="Week 4 Description"/>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzXs]="24"  nzFor="week5Duration" nz-typography>Week 5 Description</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="week5Duration" id="week5Duration" placeholder="Week 5 Description"/>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzXs]="24"  nzFor="week6Duration" nz-typography>Week 6 Description</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="week6Duration" id="week6Duration" placeholder="Week 6 Description"/>
+            </nz-form-control>
+        </nz-form-item>
+
+        <div nz-row [nzGutter]="16">
+            <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                    <nz-form-label [nzXs]="24" nzRequired nzFor="students_count" nz-typography>How many students can do this project?</nz-form-label>
+                    <nz-form-control [nzXs]="24" nzHasFeedback>
+                        <input nz-input formControlName="students_count" id="students_count" placeholder="How many students can do this project?"/>
+                        <ng-container *ngIf="projectForm.get('students_count').errors?.required">
+                            Required.
+                        </ng-container>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <!-- <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                    <nz-form-label [nzXs]="24" nzFor="partner" nz-typography>Select partner</nz-form-label>
+                    <nz-form-control [nzXs]="24" nzHasFeedback>
+                        <nz-select nzMode="tags" nzPlaceHolder="Select partner" formControlName="partner">
+                            <nz-option *ngFor="let option of partnerId" [nzLabel]="option.name" [nzValue]="option._id"></nz-option>
+                        </nz-select>
+                        <ng-container *ngIf="projectForm.get('partner').errors?.required">
+                            Required.
+                        </ng-container>
+                    </nz-form-control>
+                </nz-form-item>
+            </div> -->
+        </div>
+        <div nz-row [nzGutter]="16">
+            <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                    <nz-form-label [nzXs]="24" nzRequired nzFor="sdg" nz-typography>Choose SDG</nz-form-label>
+                    <nz-form-control [nzXs]="24" nzHasFeedback>
+                        <nz-select nzMode="tags" nzPlaceHolder="Choose SDG" formControlName="sdg">
+                            <nz-option *ngFor="let option of sdg" [nzLabel]="option" [nzValue]="option"></nz-option>
+                        </nz-select>
+                        <ng-container *ngIf="projectForm.get('sdg').errors?.required">
+                            Required.
+                        </ng-container>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]="12">
+                <!-- <nz-form-item>
+                    <nz-form-label [nzXs]="24" nzRequired nzFor="skills" nz-typography>Add skills</nz-form-label>
+                    <nz-form-control [nzXs]="24" nzHasFeedback>
+                        <nz-select nzMode="tags" nzPlaceHolder="Add skills" formControlName="skills">
+                        </nz-select>
+                        <ng-container *ngIf="projectForm.get('skills').errors?.required">
+                            Required.
+                        </ng-container>
+                    </nz-form-control>
+                </nz-form-item> -->
+            </div> 
+            
+        </div>
+        <div nz-row [nzGutter]="16">
+            <nz-form-item>
+                <nz-form-label [nzXs]="24" nzRequired nzFor="start_date" nz-typography>Start Date</nz-form-label>
+                <nz-form-control [nzXs]="24" nzHasFeedback>
+                    <nz-date-picker formControlName="start_date"></nz-date-picker>
+                    <ng-container *ngIf="projectForm.get('start_date').errors?.required">
+                        Start Date is required.
+                    </ng-container>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzXs]="24" nzRequired nzFor="end_date" nz-typography>End Date</nz-form-label>
+                <nz-form-control [nzXs]="24" nzHasFeedback>
+                    <nz-date-picker formControlName="end_date"></nz-date-picker>
+                    <ng-container *ngIf="projectForm.get('end_date').errors?.required">
+                        End Date is required.
+                    </ng-container>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-row formGroupName="can_be_done" [nzGutter]="8">
+            <nz-form-label [nzXs]="24" nzFor="can_be_done" nz-typography>What % of this project can be done?</nz-form-label>
+            <div nz-col [nzSpan]="8">
+                <nz-form-item>
+                    <nz-form-label [nzXs]="24" nzRequired nzFor="onsite" nz-typography>Enter onsite percentage</nz-form-label>
+                    <nz-form-control [nzXs]="24" nzHasFeedback>
+                        <input nz-input formControlName="onsite" id="onsite" placeholder="Enter onsite percentage"/>
+                        <ng-container *ngIf="projectForm.get('can_be_done')?.get('onsite').errors?.required">
+                           Required
+                        </ng-container>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="8">
+                <nz-form-item>
+                    <nz-form-label [nzXs]="24" nzRequired nzFor="othersite" nz-typography>Enter othersite percentage</nz-form-label>
+                    <nz-form-control [nzXs]="24" nzHasFeedback>
+                        <input nz-input formControlName="othersite" id="othersite" placeholder="Enter othersite percentage"/>
+                        <ng-container *ngIf="projectForm.get('can_be_done')?.get('othersite').errors?.required">
+                            Required
+                        </ng-container>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="8">
+                <nz-form-item>
+                    <nz-form-label [nzXs]="24" nzRequired nzFor="remotely" nz-typography>Enter remotely percentage</nz-form-label>
+                    <nz-form-control [nzXs]="24" nzHasFeedback>
+                        <input nz-input formControlName="remotely" id="remotely" placeholder="Enter remotely percentage"/>
+                        <ng-container *ngIf="projectForm.get('can_be_done')?.get('remotely').errors?.required">
+                            Required
+                        </ng-container>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+
+        <ng-container formGroupName="contact_person">
+            <nz-form-label [nzXs]="24" nzFor="contact_person" nz-typography>Who is the contact person for this project from your organization?</nz-form-label>
+            <div nz-row [nzGutter]="8">
+                <div nz-col>
+                    <nz-form-item>
+                        <nz-form-label [nzXs]="24" nzRequired nzFor="name" nz-typography>Enter name</nz-form-label>
+                        <nz-form-control [nzXs]="24" nzHasFeedback>
+                            <input nz-input formControlName="name" id="name" placeholder="Enter name"/>
+                            <ng-container *ngIf="projectForm.get('contact_person')?.get('name').errors?.required">
+                               Required
+                            </ng-container>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col>
+                    <nz-form-item>
+                        <nz-form-label [nzXs]="24" nzRequired nzFor="email" nz-typography>Enter email</nz-form-label>
+                        <nz-form-control [nzXs]="24" nzHasFeedback>
+                            <input nz-input formControlName="email" id="email" placeholder="Enter email"/>
+                            <ng-container *ngIf="projectForm.get('contact_person')?.get('email').errors?.required">
+                               Required
+                            </ng-container>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div nz-row formGroupName="phone_number" [nzGutter]="8">
+                <div nz-col [nzSpan]="4">
+                    <nz-form-item>
+                        <nz-form-label [nzXs]="24" nzFor="extension" nz-typography>Ind +91</nz-form-label>
+                        <nz-form-control [nzXs]="24" nzHasFeedback>
+                            <nz-select nzPlaceHolder="Choose Country code" formControlName="extension">
+                                <nz-option *ngFor="let option of countryPhoneCode" [nzLabel]="option" [nzValue]="option"></nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col [nzSpan]="8">
+                    <nz-form-item>
+                        <nz-form-label [nzXs]="24"  nzFor="number" nz-typography>Your Cell number</nz-form-label>
+                        <nz-form-control [nzXs]="24" nzHasFeedback>
+                            <input nz-input formControlName="number" id="number" placeholder="Your Cell number"/>
+                            <ng-container *ngIf="projectForm.get('contact_person')?.get('phone_number')?.get('number')?.errors">
+                                Cell number is <strong>invalid</strong>
+                            </ng-container>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div nz-col [nzSpan]="8">
+                <nz-form-item>
+                    <nz-form-label [nzXs]="24"  nzFor="linkedin_url" nz-typography>Enter linkedin url</nz-form-label>
+                    <nz-form-control [nzXs]="24" nzHasFeedback>
+                        <input nz-input formControlName="linkedin_url" id="linkedin_url" placeholder="Enter linkedin url"/>
+                       
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </ng-container>
+
+        <div nz-row formGroupName="willing_to_consider">
+            <nz-form-item>
+                <nz-form-label [nzXs]="24" nzFor="answer" nz-typography>Are you willing to consider the project participants for internship, volunteer opportunity, or any
+                    other position at your organization?</nz-form-label>
+                <nz-form-control [nzXs]="24" nzHasFeedback >
+                    <nz-radio-group formControlName="answer">
+                        <label nz-radio [nzValue]="'Yes'">Yes</label>
+                        <label nz-radio [nzValue]="'No'">No</label>
+                        <label nz-radio [nzValue]="'maybe'">Maybe</label>
+                      </nz-radio-group>
+                    <ng-container *ngIf="projectForm.get('willing_to_consider')?.get('answer')?.errors">
+                         Mandatory
+                    </ng-container>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label [nzXs]="24" nzFor="comments" nz-typography>"Add your comments, If any</nz-form-label>
+                <nz-form-control [nzXs]="24" nzHasFeedback>
+                    <input nz-input formControlName="comments" id="comments" placeholder="Add your comments, If any"/>
+                    <ng-container *ngIf="projectForm.get('willing_to_consider')?.get('comments')?.errors">
+                       
+                    </ng-container>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+
+        <nz-form-item> 
+            <nz-form-label [nzXs]="24" nzFor="ask_questions" nz-typography>Do you have any questions that you would like to ask students who undertake
+                this project?</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback >
+                <nz-radio-group formControlName="ask_questions">
+                    <label nz-radio [nzValue]="true">Yes</label>
+                    <label nz-radio [nzValue]="false">No</label>
+                  </nz-radio-group>
+                <ng-container *ngIf="projectForm.get('ask_questions')?.errors">
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzFor="projectfees" nz-typography>Project Paid/free</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <select name="projectfees" formControlName="projectfees" class="projectfees" (change)="projectFeesChange($event)">
+                    <option value="">Choice fees</option>
+                    <option value="1">Paid</option>
+                    <option value="0">UnPaid</option>
+                </select>
+            </nz-form-control>
+        </nz-form-item>
+
+        <ng-container formGroupName="projectPrice" *ngIf="showProjectPrice">
+            <nz-form-item>
+                <nz-form-label [nzXs]="24" nzFor="amount" nz-typography>Project Price</nz-form-label>
+                <nz-form-control [nzXs]="24" nzHasFeedback>
+                    <input nz-input type="number" formControlName="amount" id="amount" placeholder="Enter Project Price"/>
+                </nz-form-control>
+            </nz-form-item>
+        </ng-container>
+
+        <ng-container *ngIf="projectForm.get('ask_questions').value">
+            <div nz-row>
+                <div nz-col [nzSpan]="18">
+                    <ng-container formArrayName="questions" *ngFor="let question of questions.controls; let i = index">
+                        <nz-form-item>
+                            <nz-form-control [nzXs]="24" nzHasFeedback >
+                                <div style="display: flex;">
+                                    <input nz-input [formControlName]="i" id="i" placeholder="Enter question"/>
+                                <ng-container *ngIf="projectForm.get('questions')?.errors">
+                                   
+                                </ng-container>
+                                <i nz-icon [nzType]="'minus-circle-o'" class="dynamic-delete-button" *ngIf="i> 0" (click)="onRemoveQuestions(i)" style="display: flex;align-items: center;margin-left: 5px;"></i>
+                                </div>
+                            </nz-form-control>
+                        </nz-form-item>
+                </ng-container>
+                </div>
+            </div>
+            <nz-form-item>
+                <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 20, offset: 4 }">
+                  <button nz-button [nzType]="'dashed'" class="add-button"(click)="onAddQuestions()">
+                    <i nz-icon [nzType]="'plus'"></i>
+                    Add Question
+                  </button>
+                </nz-form-control>
+            </nz-form-item>
+        </ng-container>
+        <div nz-row>
+            <app-upload-dialog [documentList]="documentList" [imageSource]="imageSource" [multipleSelection]="true" (onFileUploadSuccess)="onFileUpload($event)"></app-upload-dialog>
+        </div>
+        <img *ngIf="projectImage" alt="project" style="height: 100px; width: 100px;margin-top: 5px;" src="{{projectImage}}">
+    </form>
+</div>

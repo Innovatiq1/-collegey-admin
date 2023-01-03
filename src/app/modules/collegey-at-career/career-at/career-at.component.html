@@ -1,0 +1,71 @@
+<div class="parentDiv">
+    <form nz-form [formGroup]="fundInForm" class="ant-advanced-search-form">
+
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="mainTitle" nz-typography>Main Title</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input type="text" formControlName="mainTitle" id="mainTitle"
+                    placeholder="Write Your Main Title" />
+                <ng-container *ngIf="fundInForm.get('mainTitle').errors?.required">
+                    Main Title is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Title</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input type="text" formControlName="title" id="title"
+                    placeholder="Write Your Title" />
+                <ng-container *ngIf="fundInForm.get('title').errors?.required">
+                    Title is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="subTitle" nz-typography>Sub-title</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input type="text" formControlName="subTitle" id="subTitle"
+                    placeholder="Write Your Sub-title" />
+                <ng-container *ngIf="fundInForm.get('subTitle').errors?.required">
+                    Sub-title is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="imgSubTitle" nz-typography>Image Sub-title</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input type="text" formControlName="imgSubTitle" id="imgSubTitle"
+                    placeholder="Write Your Image Sub-title" />
+                <ng-container *ngIf="fundInForm.get('imgSubTitle').errors?.required">
+                    Image Sub-title is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+
+        <div nz-row>
+            <nz-form-item>
+                <nz-form-label [nzXs]="24" nzRequired nzFor="description" nz-typography>Enter description</nz-form-label>
+                <nz-form-control [nzXs]="24" nzHasFeedback>
+                    <quill-editor
+                    formControlName="description" aria-placeholder="Enter description"
+                    ></quill-editor>
+                    <ng-container *ngIf="fundInForm.get('description').errors?.required">
+                        Description is required.
+                    </ng-container>
+                </nz-form-control>
+              </nz-form-item>
+          </div>
+
+        <div nz-row>
+            <input type="file" (change)="onFileUpload($event)"  accept=".png,.jpeg,.jpg" />
+        </div>
+        <div style="color: green;">
+            Accept only png, jpeg, jpg.
+        </div>
+        <img *ngIf="selectFile" alt="project" style="height: 100px; width: 100px;margin-top: 5px;" src="{{selectFile}}">
+
+
+    </form>

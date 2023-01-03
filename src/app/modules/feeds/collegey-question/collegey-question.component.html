@@ -1,0 +1,46 @@
+<div class="parentDiv">
+    <form nz-form [formGroup]="QuestionForm" class="ant-advanced-search-form">
+
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="question" nz-typography>Collegey Question</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input type="text" formControlName="question" id="question"
+                    placeholder="Write Your Question" />
+                <ng-container *ngIf="QuestionForm.get('question').errors?.required">
+                    Question is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="responseLable" nz-typography>Response Lable</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input type="text" formControlName="responseLable" id="responseLable"
+                    placeholder="Write Your Response Lable" />
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="question_content" nz-typography>Question Content</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+              <textarea matInput formControlName="question_content" id="title" placeholder="Question Content"
+                style="padding: 5px 5px;width: 100%;resize: none;height: 80px;"></textarea>
+              <ng-container *ngIf="QuestionForm.get('question_content').errors?.required">
+                Question content is required.
+              </ng-container>
+            </nz-form-control>
+          </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="status" nz-typography>Status</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <nz-switch formControlName="status"></nz-switch>
+                <ng-container *ngIf="QuestionForm.get('status').errors?.required">
+                    Status is required.
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+
+    </form>
+
+</div>

@@ -1,0 +1,28 @@
+<div>
+    <form nz-form [formGroup]="resourceForm" class="ant-advanced-search-form">
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Title</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="title" id="title" placeholder="Enter File title"/>
+        </nz-form-control>
+      </nz-form-item>
+      
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="description" nz-typography>Enter description</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <quill-editor
+            formControlName="description" aria-placeholder="Enter description"
+            ></quill-editor>
+        </nz-form-control>
+      </nz-form-item>
+
+      <div nz-row>
+        <input type="file" (change)="onFileUpload($event)" accept=".png,.jpeg,.jpg,.mp4,.pdf,.docx,.xls,.xlsx,.doc"/>
+      </div>
+      <div style="color: green;">
+        Accept only png, jpeg, jpg, mp4, pdf, docx, xls, xlsx, doc.
+      </div>
+      <!-- <img *ngIf="mentorFile" alt="project" style="height: 100px; width: 100px;margin-top: 5px;" src="{{mentorFile}}"> -->
+
+    </form>
+</div>

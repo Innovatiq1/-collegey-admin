@@ -1,0 +1,62 @@
+<div>
+    <form nz-form [formGroup]="perksForm" class="ant-advanced-search-form">
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Title</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="title" id="title" placeholder="Enter perks title"/>
+            <ng-container  *ngIf="submitted && perksForm.get('title').errors?.required">
+              <span class="clg-error-textcolor">Title is required.</span>  
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="short_description" nz-typography>Short Description</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="short_description" id="short_description" placeholder="Enter short description"/>
+            <ng-container *ngIf="submitted && perksForm.get('short_description').errors?.required">
+              <span class="clg-error-textcolor">Short Description is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="type" nz-typography>Select Featured</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <nz-select formControlName="featured" nzPlaceHolder="Please Select Featured">
+            <nz-option *ngFor="let item of parkFeatured" [nzLabel]="item" [nzValue]="item"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <div nz-row>
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="description" nz-typography>Enter description</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <quill-editor
+                formControlName="description" aria-placeholder="Enter description"
+                ></quill-editor>
+                <ng-container *ngIf="submitted && perksForm.get('description').errors?.required">
+                  <span class="clg-error-textcolor">Description are required.</span>
+                </ng-container>
+            </nz-form-control>
+          </nz-form-item>
+      </div>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="tags" nz-typography>Tags</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <nz-select nzMode="tags" nzPlaceHolder="Add Tag" formControlName="tags">
+              </nz-select>
+            <ng-container *ngIf="submitted && perksForm.get('tags').errors?.required">
+              <span class="clg-error-textcolor">Tags are required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <div nz-row>
+        <div class="pr-3" nz-col [nzSpan]="12">
+            <app-upload-dialog [documentList]="documentList" [imageSource]="imageSource.MENTORPERKS" [multipleSelection]="false" (onFileUploadSuccess)="onFileUpload($event)"></app-upload-dialog>
+            {{ imgName }}
+          </div>  
+      </div>
+    </form>
+  </div>

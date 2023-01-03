@@ -1,0 +1,125 @@
+<mat-progress-bar mode="indeterminate" [hidden]="!isLoading"></mat-progress-bar>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{projectDetail?.title}}</mat-card-title>
+    <span class="spacer"></span>
+    <span>
+      <button mat-icon-button (click)="editProject()">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </span>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-tab-group>
+      <mat-tab label="Details">
+        <table class="table">
+          <thead>
+            <tr>
+              <td>Title</td>
+              <td>{{projectDetail?.title}}</td>
+            </tr>
+            <tr>
+              <td>Start Date</td>
+              <td>{{projectDetail?.start_date | date: 'yyyy-MM-dd'}}</td>
+            </tr>
+            <tr>
+              <td>End Date</td>
+              <td>{{projectDetail?.end_date | date: 'yyyy-MM-dd'}}</td>
+            </tr>
+            <tr>
+              <td>Description</td>
+              <td>{{projectDetail?.description}}</td>
+            </tr>
+            <tr>
+              <td>Impact</td>
+              <td>{{projectDetail?.impact}}</td>
+            </tr>
+            <tr>
+              <td>Students Count</td>
+              <td>{{projectDetail?.students_count}}</td>
+            </tr>
+            <tr>
+              <td>SDG</td>
+              <td>
+                <ul>
+                  <li style="display: inline-block;" *ngFor="let sdg of projectDetail?.sdg">
+                    {{sdg}}
+                  </li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>Skills Required</td>
+              <td>
+                <ul>
+                  <li style="display: inline-block;" *ngFor="let skills of projectDetail?.skills">
+                    {{skills}}
+                  </li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>Documents</td>
+              <td>
+                <li *ngFor="let document of projectDetail?.documents">
+                  <a [href]="commonService.imagePathMaker(document)" target="_blank">
+                    {{document | imageName}}
+                  </a>
+                </li>
+              </td>
+            </tr>
+            <tr *ngIf="!projectDetail?.ask_questions">
+              <td>Ask Questions</td>
+              <td>{{!projectDetail?.ask_questions ? 'No': null}}</td>
+            </tr>
+            <tr *ngIf="projectDetail?.ask_questions">
+              <td>Questions</td>
+              <td>
+                <li *ngFor="let questions of projectDetail?.questions">
+                  {{questions}}
+                </li>
+              </td>
+            </tr>
+            <tr>
+            <tr>
+              <td>Contact Person Name</td>
+              <td>{{projectDetail?.contact_person?.name}}</td>
+            </tr>
+            <tr>
+              <td>Contact Person Email</td>
+              <td>{{projectDetail?.contact_person?.email}}</td>
+            </tr>
+            <tr>
+              <td>Contact Person Phone</td>
+              <td>
+                {{projectDetail?.contact_person?.phone_number?.extension}}-{{projectDetail?.contact_person?.phone_number?.number}}
+              </td>
+            </tr>
+            <tr>
+              <td>Contact Person LinkedIn Url</td>
+              <td>{{projectDetail?.contact_person?.linkedin_url}}</td>
+            </tr>
+            <tr>
+              <td>Willing to consider the project participants for internship?</td>
+              <td>{{projectDetail?.willing_to_consider?.answer}}</td>
+            </tr>
+            <tr>
+              <td>Can Be Done</td>
+              <td>
+                <li *ngIf="projectDetail?.can_be_done?.onsite">onsite: {{projectDetail?.can_be_done?.onsite}}</li>
+                <li *ngIf="projectDetail?.can_be_done?.othersite">othersite: {{projectDetail?.can_be_done?.othersite}}
+                </li>
+                <li *ngIf="projectDetail?.can_be_done?.remotely">remotely: {{projectDetail?.can_be_done?.remotely}}</li>
+
+              </td>
+            </tr>
+            <tr>
+              <td>Comments</td>
+              <td>{{projectDetail?.willing_to_consider?.comments}}</td>
+            </tr>
+          </thead>
+        </table>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>

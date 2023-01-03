@@ -1,0 +1,167 @@
+<mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            STEP 6 - LETS GET TO KNOW YOU BETTER
+        </mat-panel-title>
+        <mat-panel-description>
+            click to enter your details
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form *ngIf="studentKnowYouBetterForm" [formGroup]="studentKnowYouBetterForm" (ngSubmit)="onSubmitForm()">
+        <ng-container formGroupName="student_profile">
+            <ng-container formGroupName="know_you_better">
+                <div class="row align-center" formArrayName="people_who_inspire_you" *ngFor="let people of typeCastToFormArray(studentKnowYouBetterForm.get('student_profile').get('know_you_better').get('people_who_inspire_you')).controls; let i=index">
+
+                    <div class="col-md-4">
+                        <label>Name 2 people who inspire you</label>
+                    </div>
+                    <div class="col-md-6 no-padding-left" [formGroupName]="i">
+                        <mat-form-field class="full-width">
+                            <input matInput type="text" formControlName="name" placeholder="Name people who inspire you">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2">
+                        <mat-icon (click)="onAddFormGroup(formArraysEnum.PEOPLE_WHO_INSPIRE_YOU)">add_box</mat-icon> &nbsp;
+                        <mat-icon (click)="onRemoveFormGroup(i, formArraysEnum.PEOPLE_WHO_INSPIRE_YOU)" *ngIf="i>0">
+                            indeterminate_check_box
+                        </mat-icon>
+                    </div>
+                </div>
+
+                <div class="row align-center" formArrayName="fav_books" *ngFor="let people of typeCastToFormArray(studentKnowYouBetterForm.get('student_profile').get('know_you_better').get('fav_books')).controls; let i=index">
+
+                    <div class="col-md-4">
+                        <label>List 2 of your favorite books</label>
+                    </div>
+                    <div class="col-md-6 no-padding-left" [formGroupName]="i">
+                        <mat-form-field class="full-width">
+                            <input matInput type="text" formControlName="name" placeholder="enter your favorite book name">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2">
+                        <mat-icon (click)="onAddFormGroup(formArraysEnum.FAVORITE_BOOKS)">add_box</mat-icon> &nbsp;
+                        <mat-icon (click)="onRemoveFormGroup(i,formArraysEnum.FAVORITE_BOOKS)" *ngIf="i>0">indeterminate_check_box
+                        </mat-icon>
+                    </div>
+                </div>
+                <div class="row align-center" formArrayName="fav_movies" *ngFor="let people of typeCastToFormArray(studentKnowYouBetterForm.get('student_profile').get('know_you_better').get('fav_movies')).controls; let i=index">
+
+                    <div class="col-md-4">
+                        <label>List 2 of your favorite movies</label>
+                    </div>
+                    <div class="col-md-6 no-padding-left" [formGroupName]="i">
+                        <mat-form-field class="full-width">
+                            <input matInput type="text" formControlName="name" placeholder="enter your favorite movie name">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2">
+                        <mat-icon (click)="onAddFormGroup(formArraysEnum.FAVORITE_MOVIES)">add_box</mat-icon> &nbsp;
+                        <mat-icon (click)="onRemoveFormGroup(i, formArraysEnum.FAVORITE_MOVIES)" *ngIf="i>0">indeterminate_check_box
+                        </mat-icon>
+                    </div>
+                </div>
+
+                <div class="row align-center" formArrayName="fav_websites" *ngFor="let people of typeCastToFormArray(studentKnowYouBetterForm.get('student_profile').get('know_you_better').get('fav_websites')).controls; let i=index">
+
+                    <div class="col-md-4">
+                        <label>Your 5 favorite websites </label>
+                    </div>
+                    <div class="col-md-6 no-padding-left" [formGroupName]="i">
+                        <mat-form-field class="full-width">
+                            <input matInput type="text" formControlName="name" placeholder="enter your favorite website name">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2">
+                        <mat-icon (click)="onAddFormGroup(formArraysEnum.FAVORITE_WEBSITES)">add_box</mat-icon> &nbsp;
+                        <mat-icon (click)="onRemoveFormGroup(i, formArraysEnum.FAVORITE_WEBSITES)" *ngIf="i>0">
+                            indeterminate_check_box</mat-icon>
+                    </div>
+                </div>
+
+                <div class="row align-center" formArrayName="fav_message_service" *ngFor="let people of typeCastToFormArray(studentKnowYouBetterForm.get('student_profile').get('know_you_better').get('fav_message_service')).controls; let i=index">
+
+                    <div class="col-md-4">
+                        <label>Your favorite text messaging service </label>
+                    </div>
+                    <div class="col-md-6 no-padding-left" [formGroupName]="i">
+                        <mat-form-field class="full-width">
+                            <input matInput type="text" formControlName="name" placeholder="enter your favorite text messaging service">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2">
+                        <mat-icon (click)="onAddFormGroup(formArraysEnum.FAVORITE_MESSAGE_SERVICE)">add_box</mat-icon> &nbsp;
+                        <mat-icon (click)="onRemoveFormGroup(i, formArraysEnum.FAVORITE_MESSAGE_SERVICE)" *ngIf="i>0">
+                            indeterminate_check_box</mat-icon>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-form-field class="full-width">
+                            <mat-label>Your favorite activities on internet </mat-label>
+                            <input matInput type="text" formControlName="fav_activity_on_internet">
+                        </mat-form-field>
+                    </div>
+                    <!-- 
+          <div class="col-md-12">
+            <mat-form-field class="full-width">
+              <mat-label>Someone say something good about your work? Post it here</mat-label>
+              <textarea matInput formControlName="someone_said_something"></textarea>
+            </mat-form-field>
+          </div>
+          <div class="col-md-12 mb-12">
+            <mat-form-field class="full-width">
+              <mat-label>Upload your letters of recommendation</mat-label>
+              <textarea matInput formControlName="letter_of_recommendation"></textarea>
+            </mat-form-field>
+          </div>
+          
+          <ng-container formGroupName="writing_sample">
+            <div class="col-md-12  mb-12">
+              <label>Share any writing sample, essays or any of your published or in-progress work that you wish to
+                share </label> &nbsp; &nbsp;
+              <mat-radio-group aria-label="Select an option" formControlName="answer_type">
+                <mat-radio-button value="uploaded">Upload</mat-radio-button>
+                <mat-radio-button value="described">Describe</mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <div class="col-md-12 mb-12" style="display: flex;">
+              <div class="col-md-6 no-padding-left">
+                <mat-form-field class="full-width">
+                  <mat-label>Share any writing sample</mat-label>
+                  <input matInput type="text" formControlName="value">
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="full-width">
+                  <mat-label>Am thinking about it</mat-label>
+                  <input matInput type="text" formControlName="thinking_description">
+                </mat-form-field>
+              </div>
+            </div>
+          </ng-container> -->
+
+                </div>
+                <!-- <div class="row align-center" formArrayName="awards"
+          *ngFor="let test of typeCastToFormArray(studentKnowYouBetterForm.get('student_profile').get('know_you_better').get('awards')).controls; let i=index">
+          <div class="col-md-10">
+            <label>Let's add your awards/certificates/participation/internship/volunteer experience/online learning. You
+              can pictures, too. </label>
+            <div class="col-md-8 no-padding-left" [formGroupName]="i">
+              <mat-form-field class="full-width">
+                <input matInput type="text" formControlName="name" placeholder="Want to tell us a bit about it?.">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-1">
+            <mat-icon (click)="onAddFormGroup(formArraysEnum.AWARDS)">add_box</mat-icon> &nbsp;
+            <mat-icon (click)="onRemoveFormGroup(i, formArraysEnum.AWARDS)" *ngIf="i>0">indeterminate_check_box
+            </mat-icon>
+          </div>
+        </div> -->
+
+                <button class="float-right" mat-flat-button color="primary" type="submit">Save</button>
+            </ng-container>
+        </ng-container>
+    </form>
+</mat-expansion-panel>

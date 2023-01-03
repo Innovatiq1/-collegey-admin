@@ -1,0 +1,489 @@
+<!-- <mat-progress-bar mode="indeterminate" [hidden]="!isLoading"></mat-progress-bar>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{project ? 'Update Project' : 'Add Project'}}</mat-card-title>
+        <span class="spacer"></span>
+        <span>
+      <button mat-icon-button>
+        <mat-icon (click)="closeModal()">close</mat-icon>
+      </button>
+    </span>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-dialog-content class="m-0" style="max-width: 800px;">
+                <div class="row">
+                    <mat-form-field class="col-12 col-sm-12 col-md-6">
+                        <input formControlName="title" matInput placeholder="Enter project title" type="text">
+                        <app-input-validation [control]="projectForm.get('title')"></app-input-validation>
+                    </mat-form-field>
+                    <mat-form-field class="col-12 col-sm-12 col-md-6">
+                        <input formControlName="impact" matInput placeholder="Write project impact" type="text">
+                        <app-input-validation [control]="projectForm.get('impact')"></app-input-validation>
+                    </mat-form-field>
+                    <mat-form-field class="col-12 col-sm-12 col-md-6">
+                        <textarea class="field-area" formControlName="description" matInput placeholder="Enter description" type="textarea"></textarea>
+                        <app-input-validation [control]="projectForm.get('description')"></app-input-validation>
+                    </mat-form-field>
+                    <div class="col-12 col-sm-12 col-md-6">
+                        <mat-form-field class="field-box">
+                            <input formControlName="students_count" matInput placeholder="How many students can do this project?" type="number">
+                            <app-input-validation [control]="projectForm.get('students_count')"></app-input-validation>
+                        </mat-form-field>
+                        <div class="field-box">
+                            <ng-select class="reduce-spacing" [items]="partnerId" formControlName="partner" bindLabel="name" bindValue="_id" [searchable]="true" [clearable]="false" placeholder="Select partner">
+                            </ng-select>
+                            <app-input-validation [control]="projectForm.get('partner')"></app-input-validation>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6">
+                        <ng-select class="reduce-spacing" [addTag]="true" [items]="sdg" bindLabel="name" bindValue="name" [multiple]="true" [searchable]="true" [clearable]="false" placeholder="Choose SDG" formControlName="sdg">
+                        </ng-select>
+                        <app-input-validation [control]="projectForm.get('sdg')"></app-input-validation>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6">
+                        <ng-select class="reduce-spacing" [addTag]="true" [multiple]="true" [searchable]="true" [clearable]="false" placeholder="Add skills" formControlName="skills"></ng-select>
+                        <app-input-validation [control]="projectForm.get('skills')"></app-input-validation>
+                    </div>
+                    <mat-form-field class="col-12 col-sm-12 col-md-6 top-spacing">
+                        <mat-label>Start Date</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="start_date">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <app-input-validation [control]="projectForm.get('start_date')"></app-input-validation>
+                    </mat-form-field>
+                    <mat-form-field class="col-12 col-sm-12 col-md-6 top-spacing">
+                        <mat-label>End Date</mat-label>
+                        <input matInput [matDatepicker]="picker1" formControlName="end_date">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                        <app-input-validation [control]="projectForm.get('end_date')"></app-input-validation>
+                    </mat-form-field>
+                    <div style="width:100%;" formGroupName="can_be_done">
+                        <label style="display:block;padding-left: 15px;">What % of this project can be done?</label>
+                        <mat-form-field class="col-12 col-sm-12 col-md-4">
+                            <input formControlName="onsite" matInput placeholder="Enter onsite percentage" type="text">
+                            <app-input-validation [control]="projectForm.get('can_be_done')?.get('onsite')">
+                            </app-input-validation>
+                        </mat-form-field>
+                        <mat-form-field class="col-12 col-sm-12 col-md-4">
+                            <input formControlName="othersite" matInput placeholder="Enter othersite percentage" type="text">
+                            <app-input-validation [control]="projectForm.get('can_be_done')?.get('othersite')">
+                            </app-input-validation>
+                        </mat-form-field>
+                        <mat-form-field class="col-12 col-sm-12 col-md-4">
+                            <input formControlName="remotely" matInput placeholder="Enter remotely percentage" type="text">
+                            <app-input-validation [control]="projectForm.get('can_be_done')?.get('remotely')">
+                            </app-input-validation>
+                        </mat-form-field>
+                    </div>
+                    <ng-container formGroupName="contact_person">
+                        <label style="display:block;padding-left: 15px;margin-top: 5px;">Who is the contact person for this project from your organization?</label>
+                        <mat-form-field class="col-12 col-sm-12 col-md-6">
+                            <input formControlName="name" matInput placeholder="Enter name" type="text">
+                            <app-input-validation [control]="projectForm.get('contact_person')?.get('name')">
+                            </app-input-validation>
+                        </mat-form-field>
+                        <mat-form-field class="col-12 col-sm-12 col-md-6">
+                            <input formControlName="email" matInput placeholder="Enter email" type="text">
+                            <app-input-validation [control]="projectForm.get('contact_person')?.get('email')">
+                            </app-input-validation>
+                        </mat-form-field>
+                        <div class="col-12 col-sm-12 col-md-6" formGroupName="phone_number">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <ng-select class="reduce-spacing" [items]="countryPhoneCode" bindLabel="name" bindValue="_id" [searchable]="true" [clearable]="false" placeholder="Ind +91" formControlName="extension">
+                                    </ng-select>
+                                </div>
+                                <div class="col-md-7">
+                                    <mat-form-field class="full-width">
+                                        <mat-label>Your Cell number</mat-label>
+                                        <input matInput type="number" formControlName="number">
+                                        <mat-error *ngIf="projectForm.get('contact_person')?.get('phone_number')?.get('number').errors?.pattern">
+                                            Cell number is <strong>invalid</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <mat-form-field class="col-12 col-sm-12 col-md-6">
+                            <input formControlName="linkedin_url" matInput placeholder="Enter linkedin url" type="text">
+                            <app-input-validation [control]="projectForm.get('contact_person')?.get('linkedin_url')">
+                            </app-input-validation>
+                        </mat-form-field>
+                    </ng-container>
+                    <div class="" formGroupName="willing_to_consider">
+                        <div class="col-12 col-sm-12 col-md-12">
+                            <label>Are you willing to consider the project participants for internship, volunteer opportunity, or any
+                other position at your organization?</label>
+                            <mat-radio-group class="radio-label" aria-label="Select an option" formControlName="answer">
+                                <mat-radio-button value="Yes">Yes</mat-radio-button>
+                                <mat-radio-button value="No">No</mat-radio-button>
+                                <mat-radio-button value="maybe">Maybe</mat-radio-button>
+                            </mat-radio-group>
+                            <app-input-validation [control]="projectForm.get('willing_to_consider')?.get('answer')">
+                            </app-input-validation>
+                        </div>
+                        <mat-form-field class="col-12 col-sm-12 col-md-12">
+                            <input formControlName="comments" matInput placeholder="Add your comments, If any" type="text">
+                            <app-input-validation [control]="projectForm.get('willing_to_consider')?.get('comments')">
+                            </app-input-validation>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-12">
+                        <label style="display:block;">Do you have any questions that you would like to ask students who undertake
+              this project?</label>
+                        <mat-radio-group class="radio-label radio-box validation-spacing" aria-label="Select an option" formControlName="ask_questions">
+                            <mat-radio-button [value]="true">Yes</mat-radio-button>
+                            <mat-radio-button [value]="false">No</mat-radio-button>
+                        </mat-radio-group>
+                        <app-input-validation [control]="projectForm.get('ask_questions')"></app-input-validation>
+                    </div>
+                    <ng-container *ngIf="projectForm.get('ask_questions').value">
+                        <ng-container formArrayName="questions" *ngFor="let question of questions.controls; let i = index">
+                            <ng-container>
+                                <mat-form-field class="col-12 col-sm-12 col-md-10">
+                                    <input matInput placeholder="Enter question" [formControlName]="i" type="text">
+                                    <app-input-validation [control]="projectForm.get('questions')"></app-input-validation>
+                                </mat-form-field>
+                                <div class="col-md-2" *ngIf="projectForm.get('ask_questions').value">
+                                    <mat-icon (click)="onAddQuestions()">add_box</mat-icon> &nbsp;
+                                    <mat-icon *ngIf="i> 0" (click)="onRemoveQuestions(i)">
+                                        indeterminate_check_box</mat-icon>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+                    <div class="col-12 col-sm-12 col-md-12" style="margin-top: 10px;">
+                        <app-upload-dialog [documentList]="documentList" [imageSource]="imageSource" [multipleSelection]="true" (onFileUploadSuccess)="onFileUpload($event)"></app-upload-dialog>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <button class="float-right" mat-flat-button color="primary" (click)="onSubmitForm()">Submit</button>
+                </div>
+        </mat-dialog-content>
+    </mat-card-content>
+</mat-card> -->
+<div>
+    <form nz-form [formGroup]="projectForm" class="ant-advanced-search-form">
+        <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Enter project title</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="title" id="title" placeholder="Enter project title"/>
+            <ng-container *ngIf="projectForm.get('title').errors?.required">
+                <span style="color: #f00;">Title is required.</span>
+            </ng-container>
+        </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="impact" nz-typography>Write Project Impact</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="impact" id="impact" placeholder="Write Project Impact"/>
+            <ng-container *ngIf="projectForm.get('impact').errors?.required">
+                <span style="color: #f00;">Impact is required.</span>
+            </ng-container>
+        </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="description" nz-typography>Enter  description</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="description" id="description" placeholder="Enter short description"/>
+                <ng-container *ngIf="projectForm.get('description').errors?.required">
+                    <span style="color: #f00;">Description is required.</span>
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+
+        <div nz-row [nzGutter]="16">
+            <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                    <nz-form-label [nzXs]="24" nzRequired nzFor="students_count" nz-typography>How many students can do this project?</nz-form-label>
+                    <nz-form-control [nzXs]="24" nzHasFeedback>
+                        <input nz-input formControlName="students_count" id="students_count" placeholder="How many students can do this project?"/>
+                        <ng-container *ngIf="projectForm.get('students_count').errors?.required">
+                            <span style="color: #f00;">Required.</span>
+                        </ng-container>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <!-- <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                    <nz-form-label [nzXs]="24" nzFor="partner" nz-typography>Select partner</nz-form-label>
+                    <nz-form-control [nzXs]="24" nzHasFeedback>
+                        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select partner" formControlName="partner" >
+                            <nz-option *ngFor="let option of partnerId" [nzLabel]="option.name" [nzValue]="option._id">{{option.name}}</nz-option>
+                        </nz-select>
+                        <ng-container *ngIf="projectForm.get('partner').errors?.required">
+                            <span style="color: #f00;">Required.</span>
+                        </ng-container>
+                    </nz-form-control>
+                </nz-form-item>
+            </div> -->
+        </div>
+        <div nz-row [nzGutter]="16">
+            <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                    <nz-form-label [nzXs]="24" nzRequired nzFor="sdg" nz-typography>Choose SDG</nz-form-label>
+                    <nz-form-control [nzXs]="24" nzHasFeedback>
+                        <nz-select nzMode="tags" nzPlaceHolder="Choose SDG" formControlName="sdg">
+                            <nz-option *ngFor="let option of sdg" [nzLabel]="option" [nzValue]="option"></nz-option>
+                        </nz-select>
+                        <ng-container *ngIf="projectForm.get('sdg').errors?.required">
+                            <span style="color: #f00;">Required.</span>
+                        </ng-container>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="12">
+                <!-- <nz-form-item>
+                    <nz-form-label [nzXs]="24" nzRequired nzFor="skills" nz-typography>Add skills</nz-form-label>
+                    <nz-form-control [nzXs]="24" nzHasFeedback>
+                        <nz-select nzMode="tags" nzPlaceHolder="Add skills" formControlName="skills">
+                        </nz-select>
+                        <ng-container *ngIf="projectForm.get('skills').errors?.required">
+                            <span style="color: #f00;">Required.</span>
+                        </ng-container>
+                    </nz-form-control>
+                </nz-form-item> -->
+
+                <nz-form-item>
+                    <nz-form-label [nzXs]="24" nzRequired nzFor="keyword" nz-typography>Add Tags</nz-form-label>
+                    <nz-form-control [nzXs]="24" nzHasFeedback>
+                        <nz-select nzMode="tags" nzPlaceHolder="Add tags" formControlName="keyword">
+                        </nz-select>
+                        <ng-container *ngIf="projectForm.get('keyword').errors?.required">
+                            <span style="color: #f00;">Required.</span>
+                        </ng-container>
+                    </nz-form-control>
+                </nz-form-item>
+
+            </div> 
+        </div>
+
+        <!-- <div nz-row [nzGutter]="16">
+
+            <div nz-col [nzSpan]="12">
+                
+            </div> 
+        </div> -->
+
+        <div nz-row [nzGutter]="16">
+            <nz-form-item>
+                <nz-form-label [nzXs]="24" nzRequired nzFor="start_date" nz-typography>Start Date</nz-form-label>
+                <nz-form-control [nzXs]="24" nzHasFeedback>
+                    <nz-date-picker formControlName="start_date"></nz-date-picker>
+                    <ng-container *ngIf="projectForm.get('start_date').errors?.required">
+                        <span style="color: #f00;">Start Date is required.</span>
+                    </ng-container>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzXs]="24" nzRequired nzFor="end_date" nz-typography>End Date</nz-form-label>
+                <nz-form-control [nzXs]="24" nzHasFeedback>
+                    <nz-date-picker formControlName="end_date"></nz-date-picker>
+                    <ng-container *ngIf="projectForm.get('end_date').errors?.required">
+                        <span style="color: #f00;">End Date is required.</span>
+                    </ng-container>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-row formGroupName="can_be_done" [nzGutter]="8">
+            <nz-form-label [nzXs]="24" nzFor="can_be_done" nz-typography>What % of this project can be done?</nz-form-label>
+            <div nz-col [nzSpan]="8">
+                <nz-form-item>
+                    <nz-form-label [nzXs]="24" nzFor="onsite" nz-typography>Enter onsite percentage</nz-form-label>
+                    <nz-form-control [nzXs]="24" nzHasFeedback>
+                        <input nz-input formControlName="onsite" id="onsite" placeholder="Enter onsite percentage"/>
+                        <ng-container *ngIf="projectForm.get('can_be_done')?.get('onsite').errors?.required">
+                            <span style="color: #f00;">Required</span>
+                        </ng-container>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="8">
+                <nz-form-item>
+                    <nz-form-label [nzXs]="24" nzFor="othersite" nz-typography>Enter othersite percentage</nz-form-label>
+                    <nz-form-control [nzXs]="24" nzHasFeedback>
+                        <input nz-input formControlName="othersite" id="othersite" placeholder="Enter othersite percentage"/>
+                        <ng-container *ngIf="projectForm.get('can_be_done')?.get('othersite').errors?.required">
+                            <span style="color: #f00;">Required</span>
+                        </ng-container>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="8">
+                <nz-form-item>
+                    <nz-form-label [nzXs]="24" nzFor="remotely" nz-typography>Enter remotely percentage</nz-form-label>
+                    <nz-form-control [nzXs]="24" nzHasFeedback>
+                        <input nz-input formControlName="remotely" id="remotely" placeholder="Enter remotely percentage"/>
+                        <ng-container *ngIf="projectForm.get('can_be_done')?.get('remotely').errors?.required">
+                            <span style="color: #f00;">Required</span>
+                        </ng-container>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <ng-container formGroupName="contact_person">
+            <nz-form-label [nzXs]="24" nzFor="contact_person" nz-typography>Who is the contact person for this project from your organization?</nz-form-label>
+            <div nz-row [nzGutter]="8">
+                <div nz-col>
+                    <nz-form-item>
+                        <nz-form-label [nzXs]="24" nzFor="name" nz-typography>Enter name</nz-form-label>
+                        <nz-form-control [nzXs]="24" nzHasFeedback>
+                            <input nz-input formControlName="name" id="name" placeholder="Enter name"/>
+                            <ng-container *ngIf="projectForm.get('contact_person')?.get('name').errors?.required">
+                                <span style="color: #f00;">Required</span>
+                            </ng-container>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col>
+                    <nz-form-item>
+                        <nz-form-label [nzXs]="24" nzFor="email" nz-typography>Enter email</nz-form-label>
+                        <nz-form-control [nzXs]="24" nzHasFeedback>
+                            <input nz-input formControlName="email" id="email" placeholder="Enter email"/>
+                            <ng-container *ngIf="projectForm.get('contact_person')?.get('email').errors?.required">
+                                <span style="color: #f00;">Required</span>
+                            </ng-container>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div nz-row formGroupName="phone_number" [nzGutter]="8">
+                <div nz-col [nzSpan]="4">
+                    <nz-form-item>
+                        <nz-form-label [nzXs]="24" nzFor="extension" nz-typography>Ind +91</nz-form-label>
+                        <nz-form-control [nzXs]="24" nzHasFeedback>
+                            <nz-select nzPlaceHolder="Choose Country code" formControlName="extension">
+                                <nz-option *ngFor="let option of countryPhoneCode" [nzLabel]="option" [nzValue]="option"></nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col [nzSpan]="8">
+                    <nz-form-item>
+                        <nz-form-label [nzXs]="24" nzRequired nzFor="number" nz-typography>Your Cell number</nz-form-label>
+                        <nz-form-control [nzXs]="24" nzHasFeedback>
+                            <input nz-input formControlName="number" id="number" placeholder="Your Cell number"/>
+                            <ng-container *ngIf="projectForm.get('contact_person')?.get('phone_number')?.get('number')?.errors">
+                                <span style="color: #f00;">Cell number is <strong>invalid</strong></span>
+                            </ng-container>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div nz-col [nzSpan]="8">
+                <nz-form-item>
+                    <nz-form-label [nzXs]="24" nzRequired nzFor="linkedin_url" nz-typography>Enter linkedin url</nz-form-label>
+                    <nz-form-control [nzXs]="24" nzHasFeedback>
+                        <input nz-input formControlName="linkedin_url" id="linkedin_url" placeholder="Enter linkedin url"/>
+                        <ng-container *ngIf="projectForm.get('contact_person')?.get('linkedin_url').errors?.required">
+                            <span style="color: #f00;">Required</span>
+                        </ng-container>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </ng-container>
+
+        <ng-container>
+            <div nz-col [nzSpan]="8">
+                <nz-form-item>
+                    <nz-form-label [nzXs]="24" nzFor="mentor" nz-typography>Project Mentor</nz-form-label>
+                    <nz-form-control [nzXs]="24" nzHasFeedback>
+                        <nz-select nzPlaceHolder="Choose Mentor" formControlName="mentor">
+                            <nz-option *ngFor="let mentor of mentorList" [nzLabel]="mentor.name" [nzValue]="mentor._id"></nz-option>
+                        </nz-select>
+                        <!-- <ng-container *ngIf="projectForm.get('project_mentor')?.get('mentor').errors?.required">
+                           Required
+                        </ng-container> -->
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </ng-container>
+
+        <div nz-row formGroupName="willing_to_consider">
+            <nz-form-item>
+                <nz-form-label [nzXs]="24" nzRequired nzFor="answer" nz-typography>Are you willing to consider the project participants for internship, volunteer opportunity, or any
+                    other position at your organization?</nz-form-label>
+                <nz-form-control [nzXs]="24" nzHasFeedback >
+                    <nz-radio-group formControlName="answer">
+                        <label nz-radio [nzValue]="'Yes'">Yes</label>
+                        <label nz-radio [nzValue]="'No'">No</label>
+                        <label nz-radio [nzValue]="'maybe'">Maybe</label>
+                      </nz-radio-group>
+                    <ng-container *ngIf="projectForm.get('willing_to_consider')?.get('answer')?.errors">
+                         Mandatory
+                    </ng-container>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label [nzXs]="24" nzFor="comments" nz-typography>"Add your comments, If any</nz-form-label>
+                <nz-form-control [nzXs]="24" nzHasFeedback>
+                    <input nz-input formControlName="comments" id="comments" placeholder="Add your comments, If any"/>
+                    <ng-container *ngIf="projectForm.get('willing_to_consider')?.get('comments')?.errors">
+                       
+                    </ng-container>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="ask_questions" nz-typography>Do you have any questions that you would like to ask students who undertake
+                this project?</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback >
+                <nz-radio-group formControlName="ask_questions">
+                    <label nz-radio [nzValue]="true">Yes</label>
+                    <label nz-radio [nzValue]="false">No</label>
+                  </nz-radio-group>
+                <ng-container *ngIf="projectForm.get('ask_questions')?.errors">
+                </ng-container>
+            </nz-form-control>
+        </nz-form-item>
+        
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzFor="projectfees" nz-typography>Project Paid/free</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+            
+                <select name="projectfees" formControlName="projectfees" class="projectfees">
+                    <option value="">Choice fees</option>
+                    <option value="1">Paid</option>
+                    <option value="0">UnPaid</option>
+                </select>
+
+            </nz-form-control>
+        </nz-form-item>
+
+        <ng-container *ngIf="projectForm.get('ask_questions').value">
+            <div nz-row>
+                <div nz-col [nzSpan]="18">
+                    <ng-container formArrayName="questions" *ngFor="let question of questions.controls; let i = index">
+                        <nz-form-item>
+                            <nz-form-control [nzXs]="24" nzHasFeedback >
+                                <div style="display: flex;">
+                                    <input nz-input [formControlName]="i" id="i" placeholder="Enter question"/>
+                                <ng-container *ngIf="projectForm.get('questions')?.errors">
+                                   
+                                </ng-container>
+                                <i nz-icon [nzType]="'minus-circle-o'" class="dynamic-delete-button" *ngIf="i> 0" (click)="onRemoveQuestions(i)" style="display: flex;align-items: center;margin-left: 5px;"></i>
+                                </div>
+                            </nz-form-control>
+                        </nz-form-item>
+                </ng-container>
+                </div>
+            </div>
+            <nz-form-item>
+                <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 20, offset: 4 }">
+                  <button nz-button [nzType]="'dashed'" class="add-button"(click)="onAddQuestions()">
+                    <i nz-icon [nzType]="'plus'"></i>
+                    Add Question
+                  </button>
+                </nz-form-control>
+            </nz-form-item>
+        </ng-container>
+        <div nz-row>
+            <app-upload-dialog [documentList]="documentList" [imageSource]="imageSource" [multipleSelection]="true" (onFileUploadSuccess)="onFileUpload($event)"></app-upload-dialog>
+        </div>
+        <img *ngIf="projectImage" alt="project" style="height: 100px; width: 100px;margin-top: 5px;" src="{{projectImage}}">
+    </form>
+</div>

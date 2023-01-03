@@ -1,0 +1,47 @@
+<div>
+    <form nz-form [formGroup]="teamForm" class="ant-advanced-search-form">
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="name" nz-typography>Enter name</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="name" id="name" placeholder="Enter name"/>
+            <ng-container *ngIf="teamForm.get('name').errors?.required">
+                Name is required.
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="designation" nz-typography>Enter Designation</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="designation" id="designation" placeholder="Enter Designation"/>
+            <ng-container *ngIf="teamForm.get('designation').errors?.required">
+                Designation is required.
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="description" nz-typography>Enter description</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="description" id="description" placeholder="Enter description"/>
+            <ng-container *ngIf="teamForm.get('description').errors?.required">
+                Description is required.
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="lindkin" nz-typography>Enter linkden link</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="lindkin" id="lindkin" placeholder="Enter linkden link"/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="position" nz-typography>Enter position</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="position" id="position" placeholder="Enter position"/>
+        </nz-form-control>
+      </nz-form-item>
+      <div nz-row>
+        <app-upload-dialog [documentList] = "documentList" [imageSource] = "imageSource"
+        [multipleSelection] ="false" (onFileUploadSuccess)="onFileUpload($event)"></app-upload-dialog>
+      </div>
+    </form>
+</div>

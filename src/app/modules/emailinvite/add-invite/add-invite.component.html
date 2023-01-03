@@ -1,0 +1,58 @@
+<div>
+      <form nz-form [formGroup]="form" class="ant-advanced-search-form">
+        <nz-form-item>
+          <nz-form-label [nzXs]="24" nzFor="type" nz-typography>Select Invitee Type</nz-form-label>
+          <nz-form-control [nzXs]="24" nzHasFeedback>
+            <nz-select formControlName="type" nzPlaceHolder="Please Select Invitee Type">
+              <nz-option *ngFor="let item of inviteeTypes" [nzLabel]="item.type" [nzValue]="item.value"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+        <div nz-row>
+          <div class="pr-3" nz-col [nzSpan]="12">
+            <nz-form-item>
+              <nz-form-label [nzXs]="24" nzRequired nzFor="firstName" nz-typography>First Name</nz-form-label>
+              <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="firstName" id="firstName" />
+                  <ng-container *ngIf="form.get('firstName').errors?.required">
+                    First Name is required.
+                  </ng-container>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="pl-3" nz-col [nzSpan]="12">
+            <nz-form-item>
+              <nz-form-label [nzXs]="24" nzRequired nzFor="lastName" nz-typography>Last Name</nz-form-label>
+              <nz-form-control [nzXs]="24" nzHasFeedback>
+                <input nz-input formControlName="lastName" id="lastName" />
+                  <ng-container *ngIf="form.get('lastName').errors?.required">
+                    Last Name is required.
+                  </ng-container>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div>
+            <nz-form-item>
+                <nz-form-label [nzXs]="24" nzRequired nzFor="email" nz-typography>Email</nz-form-label>
+                <nz-form-control [nzXs]="24" nzHasFeedback>
+                    <input nz-input formControlName="email" id="email" />
+                    <ng-container *ngIf="form.get('email').errors?.required">
+                        Email is required.
+                    </ng-container>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div>
+          <nz-form-item>
+              <nz-form-label [nzXs]="24" nzRequired nzFor="cellNumber" nz-typography>Cell Number</nz-form-label>
+              <nz-form-control [nzXs]="24" nzHasFeedback>
+                  <input nz-input formControlName="cellNumber" id="cellNumber" />
+                  <ng-container *ngIf="form.get('cellNumber').errors?.required">
+                      Cell Number is required.
+                  </ng-container>
+              </nz-form-control>
+          </nz-form-item>
+      </div>
+      </form>
+  </div>

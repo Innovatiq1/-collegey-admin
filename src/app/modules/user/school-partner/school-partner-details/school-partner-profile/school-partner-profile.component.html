@@ -1,0 +1,33 @@
+<mat-progress-bar [hidden]="!isLoading" mode="indeterminate"></mat-progress-bar>
+<div class="card">
+    <div class="card-header card-header-info">
+        <div class="card-title">
+            School Partner Profile
+        </div>
+    </div>
+    <form *ngIf="profileForm" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+
+        <div class="row" style="padding: 45px;">
+            <div class="col-md-6 mb-12">
+                <label class="label-form">Are you interested in our domestic and international professional development programs, such as the global educator program and ed conclaves for leadership and counselors? </label>
+                <mat-radio-group formControlName="is_interested_in_dev_program" aria-label="Select an option">
+                    <mat-radio-button [value]="true">Yes</mat-radio-button>
+                    <mat-radio-button [value]="false">No</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="col-md-6">
+                <label class="label-form">Do you have an enrichment centre/extra-curricular co-ordinator?</label>
+                <mat-radio-group formControlName="is_enrichment_center" aria-label="Select an option">
+                    <mat-radio-button [value]="true">Yes</mat-radio-button>
+                    <mat-radio-button [value]="false">No</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <mat-form-field class="col-12 col-sm-12 col-md-6 mb-12">
+                <input matInput formControlName="student_with_impact_projects" type="number" placeholder="How many of your students complete impact-making projects?">
+            </mat-form-field>
+            <div class="col-md-6 mb-12">
+                <ng-select class="reduce-spacing" [items]="countries" [multiple]="true" bindLabel="name" bindValue="id" [searchable]="true" [clearable]="false" placeholder="Your preferred countries for further education" formControlName="countries_for_furthur_studies"></ng-select>
+            </div>
+            <button class="float-right save-btn" mat-flat-button color="primary" type="submit">Save</button>
+        </div>
+    </form>

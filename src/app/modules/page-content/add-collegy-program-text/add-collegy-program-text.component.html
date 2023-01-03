@@ -1,0 +1,55 @@
+<div>
+    <form nz-form [formGroup]="pageContentForm" class="ant-advanced-search-form">
+      
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Title</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input formControlName="title" id="title" placeholder="Enter Title"/>
+          <ng-container *ngIf="pageContentForm.get('title').errors?.required">
+            is required.
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="program_content" nz-typography>Content</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback style="margin-top: 10px;">
+         <textarea matInput formControlName="program_content" id="program_content" placeholder="Enter content" 
+                style="padding: 5px 5px;width: 100%;resize: none;height: 80px;"></textarea>
+          <ng-container *ngIf="pageContentForm.get('program_content').errors?.required">
+            is required.
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="button_text" nz-typography>Button Text</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback style="margin-top: 10px;">
+          <input nz-input formControlName="button_text" id="button_text" placeholder="Enter button text"/>
+          <ng-container *ngIf="pageContentForm.get('button_text').errors?.required">
+            is required.
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="button_link" nz-typography>Button link</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input formControlName="button_link" id="button_link" placeholder="Enter button link"/>
+          <ng-container *ngIf="pageContentForm.get('button_link').errors?.required">
+            is required.
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      
+      <div nz-row>
+        <nz-form-label [nzXs]="24" nzFor="image" nz-typography>Add Image (Please upload around image size 750 x 230)</nz-form-label>
+        <input type="file" (change)="onFileUpload($event)" accept=".png,.jpeg,.jpg"/>
+      </div>
+      <div style="color: green;">
+        Accept only png, jpeg, jpg.
+      </div>
+      <img *ngIf="selectFile" alt="project" style="height: 100px; width: 100px;margin-top: 5px;" src="{{selectFile}}">
+
+    </form>
+</div>

@@ -1,0 +1,80 @@
+<div>
+    <form nz-form [formGroup]="pageContentForm" class="ant-advanced-search-form">
+      
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="address1" nz-typography>Address 1</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input formControlName="address1" id="address1" placeholder="Enter Address line"/>
+          <ng-container *ngIf="pageContentForm.get('address1').errors?.required">
+            Address line is required.
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control [nzXs]="24" nzHasFeedback style="margin-top: 10px;">
+          <input nz-input formControlName="address1email" id="address1email" placeholder="Enter address amail"/>
+          <ng-container *ngIf="pageContentForm.get('address1email').errors?.required">
+            Address email is required.
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control [nzXs]="24" nzHasFeedback style="margin-top: 10px;">
+          <input nz-input formControlName="address1phone" id="address1phone" placeholder="Enter address phone"/>
+          <ng-container *ngIf="pageContentForm.get('address1phone').errors?.required">
+            Address phone is required.
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="address2" nz-typography>Address 2</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input formControlName="address2" id="address2" placeholder="Enter address line"/>
+          <ng-container *ngIf="pageContentForm.get('address2').errors?.required">
+            Address line is required.
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control [nzXs]="24" nzHasFeedback style="margin-top: 10px;">
+          <input nz-input formControlName="address2email" id="address2email" placeholder="Enter address email"/>
+          <ng-container *ngIf="pageContentForm.get('address2email').errors?.required">
+            Address email is required.
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control [nzXs]="24" nzHasFeedback style="margin-top: 10px;">
+          <input nz-input formControlName="address2phone" id="address2phone" placeholder="Enter address Phone"/>
+          <ng-container *ngIf="pageContentForm.get('address2phone').errors?.required">
+            Address phone is required.
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="copyright" nz-typography>Copy rights text</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="copyright" id="copyright" placeholder="Enter Copy rights text"/>
+            <ng-container *ngIf="pageContentForm.get('copyright').errors?.required">
+                Button text is required.
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      
+      <div nz-row>
+        <nz-form-label [nzXs]="24" nzFor="copyright" nz-typography>Footer impact journey</nz-form-label>
+        <input type="file" (change)="onFileUpload($event)" accept=".png,.jpeg,.jpg,.gif"/>
+      </div>
+      <div style="color: green;">
+        Accept only png, jpeg, jpg, gif (Please upload around image size 1500 x 270).
+      </div>
+      <img *ngIf="selectFile" alt="project" style="height: 100px; width: 100px;margin-top: 5px;" src="{{selectFile}}">
+
+    </form>
+</div>

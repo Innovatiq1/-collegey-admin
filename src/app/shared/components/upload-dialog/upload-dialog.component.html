@@ -1,0 +1,15 @@
+<div class="form-group no-m-b">
+    <input hidden #chooseFiles multiple accept="image/*" type="file" (change)="onSelectDocument($event)" />
+    <button (click)="chooseFiles.click()" color="primary" mat-flat-button>{{buttonText}}</button>
+</div>
+<span class="note-span" *ngIf="inValidFileSize"> File is larger than <strong>5mb !!</strong></span>
+
+<div class="col-md-12">
+    <div class="document-wrap">
+        <ul class="uploaded-document-name">
+            <li *ngFor="let image of documentList; let i = index">{{image | imageName}}
+                <button type="button" class="delete-file" (click)="onRemoveDocument(i)"><img src="/assets/images/cross-button.svg"></button>
+            </li>
+        </ul>
+    </div>
+</div>

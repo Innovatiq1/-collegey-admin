@@ -1,0 +1,19 @@
+.areaControl{
+    resize: none;
+    min-height: 130px;
+}
+
+/* .parentDiv{
+    background-color: rgb(255,255,255);
+    padding: 24px;
+} */
+.cusBtn{
+    border:1px solid gray;
+    margin-left: 10px;
+}
+
+.btnGroup{
+    display: flex;
+    justify-content: flex-end;
+}
+

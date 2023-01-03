@@ -1,0 +1,81 @@
+<nb-card>
+    <nb-card-header>
+        <nz-page-header nzTitle="Invitees Join">
+        <nz-page-header-extra>
+            <button nz-button nzType="primary" (click)="openModal(Mode.Create, null, null)" nz-typography>Create Invite Join</button>
+        </nz-page-header-extra>
+        <nz-page-header-content>
+            <nz-input-group [nzSuffix]="suffixIconSearch">
+            <input type="text" nz-input placeholder="input search text" #searchBox [(ngModel)]="searchText"
+                (ngModelChange)="search()" />
+            </nz-input-group>
+            
+            <ng-template #suffixIconSearch>
+            <i nz-icon nzType="search"></i>
+            </ng-template>
+        </nz-page-header-content>
+        </nz-page-header>
+
+        <div class="alert alert-success alert-dismissable" style="text-align: center;" *ngIf="msg_success">
+            <!-- Send  -->
+            Conformation Successfully
+        </div>
+        <div class="alert alert-danger alert-dismissable" style="text-align: center;" *ngIf="msg_danger">
+            {{throw_msg}}
+        </div>
+
+    </nb-card-header>
+    
+    <nb-card-body>
+        <nz-list [nzDataSource]="inviteeData" [nzRenderItem]="item" nzBordered>
+        <ng-template #item let-item>
+            <nz-list-item [nzActions]="[editAction]">
+            <ng-template #editAction>
+                <button nz-button nz-dropdown [nzDropdownMenu]="menulist" [nzPlacement]="'bottomLeft'" nz-typography>Actions <i nz-icon nzType="down"></i></button>
+                <nz-dropdown-menu #menulist="nzDropdownMenu">
+                <ul nz-menu>
+                    <li nz-menu-item>
+                    <a (click)="openModal(Mode.Edit, item._id, item)" >Edit</a>
+                    </li>
+                    <li nz-menu-item *ngIf="item.status == '10'">
+                        <a (click)="active(item._id)" >Active</a>
+                        </li>
+                    <li nz-menu-item *ngIf="item.status == 'active' && item.status != '10'">
+                    <a (click)="delete(item._id)">Inactive</a>
+                    </li>
+                    <li nz-menu-item *ngIf="item.status != 'active' && item.status != 'reject' && item.status != '10'">
+                    <a (click)="sendActivationEmail(item._id,item)">Confirm</a>
+                    </li>
+                    <li nz-menu-item *ngIf="item.status != 'active' && item.status != 'reject' && item.status != '10'">
+                    <a (click)="sendActivationEmail(item._id,item)">Resend Email</a>
+                    </li>
+                    <li nz-menu-item *ngIf="item.status != 'active' && item.status != 'reject' && item.status != '10'">
+                        <a (click)="RejectInviteJoin(item._id,item)">Reject</a>
+                    </li>
+                </ul>
+                </nz-dropdown-menu>
+            </ng-template>
+            <nz-list-item-meta [nzTitle]="nzTitle">
+                <ng-template #nzTitle>
+                    <span>
+                        <a style="margin-right: 10px;" nz-typography>{{ item.firstName +' '+ item.lastName }}</a>
+                        <nz-tag [nzColor]="'green'" *ngIf="item.status == 'active'" nz-typography>Active</nz-tag>
+                        <nz-tag [nzColor]="'gold'" *ngIf="item.status == 'invite join'" nz-typography>invite join</nz-tag>
+                        <nz-tag [nzColor]="'orange'" *ngIf="item.status == 'pending'" nz-typography>Pending</nz-tag>
+                        <nz-tag [nzColor]="'red'" *ngIf="item.status == 'reject'" nz-typography>Reject</nz-tag>
+                        <nz-tag [nzColor]="'red'" *ngIf="item.status == '10'" nz-typography>Inactive</nz-tag>
+                        <nz-tag [nzColor]="'purple'" nz-typography>{{item?.type}}</nz-tag>
+                    </span>
+                <p nz-typography>Email : {{item.email}}</p>
+                </ng-template>
+            </nz-list-item-meta>
+            </nz-list-item>
+        </ng-template>
+        </nz-list>
+    </nb-card-body>
+</nb-card>
+
+<app-load-more [isLoading]="isLoading" [isHidden]="isHidden"></app-load-more>
+<div *ngIf="show_loader" class="collegy_loader">
+    <img src="../../../../assets/images/loading-buffering.gif">
+</div>

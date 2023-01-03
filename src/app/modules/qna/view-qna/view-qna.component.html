@@ -1,0 +1,20 @@
+<div>    
+    <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="question" nz-typography>Question</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <p>{{qnaData?.question}}</p>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="questioner" nz-typography>Questioner</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <p>{{qnaData?.user?.name}}</p>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="tags" nz-typography>Tags</nz-form-label>
+        <nz-form-control [nzXs]="24" *ngFor="let tag of qnaData?.questionTag" nzHasFeedback>
+            <nz-tag [nzColor]="'blue'">{{tag}}</nz-tag>
+        </nz-form-control>
+    </nz-form-item>
+  </div>

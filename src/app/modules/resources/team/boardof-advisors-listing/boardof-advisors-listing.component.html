@@ -1,0 +1,60 @@
+<nb-card style="width: 100%;">
+    <nb-card-header>
+        <nz-page-header nzTitle="Board of Advisors List">
+            <!-- <button class="create-user-btn" mat-stroked-button color="primary" (click)="openCreateBlogModal()">Create a Blog</button> -->
+            <nz-page-header-extra>
+                <button nz-button nzType="primary" (click)="openModal(Mode.Create, null, null)" nz-typography>Create a Advisors Member</button>
+            </nz-page-header-extra>
+            <nz-page-header-content>
+                <nz-input-group [nzSuffix]="suffixIconSearch">
+                <input type="text" nz-input placeholder="input search text" #searchBox [(ngModel)]="searchText"/>
+                </nz-input-group>
+                <ng-template #suffixIconSearch>
+                <i nz-icon nzType="search"></i>
+                </ng-template>
+            </nz-page-header-content>
+        </nz-page-header>
+    </nb-card-header>
+        <nz-list nzGrid nzBordered>
+            <div nz-row [nzGutter]="16" *ngFor="let team of teamlist;  let j = index;">
+                <nz-list-item>
+                    <nb-card style="width:970px !important;">
+                        <nb-card-header>
+                            <span>{{j+1}}. </span>{{team?.name}}
+                            <nz-tag [nzColor]="'green'" *ngIf="team.active" nz-typography>Active</nz-tag>
+                            <nz-tag [nzColor]="'red'" *ngIf="!team.active" nz-typography>In-Active</nz-tag> <br> <br>
+                            <nz-tag [nzColor]="'gold'" nz-typography>{{team?.position}}</nz-tag>
+                            <nz-tag [nzColor]="'blue'" nz-typography>{{team?.designation}}</nz-tag>
+                           
+                            <ng-container>
+                                <button nz-button nz-dropdown [nzDropdownMenu]="menu" [nzPlacement]="'bottomLeft'" style="float: right;">Actions <i nz-icon nzType="down"></i></button>
+                                <nz-dropdown-menu #menu="nzDropdownMenu">
+                                    <ul nz-menu>
+                                        <li nz-menu-item>
+                                            <a (click)="openModal(Mode.Edit, team._id, team)">Edit</a>
+                                        </li>
+                                        <li nz-menu-item *ngIf="!team.active">
+                                            <a (click)="activationBoardofAdvisors(team._id,'active')">Active</a>
+                                        </li>
+                                        <li nz-menu-item *ngIf="team.active">
+                                            <a (click)="activationBoardofAdvisors(team._id,'deactive')">De-Active</a>
+                                        </li>
+                                    </ul>
+                                </nz-dropdown-menu>
+                              </ng-container>
+                        </nb-card-header>
+                        <nb-card-body>
+                            {{team?.description}}
+                            <div style="margin: 10px;">
+                                <nz-tag [nzColor]="'gold'" nz-typography>{{team?.lindkin}}</nz-tag>
+                            </div>
+                        </nb-card-body>
+                        <!-- <nb-card-footer>
+                            <nz-tag [nzColor]="'gray'" *ngFor="let tag of conference.tags;  let i = index;" nz-typography>{{tag}}</nz-tag>
+                        </nb-card-footer> -->
+                    </nb-card>
+                </nz-list-item>
+            </div>
+          </nz-list>
+</nb-card>
+<app-load-more [isLoading]="isLoading" [isHidden]="teamlist.length<=0"></app-load-more>

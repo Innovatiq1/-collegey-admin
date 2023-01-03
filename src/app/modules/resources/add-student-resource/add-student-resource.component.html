@@ -1,0 +1,24 @@
+<div>
+    <form nz-form [formGroup]="resourceForm" class="ant-advanced-search-form">
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Title</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="title" id="title" placeholder="Enter resource title"/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="description" nz-typography>Description</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <textarea matInput (change)="wordCounter($event);" formControlName="description" placeholder="Enter description" style="padding: 5px 5px;width: 100%;resize: none;height: 80px;"></textarea>
+            <span *ngIf="showWordLimitError" class="d-block" style="color: red;">Max word limit is 10</span>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="link" nz-typography>Enter Youtube Link</nz-form-label>
+        <span class=" ant-col-xs-24">Ex .https://www.youtube.com/embed/9hzXBLvPsyc</span>   
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input formControlName="link" id="link" placeholder="Please enter only embed youtube link."/>
+        </nz-form-control> 
+      </nz-form-item>
+    </form>
+  </div>

@@ -1,0 +1,26 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+
+        <span mat-icon-button class="toggle" (click)="menuClick.emit()">
+            <mat-icon>menu</mat-icon>
+        </span>
+
+        <span class="d-none d-sm-block">
+            <a [routerLink]="[ '/' ]" style="color: white; text-decoration: none;">
+                {{title}}
+            </a>
+        </span>
+
+        <span class="spacer"></span>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="logOut()">
+                <mat-icon>toggle_on</mat-icon>
+                <span>Logout</span>
+            </button>
+        </mat-menu>
+
+    </mat-toolbar-row>
+</mat-toolbar>

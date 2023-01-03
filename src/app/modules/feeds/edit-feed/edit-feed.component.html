@@ -1,0 +1,62 @@
+
+<div>  
+    <form nz-form [formGroup]="postForm" class="ant-advanced-search-form">
+          
+  
+    <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="question" nz-typography>Post Text</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <textarea matInput formControlName="postText" id="title" placeholder="Enter email content" 
+                style="padding: 5px 5px;width: 100%;resize: none;height: 80px;"></textarea>
+                <ng-container *ngIf="postForm.get('postText').errors?.required">
+                    Email content is required.
+            </ng-container>
+        </nz-form-control>
+              
+        
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzXs]="24"  nzFor="posturl" nz-typography>Add a Link</nz-form-label>  
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="posturl" id="postData" placeholder="Enter top header text"/>
+            <ng-container *ngIf="postForm.get('posturl').errors?.required">
+              PostLink is required.
+            </ng-container>
+          </nz-form-control>   
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzXs]="24"  nzFor="tags" nz-typography>Image</nz-form-label>
+        <div class="form-group">
+            <label style="color: #023147;
+                          font-weight: 600;">Post Image (Please upload file around image size 2000 x 2000)</label>
+            <input class="form-control" (change)="onFileSelect($event)" type="file" name="" id=""
+              placeholder="Group Description">
+          </div>
+          <div *ngIf="PostEditImage != null">
+            <div class="d-inline-block position-relative" *ngIf="!removeImageFile">
+              <button class="delete-img" (click)="removeImage()"><i class="fa fa-times-circle"></i></button>
+              <img *ngIf="PostEditImage" alt="Feed Post Image" style="object-fit: cover;" class="pb-3 img-fluid"
+                [src]="PostEditImage">
+            </div>  
+          </div>
+
+
+        <!-- <nz-form-control [nzXs]="24"  nzHasFeedback>
+            <input class="form-control" (change)="onFileSelect($event)" type="file" name="" id=""
+                placeholder="Group Description">
+                <div *ngIf="PostEditImage != null">
+                    <div class="d-inline-block position-relative" *ngIf="!removeImageFile">
+                      <button class="delete-img" (click)="removeImage()"><i class="fa fa-times-circle"></i></button>
+                      <img *ngIf="PostEditImage" alt="Feed Post Image" style="object-fit: cover;" class="pb-3 img-fluid"
+                        [src]="PostEditImage">
+                    </div>
+                  </div>
+      
+
+            <img *ngIf="feedData?.postImageUrl && !feedData?.postImageUrl.includes('http')" alt="project" style="height: 100px; width: 100px;margin-top: 5px;" [src]="commonService.imagePathS3(feedData?.postImageUrl)">
+
+            <img *ngIf="feedData?.postImageUrl && feedData?.postImageUrl.includes('http')" alt="project" style="height: 100px; width: 100px;margin-top: 5px;" [src]="feedData?.postImageUrl">
+
+        </nz-form-control> -->
+    </nz-form-item>
+  

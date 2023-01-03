@@ -1,0 +1,185 @@
+<!-- <mat-progress-bar mode="indeterminate" [hidden]="!isLoading"></mat-progress-bar>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{blog ? 'Update Blog' : 'Add Blog'}}</mat-card-title>
+        <span class="spacer"></span>
+        <span>
+      <button mat-icon-button>
+        <mat-icon (click)="closeModal()">close</mat-icon>
+      </button>
+    </span>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-dialog-content class="m-0" style="max-width: 900px">
+            <form [formGroup]="blogFormGroup">
+                <div class="row">
+                    <mat-form-field class="col-12 col-sm-12 col-md-6">
+                        <input formControlName="title" matInput placeholder="Enter blog title" type="text">
+                        <app-input-validation [control]="blogFormGroup.get('title')"></app-input-validation>
+                    </mat-form-field>
+                    <mat-form-field class="col-12 col-sm-12 col-md-6">
+                        <input formControlName="author" matInput placeholder="Enter author name" type="text">
+                        <app-input-validation [control]="blogFormGroup.get('author')"></app-input-validation>
+                    </mat-form-field>
+                    <mat-form-field class="col-12 col-sm-12 col-md-12">
+                        <input formControlName="short_description" matInput placeholder="Enter short description" type="text">
+                        <app-input-validation [control]="blogFormGroup.get('short_description')"></app-input-validation>
+                    </mat-form-field>
+                    <mat-form-field class="col-12 col-sm-12 col-md-6">
+                        <input formControlName="redirect_link" matInput placeholder="Enter redirect link" type="text">
+                        <app-input-validation [control]="blogFormGroup.get('redirect_link')"></app-input-validation>
+                    </mat-form-field>
+                    <div class="col-12 col-sm-12 col-md-6 validation-spacing">
+                        <ng-select class="reduce-spacing" [addTag]="true" [multiple]="true" [searchable]="true" [clearable]="false" placeholder="Add Tag" formControlName="tags"></ng-select>
+                        <app-input-validation [control]="blogFormGroup.get('tags')"></app-input-validation>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6">
+                        <label>Is paid:</label>
+                        <mat-radio-group class="radio-label" aria-label="Select an option" formControlName="is_paid">
+                            <mat-radio-button [value]="true">Yes</mat-radio-button>
+                            <mat-radio-button [value]="false">No</mat-radio-button>
+                        </mat-radio-group>
+                        <app-input-validation [control]="blogFormGroup.get('is_paid')"></app-input-validation>
+                    </div>
+                    <mat-form-field class="col-12 col-sm-12 col-md-3" *ngIf="blogFormGroup.get('is_paid').value===true">
+                        <input formControlName="cost" matInput placeholder="Enter cost" type="number">
+                        <app-input-validation [control]="blogFormGroup.get('cost')"></app-input-validation>
+                    </mat-form-field>
+                    <div class="col-12 col-sm-12 col-md-3">
+                        <mat-slide-toggle formControlName="status">
+                            Status
+                        </mat-slide-toggle>
+                        <app-input-validation [control]="blogFormGroup.get('status')"></app-input-validation>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-3">
+                        <mat-slide-toggle formControlName="editorPick">
+                            Editor's Pick
+                        </mat-slide-toggle>
+                        <app-input-validation [control]="blogFormGroup.get('status')"></app-input-validation>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 mt-20 form-editor">
+                        <textarea formControlName="description" matInput placeholder="Enter description" type="textarea"></textarea>
+                        <angular-editor formControlName="description" [config]="config"></angular-editor>
+                        <ckeditor [editor]="ClassicEditorBuild" (ready)="onReady($event)" formControlName="description"></ckeditor>
+                        <quill-editor
+                        formControlName="description"
+                        ></quill-editor>
+                        <app-input-validation [control]="blogFormGroup.get('description')"></app-input-validation>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 mt-20">
+                        <app-upload-dialog [documentList]="documentList" [imageSource]="imageSource.BLOGS" [multipleSelection]="false" (onFileUploadSuccess)="onFileUpload($event)"></app-upload-dialog>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 mt-20">
+                        <app-upload-dialog [documentList]="authorImageList" [imageSource]="imageSource.AUTHOR" buttonText = "Choose author image" [multipleSelection]="false" (onFileUploadSuccess)="onAuthorImageUpload($event)"></app-upload-dialog>
+                    </div>
+                    <div class="col-md-12">
+                        <button class="float-right" mat-flat-button color="primary" (click)="onSubmitForm()">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </mat-dialog-content>
+    </mat-card-content>
+</mat-card> -->
+<div>
+    <form nz-form [formGroup]="blogFormGroup" class="ant-advanced-search-form">
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Title</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="title" id="title" placeholder="Enter blog title"/>
+            <ng-container *ngIf="submitted && blogFormGroup.get('title').errors?.required">
+                <span class="clg-error-textcolor">Title is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="author" nz-typography>Author's Name</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="author" id="author" placeholder="Enter author name"/>
+            <ng-container *ngIf="submitted && blogFormGroup.get('author').errors?.required">
+                <span class="clg-error-textcolor">Author is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="short_description" nz-typography>Short Description</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="short_description" id="short_description" placeholder="Enter short description"/>
+            <ng-container *ngIf="submitted && blogFormGroup.get('short_description').errors?.required">
+                <span class="clg-error-textcolor">Short Description is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="tags" nz-typography>Tags</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <nz-select nzMode="tags" nzPlaceHolder="Add Tag" formControlName="tags">
+              </nz-select>
+            <ng-container *ngIf="submitted && blogFormGroup.get('tags').errors?.required">
+                <span class="clg-error-textcolor">Tags are required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="is_paid" nz-typography>Is paid</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback >
+            <nz-radio-group formControlName="is_paid">
+                <label nz-radio [nzValue]="true">Yes</label>
+                <label nz-radio [nzValue]="false">No</label>
+              </nz-radio-group>
+            <ng-container *ngIf="submitted && blogFormGroup.get('is_paid').errors?.required">
+                <span class="clg-error-textcolor">Mandatory</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item> -->
+      
+      <nz-form-item *ngIf="blogFormGroup.get('is_paid').value===true">
+        <nz-form-label [nzXs]="24" nzRequired nzFor="cost" nz-typography>Cost</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input formControlName="cost" id="cost" placeholder="Enter cost"/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="status" nz-typography>Status</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback >
+            <nz-switch formControlName="status" ></nz-switch>
+            <ng-container *ngIf="submitted && blogFormGroup.get('status').errors?.required">
+                <span class="clg-error-textcolor"> Status is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <!-- <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="editorPick" nz-typography>Editor's Pick</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback >
+            <nz-radio-group formControlName="editorPick">
+                <label nz-radio [nzValue]="true">Yes</label>
+                <label nz-radio [nzValue]="false">No</label>
+              </nz-radio-group>
+            <ng-container *ngIf="submitted && blogFormGroup.get('editorPick').errors?.required">
+                <span class="clg-error-textcolor">    Mandatory</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item> -->
+      <div nz-row>
+        <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="description" nz-typography>Enter description</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback>
+                <quill-editor
+                formControlName="description" aria-placeholder="Enter description"
+                ></quill-editor>
+                <ng-container *ngIf="submitted && blogFormGroup.get('description').errors?.required">
+                    <span class="clg-error-textcolor">Description is required.</span>
+                </ng-container>
+            </nz-form-control>
+          </nz-form-item>
+      </div>
+      <div nz-row>
+        <div class="pr-3" nz-col [nzSpan]="12">
+            <app-upload-dialog [documentList]="documentList" [imageSource]="imageSource" [multipleSelection]="false" (onFileUploadSuccess)="onFileUpload($event)"></app-upload-dialog>
+        </div>
+        <!-- <div class="pl-3" nz-col [nzSpan]="12">
+            <app-upload-dialog [documentList]="authorImageList" [imageSource]="imageSource.AUTHOR" buttonText = "Choose author image" [multipleSelection]="false" (onFileUploadSuccess)="onAuthorImageUpload($event)"></app-upload-dialog>
+        </div> -->
+      </div>
+    </form>
+</div>

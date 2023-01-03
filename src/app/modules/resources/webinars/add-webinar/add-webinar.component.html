@@ -1,0 +1,150 @@
+<!-- <mat-progress-bar mode="indeterminate" [hidden]="!isLoading"></mat-progress-bar>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{!webinar ? 'Add Webinar' : 'Update Webinar'}}</mat-card-title>
+        <span class="spacer"></span>
+        <span>
+      <button mat-icon-button>
+        <mat-icon (click)="dialogRef.close()">close</mat-icon>
+      </button>
+    </span>
+    </mat-card-header>
+    <mat-card-content style="width: 700px;">
+        <mat-dialog-content class="m-0">
+            <form [formGroup]="webinarForm" *ngIf="webinarForm">
+                <div class="row">
+                    <mat-form-field class="col-12 col-sm-12 col-md-6">
+                        <input formControlName="title" matInput placeholder="Enter webinar title" type="text">
+                        <app-input-validation [control]="webinarForm.get('title')"></app-input-validation>
+                    </mat-form-field>
+                    <mat-form-field class="col-12 col-sm-12 col-md-6">
+                        <input formControlName="description" matInput placeholder="Enter  description" type="text">
+                        <app-input-validation [control]="webinarForm.get('description')"></app-input-validation>
+                    </mat-form-field>
+                    <mat-form-field class="col-12 col-sm-12 col-md-12">
+                        <input formControlName="video_url" matInput placeholder="Enter Video link" type="text">
+                        <app-input-validation [control]="webinarForm.get('video_url')"></app-input-validation>
+                    </mat-form-field>
+                    <mat-form-field class="col-12 col-sm-12 col-md-6">
+                        <mat-label>Date</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="date">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <app-input-validation [control]="webinarForm.get('date')"></app-input-validation>
+                    </mat-form-field>
+                    <div class="col-12 col-sm-12 col-md-6 validation-spacing">
+                        <ng-select class="reduce-spacing" [addTag]="true" [multiple]="true" [searchable]="true" [clearable]="false" placeholder="Add Tag" formControlName="tags"></ng-select>
+                        <app-input-validation [control]="webinarForm.get('tags')"></app-input-validation>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6">
+                        <label>Is paid:</label>
+                        <mat-radio-group class="radio-label" aria-label="Select an option" formControlName="is_paid">
+                            <mat-radio-button [value]="true">Yes</mat-radio-button>
+                            <mat-radio-button [value]="false">No</mat-radio-button>
+                        </mat-radio-group>
+                        <app-input-validation [control]="webinarForm.get('is_paid')"></app-input-validation>
+                    </div>
+                    <mat-form-field class="col-12 col-sm-12 col-md-3" *ngIf="webinarForm.get('is_paid').value===true">
+                        <input formControlName="cost" matInput placeholder="Enter cost" type="number">
+                        <app-input-validation [control]="webinarForm.get('cost')"></app-input-validation>
+                    </mat-form-field>
+                    <div class="col-12 col-sm-12 col-md-3">
+                        <mat-slide-toggle formControlName="status">
+                            Status
+                        </mat-slide-toggle>
+                        <app-input-validation [control]="webinarForm.get('status')"></app-input-validation>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-12" style="margin-top: 20px;">
+                        <app-upload-dialog [documentList]="documentList" [imageSource]="imageSource" [multipleSelection]="false" (onFileUploadSuccess)="onFileUpload($event)"></app-upload-dialog>
+                    </div>
+
+                </div>
+                <div class="col-md-12">
+                    <button class="float-right" (click)="onSubmitForm()" mat-flat-button color="primary">Submit</button>
+                </div>
+            </form>
+        </mat-dialog-content>
+    </mat-card-content>
+</mat-card> -->
+
+<div>
+    <form nz-form [formGroup]="webinarForm" class="ant-advanced-search-form">
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="title" nz-typography>Enter webinar title</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="title" id="title" placeholder="Enter webinar title"/>
+            <ng-container *ngIf="submitted && webinarForm.get('title').errors?.required">
+              <span class="clg-error-textcolor"> Title is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="description" nz-typography>Enter  description</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="description" id="description" placeholder="Enter short description"/>
+            <ng-container *ngIf="submitted && webinarForm.get('description').errors?.required">
+              <span class="clg-error-textcolor">Description is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="tags" nz-typography>Tags</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <nz-select nzMode="tags" nzPlaceHolder="Add Tag" formControlName="tags">
+              </nz-select>
+            <ng-container *ngIf="submitted && webinarForm.get('tags').errors?.required">
+              <span class="clg-error-textcolor">Tags are required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="video_url" nz-typography>Enter Video link</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <input nz-input formControlName="video_url" id="video_url" placeholder="Enter redirect link"/>
+            <!-- <ng-container *ngIf="webinarForm.get('redirect_link').errors?.required">
+                Redirect Link is required.
+            </ng-container> -->
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="date" nz-typography>Date</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+            <nz-date-picker formControlName="date"></nz-date-picker>
+            <ng-container *ngIf="submitted && webinarForm.get('date').errors?.required">
+              <span class="clg-error-textcolor">Date is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="is_paid" nz-typography>Is paid</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback >
+            <nz-radio-group formControlName="is_paid">
+                <label nz-radio [nzValue]="true">Yes</label>
+                <label nz-radio [nzValue]="false">No</label>
+              </nz-radio-group><br>
+            <ng-container *ngIf="submitted && webinarForm.get('is_paid').errors?.required">
+              <span class="clg-error-textcolor">Paid is required</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item *ngIf="webinarForm.get('is_paid').value===true">
+        <nz-form-label [nzXs]="24" nzRequired nzFor="cost" nz-typography>Cost</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback>
+          <input nz-input formControlName="cost" id="cost" placeholder="Enter cost"/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzRequired nzFor="status" nz-typography>Status</nz-form-label>
+        <nz-form-control [nzXs]="24" nzHasFeedback >
+            <nz-switch formControlName="status" ></nz-switch>
+            <ng-container *ngIf="submitted && webinarForm.get('status').errors?.required">
+              <span class="clg-error-textcolor">Status is required.</span>
+            </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+      <div nz-row>
+        <app-upload-dialog [documentList]="documentList" [imageSource]="imageSource" [multipleSelection]="false" (onFileUploadSuccess)="onFileUpload($event)"></app-upload-dialog>
+      </div>
+    </form>
+</div>
