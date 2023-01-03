@@ -242,7 +242,7 @@ export class AddStudentprojectComponent implements OnInit {
         }
       });
       formData.keyword = keyword;
-
+      formData['remainingSlot'] = formData?.students_count;
       !this.project ? this.addProject(formData).then((response)=>{
         resolve()
       }).catch((e)=>{
