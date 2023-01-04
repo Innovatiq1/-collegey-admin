@@ -89,6 +89,10 @@ export class AddStudentprojectComponent implements OnInit {
       //skills: [this.project ? this.project.skills : null, Validators.required],
       keyword: [this.project ? this.project.keyword : null, Validators.required],
       documents: [this.project ? this.project.documents : null],
+      min_students_count: [
+        this.project ? this.project.min_students_count : null,
+        Validators.required,
+      ],
       students_count: [
         this.project ? this.project.students_count : null,
         Validators.required,

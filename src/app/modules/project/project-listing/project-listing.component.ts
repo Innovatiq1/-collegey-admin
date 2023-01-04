@@ -112,6 +112,8 @@ export class ProjectListingComponent implements OnInit {
   }
 
   openModal(mode: Mode, id = null, item = null) {
+    console.log('-=-==-=-=-=->',mode);
+    
     this.modal = this.modalService.create({
       nzTitle: mode === "Create" ? "Create Project" : "Update Project",
       nzContent: AddProjectComponent,

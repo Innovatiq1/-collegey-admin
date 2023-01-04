@@ -90,6 +90,10 @@ export class AddMentorprojectComponent implements OnInit {
       //skills: [this.project ? this.project.skills : null, Validators.required],
       documents: [this.project ? this.project.documents : null],
       image: [this.project ? this.project.image : null],
+      min_students_count: [
+        this.project ? this.project.min_students_count : null,
+        Validators.required,
+      ],
       students_count: [
         this.project ? this.project.students_count : null,
         Validators.required,
