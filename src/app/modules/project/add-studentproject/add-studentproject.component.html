@@ -55,9 +55,21 @@
         <div nz-row [nzGutter]="16">
             <div nz-col [nzSpan]="12">
                 <nz-form-item>
-                    <nz-form-label [nzXs]="24" nzRequired nzFor="students_count" nz-typography>How many students can do this project?</nz-form-label>
+                    <nz-form-label [nzXs]="24" nzRequired nzFor="min_students_count" nz-typography>Minimum # of students (add 3 or more)</nz-form-label>
                     <nz-form-control [nzXs]="24" nzHasFeedback>
-                        <input nz-input formControlName="students_count" id="students_count" placeholder="How many students can do this project?"/>
+                        <input nz-input formControlName="min_students_count" id="min_students_count" placeholder="Minimum # of students (add 3 or more)"/>
+                        <ng-container *ngIf="projectForm.get('min_students_count').errors?.required">
+                            <span style="color: #f00;">Minimum students is required.</span>
+                        </ng-container>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                    <nz-form-label [nzXs]="24" nzRequired nzFor="students_count" nz-typography>Maximum Number Of Students(15 or less)</nz-form-label>
+                    <nz-form-control [nzXs]="24" nzHasFeedback>
+                        <input nz-input formControlName="students_count" id="students_count" placeholder="Maximum Number Of Students(15 or less)"/>
                         <ng-container *ngIf="projectForm.get('students_count').errors?.required">
                             <span style="color: #f00;">Required.</span>
                         </ng-container>

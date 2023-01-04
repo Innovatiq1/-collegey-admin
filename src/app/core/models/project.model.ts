@@ -19,6 +19,7 @@ export interface Project {
   sdg: string[];
   skills: string[];
   documents: string[];
+  min_students_count:number;
   students_count: number;
   start_date: string;
   end_date: string;
