@@ -26,7 +26,7 @@ export class AddInviteComponent implements OnInit {
   inviteeTypes:any = [
     {type:'Student',value:'student'},
     {type:'Mentor',value:'mentor'},
-    {type:'High School Student',value:'student'},
+    // {type:'High School Student',value:'student'},
   ]
 
 
