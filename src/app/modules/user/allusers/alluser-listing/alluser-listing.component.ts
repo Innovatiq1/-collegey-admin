@@ -144,7 +144,8 @@ export class AlluserListingComponent implements OnInit {
   }
 
   openModal(mode: Mode, id = null, item = null) {
-    console.log("Clicked")
+    console.log("Clicked");
+    console.log("item",item);
     this.modal = this.modalService.create({
       nzTitle: mode === "Create" ? "Create User" : "Update User",
       nzContent: AddAlluserComponent,
