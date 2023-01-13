@@ -96,7 +96,7 @@
         </nz-form-item>
         <span *ngIf="isSubmitted && hasErrorEvent('imagePath','required')" class="d-block" style="color: red;">Please upload an image.</span>
         <div style="color: green;">
-            Accept only png, jpeg, jpg
+            Accept only png, jpeg, jpg <span> (Please upload around image size 1200 x 190)</span>
         </div>
         <nz-form-item *ngIf="bannerImage" >
             <img                 
