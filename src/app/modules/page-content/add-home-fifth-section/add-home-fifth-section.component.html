@@ -111,7 +111,7 @@
             <input type="file" (change)="onFileUpload($event)" accept=".png,.jpeg,.jpg" />
         </div>
         <div style="color: green;">
-            Accept only png, jpeg, jpg.
+            Accept only png, jpeg, jpg. <span> (Please upload around image size 150 x 150)</span>
         </div>
         <img *ngIf="selectFile" alt="project" style="height: 100px; width: 100px;margin-top: 5px;" src="{{selectFile}}">
 
