@@ -84,7 +84,7 @@ export class AddInviteComponent implements OnInit {
         firstName: ["", [Validators.required]],
         lastName: ["", [Validators.required]],
         email: ["", [Validators.required]],
-        cellNumber: ["", [Validators.required]],
+        cellNumber: [""],
       },
     );
     // this.coursesFromArray.push(this.fb.group([]));
