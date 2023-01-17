@@ -23,6 +23,15 @@ export class ProjectService {
   private defaultUrl: string = environment['apiUrl'];
   constructor(private http: HttpClient) { }
 
+  getBanners = (data:any): Observable<any> => {
+    const endpoint = this.defaultUrl+'bannerImage/getBanners';
+    return this.http.post(endpoint, data).pipe(
+      catchError((err) => {
+        return throwError(err);
+      })
+    ); 
+  };
+
   getProjectList(filter): Observable<Project> {
     const apiUrl = this.defaultUrl + 'admin/projects/';
     return this.http.get<ApiResponse>(apiUrl, {

@@ -1,6 +1,5 @@
 import { Component, OnInit, NgModule, Inject } from '@angular/core';
-
-import { CommonModule } from '@angular/common';
+import { CommonModule,DatePipe } from '@angular/common';
 import { MaterialModule } from 'src/app/material/material.module';
 import {
   FormGroup,
@@ -55,6 +54,14 @@ export class AddProjectComponent implements OnInit {
   id: any;
   loginuserId:any;
   projectImage:any;
+
+  // Set Last date and start date
+  projectStartDate: any;
+  projectSetLastDate: any;
+  
+  bannerImages: any = [];
+  bannerFor: String;
+
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<AddProjectComponent>,
@@ -62,11 +69,19 @@ export class AddProjectComponent implements OnInit {
     private commonService: CommonService,
     private modal: NzModalRef,
     private mentorService: MentorService,
+    private datePipe: DatePipe
   ) {
     this.documentList = [];
     const userObject = localStorage.getItem(AppConstants.KEY_USER_DATA);
     const userDataList = JSON.parse(userObject);
     this.loginuserId = userDataList?.user?._id;
+
+    var myDateSet = new Date();
+    var newDateSet = this.datePipe.transform(myDateSet, 'yyyy-MM-dd');
+    this.projectStartDate = newDateSet;
+    this.projectSetLastDate = newDateSet;
+    this.bannerFor = "mentor";
+    this.getBanners();
   }
 
   initProjectForm() {
@@ -129,7 +144,7 @@ export class AddProjectComponent implements OnInit {
   get questions() {
     return this.projectForm.get('questions') as FormArray;
   }
-
+  
   onAddQuestions() {
     this.questions.push(this.fb.control(''));
   }
@@ -138,12 +153,44 @@ export class AddProjectComponent implements OnInit {
     this.questions.removeAt(index);
   }
 
+  onChangeProjectStart(event) {
+    var myCurrentDate = new Date(event.target.value);
+    myCurrentDate.setDate(myCurrentDate.getDate() + 30);
+    var newPlusDate = this.datePipe.transform(myCurrentDate, 'yyyy-MM-dd');
+    this.projectSetLastDate = newPlusDate;
+    this.projectForm.patchValue({
+      end_date: '',
+    });
+  }
+
   createQuestionsFormArray(questions): FormArray {
     return this.fb.array(
       questions.length > 0
         ? questions.map((question) => this.fb.control(question))
         : [new FormControl('')]
     );
+  }
+
+  getBanners() {
+    const obj = {
+      bannerFor: this.bannerFor,
+    };
+    this.projectService.getBanners(obj).subscribe(
+      (response) => {
+        this.bannerImages = response.data;
+      },
+      (err) => {
+
+      },
+    );
+  }
+
+  selectImage(image) {
+    if (image) {
+      this.projectImage = image.imagePath;
+    } else {
+      this.projectImage = this.bannerImages[0];
+    }
   }
 
   getCanBeDone(canBeDone: CanBeDone) {
