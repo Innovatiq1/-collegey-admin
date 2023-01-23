@@ -187,7 +187,7 @@
         </nz-form-item>
 
         <nz-form-item>
-            <nz-form-label [nzXs]="24" nzRequired nzFor="description" nz-typography>Enter  description</nz-form-label>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="description" nz-typography>Enter description</nz-form-label>
             <nz-form-control [nzXs]="24" nzHasFeedback>
                 <input nz-input formControlName="description" id="description" placeholder="Enter short description"/>
                 <ng-container *ngIf="projectForm.get('description').errors?.required">
@@ -195,6 +195,36 @@
                 </ng-container>
             </nz-form-control>
         </nz-form-item>
+
+
+        <!-- <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="projectDuration" nz-typography>Project Plan</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback >
+                <nz-select formControlName="projectDuration" nzPlaceHolder="Please Select Status" (ngModelChange)="changeProjectduration($event)">
+                  <nz-option *ngFor="let option of statusTypeOptions" [nzLabel]="option.name" [nzValue]="option.value">{{option.value}}ok</nz-option>
+                </nz-select>
+                <ng-container *ngIf="projectForm.get('projectDuration').errors?.required">
+                  <span class="clg-input-error">Project Duration required.</span>
+              </ng-container>
+         
+              <div class="maincon">
+                    <div class="group1" *ngFor="let item of projectWeeklength; let i=index;">
+                        <label class="form-label">Week {{i+1}} description</label>
+                        <textarea formControlName="week{{i+1}}Duration"></textarea>
+                    </div>
+
+                    <div class="group" *ngIf="monthDurationActive">
+
+                            <textarea (change)="wordCounterMilestone($event);"
+                                formControlName="monthDuration"></textarea>
+                            <label class="form-label">Project description</label>
+                        </div>
+                        <span *ngIf="showWordLimitMilestoneError" class="alert-danger d-block p-1">Max word limit is
+                            250</span>
+                    </div>
+
+            </nz-form-control>
+          </nz-form-item> -->
 
         <div nz-row [nzGutter]="16">
             <div nz-col [nzSpan]="12">

@@ -90,51 +90,35 @@
                 </nz-form-item>
             </div> -->
         </div>
-        <div formGroupName="projectPlan">
-            <div class="row">
-
-                <div class="col-12 col-md-12">
-                    <div class="form-group">
-                        <label>Project plan duration<span style="color: red;">*</span>&nbsp;</label>
-                        <select formControlName="projectDuration" name="projectDuration" class="form-control"
-                            (change)="changeProjectduration($event)">
-                            <option value="">Choose Duration</option>
-                            <option value="4">4 Weeks</option>
-                            <option value="5">5 Weeks</option>
-                            <option value="6">6 Weeks</option>
-                            <option value="3 month">3 Month</option>
-                            <option value="4 month">4 Month</option>
-                            <option value="5 month">5 Month</option>
-                            <option value="6 month">6 Month</option>
-                            <option value="7 month">7 Month</option>
-                            <option value="8 month">8 Month</option>
-                            <option value="9 month">9 Month</option>
-                        </select>
-                        <!-- <span *ngIf="submitted && hasError('projectDuration','required')" class="d-block"
-                            style="color: red;">Required.</span> -->
+  
+        <!-- <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="projectDuration" nz-typography>Project Plan</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback >
+                <nz-select formControlName="projectDuration" nzPlaceHolder="Please Select Status" (ngModelChange)="changeProjectduration($event)">
+                  <nz-option *ngFor="let option of statusTypeOptions" [nzLabel]="option.name" [nzValue]="option.value">{{option.value}}ok</nz-option>
+                </nz-select>
+                <ng-container *ngIf="projectForm.get('projectDuration').errors?.required">
+                  <span class="clg-input-error">Project Duration required.</span>
+              </ng-container>
+         
+              <div class="maincon">
+                    <div class="group1" *ngFor="let item of projectWeeklength; let i=index;">
+                        <label class="form-label">Week {{i+1}} description</label>
+                        <textarea formControlName="week{{i+1}}Duration"></textarea>
                     </div>
-                </div>
 
-                <div *ngFor="let item of projectWeeklength; let i=index;" class="col-sm-12 col-lg-6 row pd-sm-l0"
-                    style="margin: 0;padding: 0;">
-                    <div class="group col-sm-12 pd-sm-r10">
-                    <div class="form-group">
-                        <label> Week {{i+1}} description</label>
-                        <textarea formControlName="week{{i+1}}Duration" class="form-control areaControl"></textarea>
-                    </div>
-                    </div>
-                </div>
-            </div>
+                    <div class="group" *ngIf="monthDurationActive">
 
-            <div *ngIf="monthDurationActive" class="col-sm-12 col-lg-12 row pd-sm-l0" style="margin: 0;padding: 0;">
-                <div class="group col-sm-12 pd-sm-r10">
-                <div class="form-group">
-                    <label> Project Description </label>
-                    <textarea formControlName="ProjectDescription" class="form-control"></textarea>
-                </div>
-                </div>
-            </div>
-          </div>
+                            <textarea (change)="wordCounterMilestone($event);"
+                                formControlName="monthDuration"></textarea>
+                            <label class="form-label">Project description</label>
+                        </div>
+                        <span *ngIf="showWordLimitMilestoneError" class="alert-danger d-block p-1">Max word limit is
+                            250</span>
+                    </div>
+
+            </nz-form-control>
+          </nz-form-item> -->
           
         <div nz-row [nzGutter]="16">
             <div nz-col [nzSpan]="12">

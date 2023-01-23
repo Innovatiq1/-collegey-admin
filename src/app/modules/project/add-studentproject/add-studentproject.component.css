@@ -14,3 +14,31 @@
     resize: none;
     min-height: 130px;
 }
+
+/*duration*/
+
+.maincon{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.group1{
+    width: 46%;
+    margin: 0 2%;
+    float: left;
+}
+
+.group,.group textarea{
+    width: 100%; 
+    height: 100px;
+    resize: none;
+}
+
+.group1 textarea{
+    width: 100%;
+    height: 100px;
+    resize: none;
+}

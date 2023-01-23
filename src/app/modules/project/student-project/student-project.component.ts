@@ -124,7 +124,6 @@ export class StudentProjectComponent implements OnInit {
     });
   }
   openModal(mode: Mode, id = null, item = null) {
-    console.log("Clicked")
     this.modal = this.modalService.create({
       nzTitle: mode === "Create" ? "Create Project" : "Update Project",
       nzContent: AddStudentprojectComponent,

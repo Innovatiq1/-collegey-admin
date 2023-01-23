@@ -56,7 +56,7 @@ export class AddStudentprojectComponent implements OnInit {
 
   mentorList: any;
 
-  projectWeeklength: any = [];
+  projectWeeklength: any = [1, 2, 3, 4];
   monthDurationActive: boolean = false;
 
   projectImage:any;
@@ -123,10 +123,18 @@ export class AddStudentprojectComponent implements OnInit {
         this.project ? this.project.questions : []
       ),
 
-      projectPlan: this.getProjectPlan(
-        this.project ? this.project.projectPlan : null
-      ),
-      ProjectDescription: [''],
+      projectDuration: [
+        this.project ? this.project.projectPlan?.projectDuration : '4',
+        Validators.required,
+      ],
+      week1Duration: [ this.project ? this.project.projectPlan?.week1Duration:null],
+      week2Duration: [ this.project ? this.project.projectPlan?.week2Duration:null],
+      week3Duration: [ this.project ? this.project.projectPlan?.week3Duration:null],
+      week4Duration: [ this.project ? this.project.projectPlan?.week4Duration:null],
+      week5Duration: [ this.project ? this.project.projectPlan?.week5Duration:null],
+      week6Duration: [ this.project ? this.project.projectPlan?.week6Duration:null],
+      monthDuration: [ this.project ? this.project.projectPlan?.monthDuration:null],
+
     });
 
     if (this.project?.documents && this.project.documents.length > 0) {
@@ -134,6 +142,8 @@ export class AddStudentprojectComponent implements OnInit {
           this.documentList.push(image);
         });
     }
+
+    this.changeProjectduration(this.project?.projectPlan?.projectDuration);
    
   }
 
@@ -209,6 +219,7 @@ export class AddStudentprojectComponent implements OnInit {
   }
 
   onFileUpload(list) {
+    this.projectImage = this.commonService.imagePathS3(list[0]);
     this.projectForm.patchValue({
       documents: list,
     });
@@ -226,6 +237,14 @@ export class AddStudentprojectComponent implements OnInit {
       }
       const formData = this.projectForm.getRawValue();
       this.isLoading = true;
+
+
+      if (this.monthDurationActive) {
+        const aProjectDescriptionCount = this.wordCounts(this.projectForm.value.monthDuration, 250);
+        if (aProjectDescriptionCount) {
+          return;
+        }
+      }
 
       // const skills = [];
       // formData.skills.forEach((skill) => {
@@ -246,6 +265,7 @@ export class AddStudentprojectComponent implements OnInit {
         }
       });
       formData.keyword = keyword;
+      formData['image'] = this.projectImage;
       formData['remainingSlot'] = formData?.students_count;
       !this.project ? this.addProject(formData).then((response)=>{
         resolve()
@@ -321,7 +341,7 @@ export class AddStudentprojectComponent implements OnInit {
   ngOnInit(): void {
     this.initProjectForm();
     this.getMentors();
-    this.projectImage = this.project.image;  
+    this.projectImage = this.project?.image;  
     this.projectService
       .getPartnerId()
       .subscribe((data) => this.projectService.savePartnerId(data));
@@ -346,24 +366,123 @@ export class AddStudentprojectComponent implements OnInit {
     this.modal.destroy();
   }
   
-  changeProjectduration(event) {
-    this.projectWeeklength = [];
-      if (event.target.value == '3 month' || event.target.value == '4 month' || event.target.value == '5 month' || event.target.value == '6 month' || event.target.value == '7 month' || event.target.value == '8 month' || event.target.value == '9 month') {
-        this.monthDurationActive = true;
-      }
-      else {
-        for (let f = 1; f <= event.target.value; f++) {
-          this.projectWeeklength.push(f);
-        }
-        this.monthDurationActive = false;
-      }   
-  }
+  // changeProjectduration(event) {
+  //   this.projectWeeklength = [];
+  //     if (event.target.value == '3 month' || event.target.value == '4 month' || event.target.value == '5 month' || event.target.value == '6 month' || event.target.value == '7 month' || event.target.value == '8 month' || event.target.value == '9 month') {
+  //       this.monthDurationActive = true;
+  //     }
+  //     else {
+  //       for (let f = 1; f <= event.target.value; f++) {
+  //         this.projectWeeklength.push(f);
+  //       }
+  //       this.monthDurationActive = false;
+  //     }   
+  // }
 
   defaultProjectduration(){
-    var duration = this.project.projectPlan.projectDuration
+    var duration =Number( this.project.projectPlan.projectDuration);
     for (let f = 1; f <= duration; f++) {      
       this.projectWeeklength.push(f);
     }
     this.monthDurationActive = false;
+  }
+
+  
+  statusTypeOptions = [
+    {
+      id: 1,
+      value: '4',
+      name: '4 Weeks'
+    },
+    {
+      id: 2,
+      value: '5',
+      name: '5 Weeks'
+    },
+
+    {
+      id: 3,
+      value: '6',
+      name: '6 Weeks'
+    },
+    {
+      id: 4,
+      value: '3 month',
+      name: '3 Month'
+    },
+    {
+      id: 5,
+      value: '4 month',
+      name: '4 Month'
+    },
+    {
+      id: 6,
+      value: '5 month',
+      name: '5 Month'
+    },
+    {
+      id: 7,
+      value: '6 month',
+      name: '6 Month'
+    },
+    {
+      id: 8,
+      value: '7 month',
+      name: '7 Month'
+    },
+    {
+      id: 9,
+      value: '8 month',
+      name: '8 Month'
+    },
+    {
+      id: 10,
+      value: '9 month',
+      name: '9 Month'
+    },
+    
+  ];
+
+
+
+
+  changeProjectduration(event) {
+
+    this.projectWeeklength = [];
+    if (event == '3 month' || event == '4 month' || event == '5 month' || event == '6 month' || event == '7 month' || event == '8 month' || event == '9 month') {
+      this.monthDurationActive = true;
+    }
+    else {
+      for (let f = 1; f <= Number(event); f++) {
+        this.projectWeeklength.push(f);
+      }
+      this.monthDurationActive = false;
+    }
+  }
+  wordCount: any;
+  words: any;
+  showWordLimitMilestoneError: Boolean = false;
+
+  wordCounterMilestone(event) {
+    if (event.keyCode != 32) {
+      this.wordCount = event.target.value ? event.target.value.split(/\s+/) : 0;
+      this.words = this.wordCount ? this.wordCount.length : 0;
+    }
+
+    if (this.words > 250) {
+      this.showWordLimitMilestoneError = true;
+    } else {
+      this.showWordLimitMilestoneError = false;
+    }
+  }
+
+  wordCounts(text, limit) {
+    this.wordCount = text ? text.split(/\s+/) : 0;
+    this.words = this.wordCount ? this.wordCount.length : 0;
+    if (this.words > limit) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
