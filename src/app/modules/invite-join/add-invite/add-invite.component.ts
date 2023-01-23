@@ -95,7 +95,7 @@ export class AddInviteComponent implements OnInit {
         referemail: ["",],
         linkedIn: ["", [Validators.required]],
         other: ["",],
-        cellNumber: ["", [Validators.required]],
+        cellNumber: [""],
       },
     );
     // this.coursesFromArray.push(this.fb.group([]));

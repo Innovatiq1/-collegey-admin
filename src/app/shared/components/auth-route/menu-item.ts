@@ -210,11 +210,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
         icon: 'person-outline',
         link: '/email-configuration/new-mentor-contact-collegey',
       },
-      {
-        title: 'Student Project Approval Invite',
-        icon: 'person-outline',
-        link: '/email-configuration/student-project-approval-invite',
-      },
+      // {
+      //   title: 'Student Project Approval Invite',
+      //   icon: 'person-outline',
+      //   link: '/email-configuration/student-project-approval-invite',
+      // },
       {
         title: 'Project Referral Invite',
         icon: 'person-outline',

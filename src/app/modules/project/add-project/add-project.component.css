@@ -13,7 +13,22 @@
 .top-spacing {
     margin-top: 10px;
 }
-
+.fixed-images {
+    min-height: 70px;
+    margin: 10px 0;
+    border: 1px solid #979797;
+    cursor: pointer;
+}
+.fixed-images .defaultImg {
+    object-fit: cover;
+    width: 60px;
+    height: 60px;
+    margin: 3px 6px;
+}
+.fixed-images .activeImg {
+    border: 3px solid #3F89FC;
+    border-radius: 10px;
+}
 .projectfees{
     font-feature-settings: 'tnum';
     position: relative;
