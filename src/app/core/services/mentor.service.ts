@@ -71,4 +71,12 @@ export class MentorService {
     );
   }
 
+  getUsersByName(data: any): Observable<any> {
+    const apiUrl = this.defaultUrl + 'admin/adminUserListing/getUsersByName1';
+    return this.http.post<ApiResponse>(apiUrl, data).pipe(map((response) => {
+      Logging.debug(response);
+      return response;
+    }));
+  }
+
 }

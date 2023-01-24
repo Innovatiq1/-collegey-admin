@@ -42,6 +42,11 @@ export class AdminListingComponent implements OnInit {
   searchText: string = "";
   modal: NzModalRef;
   Mode = Mode;
+
+   //filter
+   searchLimit: any;
+   isSearch = false;
+
   @ViewChild("searchBox") searchBox: ElementRef;
   @ViewChild("fileImportInput") fileImportInput: any;
   keyup$: Observable<any>;
@@ -53,6 +58,43 @@ export class AdminListingComponent implements OnInit {
     private modalService: NzModalService,
     private ref: ChangeDetectorRef
   ) { }
+
+  searchUsers(searchinputText) {
+
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params.limit == undefined) {
+        this.searchLimit = 10
+      } else {
+        this.searchLimit = params.limit
+      }
+      // console.log("====limit=========>", this.searchLimit);
+    });
+
+    this.isSearch = true;
+    if (searchinputText == "") {
+      this.isSearch = false;
+      this.activatedRoute.queryParams.subscribe(params => {
+        this.getBlogsList(params);
+      });
+    } else {
+      let data = {
+        username: searchinputText,
+        limit: this.searchLimit
+      }
+      this.adminService.getUsersByName(data).subscribe((response: any) => {
+        this.isLoading = false
+        this.blogsList = response.data.data;
+        let limit = this.searchLimit
+        if (response.results <= limit || response.results <= 0) {
+          this._showSnackbar("No more data found")
+          this.isLoading = true;
+        }
+        this.ref.detectChanges();
+
+      })
+    }
+
+  }
 
   getBlogsList(filters) {
     this.adminService.getAdminList(filters).subscribe((response: any) => {

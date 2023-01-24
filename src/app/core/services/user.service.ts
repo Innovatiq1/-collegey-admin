@@ -74,6 +74,14 @@ export class UserService {
       return response;
     }));
   }
+  
+  getUsersByName1(data: any): Observable<any> {
+    const apiUrl = this.defaultUrl + 'admin/adminUserListing/getUsersByName3';
+    return this.http.post<ApiResponse>(apiUrl, data).pipe(map((response) => {
+      Logging.debug(response);
+      return response;
+    }));
+  }
 
   saveUsers(formData): Observable<Mentor> {
     const apiUrl = this.defaultUrl + 'admin/adminUserListing';
