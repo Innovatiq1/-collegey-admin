@@ -262,6 +262,15 @@ export class AddProjectComponent implements OnInit {
         if (aProjectDescriptionCount) {
           return;
         }
+        formData['week1Duration'] = null;
+        formData['week2Duration'] = null;
+        formData['week3Duration'] = null;
+        formData['week4Duration'] = null;
+        formData['week5Duration'] = null;
+        formData['week6Duration'] = null;
+      }
+      else{
+        formData['monthDuration'] = null;
       }
       
       // const skills = [];
