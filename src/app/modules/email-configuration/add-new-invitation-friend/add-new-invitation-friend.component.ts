@@ -64,8 +64,7 @@ export class AddNewInvitationFriendComponent implements OnInit {
     this.pageContent = pageContent;
     this.emailTemplateForm.patchValue({
       email_template_type: pageContent?.email_template_type,
-      
-      inviteByCollegey: pageContent?.inviteByCollegey,
+      email_top_header_text: pageContent?.email_top_header_text,
       email_subject: pageContent?.email_subject,
       email_content: pageContent?.email_content,
     });
@@ -74,12 +73,10 @@ export class AddNewInvitationFriendComponent implements OnInit {
 
   createForm() {
     this.emailTemplateForm = this.fb.group(
-      {
+      { 
         email_template_type: ["new_invite_Friend_template", [Validators.required]],
-        
         email_subject: ["", [Validators.required]],
-        
-        inviteByCollegey: ["", [Validators.required]],
+        email_top_header_text: ["", [Validators.required]],
         email_content: ["", [Validators.required]],
       },
     );

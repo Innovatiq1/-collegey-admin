@@ -53,13 +53,14 @@ export interface contactPerson {
 }
 
 export interface projectPlan {
-  projectDuration: Number;
+  projectDuration: string;
   week1Duration: string;
   week2Duration: string;
   week3Duration: string;
   week4Duration: string;
   week5Duration: string;
   week6Duration: string;
+  monthDuration:string;
 }
 
 export interface projectPrice { 

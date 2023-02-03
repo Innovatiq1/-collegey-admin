@@ -47,4 +47,13 @@ export class AdminService {
     );
   }
 
+  getUsersByName(data: any): Observable<any> {
+    const apiUrl = this.defaultUrl + 'admin/adminUserListing/getUsersByName2';
+    return this.http.post<ApiResponse>(apiUrl, data).pipe(map((response) => {
+      Logging.debug(response);
+      return response;
+    }));
+  }
+
+
 }

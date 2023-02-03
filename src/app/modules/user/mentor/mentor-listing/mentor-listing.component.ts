@@ -14,6 +14,8 @@ import * as fs from 'file-saver';
 import { StudentService } from 'src/app/core/services/student.service';
 import Swal from 'sweetalert2';
 
+import { UserService } from 'src/app/core/services/user.service';
+
 enum Mode {
   Create = 'Create',
   Edit = 'Edit'
@@ -59,6 +61,10 @@ export class MentorListingComponent implements OnInit {
   mentorLoadMore: Boolean = true;
   changed: Boolean = false;
 
+   //filter
+   searchLimit: any;
+   isSearch = false;
+
   constructor(
     private snackbar: MatSnackBar,
     private dialog: MatDialog,
@@ -66,8 +72,45 @@ export class MentorListingComponent implements OnInit {
     private studentService: StudentService,
     private activatedRoute: ActivatedRoute,
     private modalService: NzModalService,
-    private ref: ChangeDetectorRef
+    private ref: ChangeDetectorRef,
   ) { }
+
+  searchUsers(searchinputText) {
+
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params.limit == undefined) {
+        this.searchLimit = 10
+      } else {
+        this.searchLimit = params.limit
+      }
+      // console.log("====limit=========>", this.searchLimit);
+    });
+
+    this.isSearch = true;
+    if (searchinputText == "") {
+      this.isSearch = false;
+      this.activatedRoute.queryParams.subscribe(params => {
+        this.getMentorList(params);
+      });
+    } else {
+      let data = {
+        username: searchinputText,
+        limit: this.searchLimit
+      }
+      this.mentorService.getUsersByName(data).subscribe((response: any) => {
+        this.isLoading = false
+        this.blogsList = response.data.data;
+        let limit = this.searchLimit
+        if (response.results <= limit || response.results <= 0) {
+          this._showSnackbar("No more data found")
+          this.isLoading = true;
+        }
+        this.ref.detectChanges();
+
+      })
+    }
+
+  }
 
   getMentorList(filters) {
     this.mentorService.getMentorList(filters).subscribe((response: any) => {

@@ -8,7 +8,7 @@
             </nz-page-header-extra>
             <nz-page-header-content>
                 <nz-input-group [nzSuffix]="suffixIconSearch">
-                    <input type="text" nz-input placeholder="input search text" #searchBox [(ngModel)]="searchText" />
+                    <input type="text" nz-input placeholder="input search text" (keyup)="searchUsers(searchBox.value)" #searchBox [(ngModel)]="searchText" />
                 </nz-input-group>
                 <ng-template #suffixIconSearch>
                     <i nz-icon nzType="search"></i>

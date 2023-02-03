@@ -1,6 +1,5 @@
 import { Component, OnInit, NgModule, Inject } from '@angular/core';
-
-import { CommonModule } from '@angular/common';
+import { CommonModule,DatePipe } from '@angular/common';
 import { MaterialModule } from 'src/app/material/material.module';
 import {
   FormGroup,
@@ -55,6 +54,14 @@ export class AddProjectComponent implements OnInit {
   id: any;
   loginuserId:any;
   projectImage:any;
+
+  // Set Last date and start date
+  projectStartDate: any;
+  projectSetLastDate: any;
+  
+  bannerImages: any = [];
+  bannerFor: String;
+
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<AddProjectComponent>,
@@ -62,11 +69,19 @@ export class AddProjectComponent implements OnInit {
     private commonService: CommonService,
     private modal: NzModalRef,
     private mentorService: MentorService,
+    private datePipe: DatePipe
   ) {
     this.documentList = [];
     const userObject = localStorage.getItem(AppConstants.KEY_USER_DATA);
     const userDataList = JSON.parse(userObject);
     this.loginuserId = userDataList?.user?._id;
+
+    var myDateSet = new Date();
+    var newDateSet = this.datePipe.transform(myDateSet, 'yyyy-MM-dd');
+    this.projectStartDate = newDateSet;
+    this.projectSetLastDate = newDateSet;
+    this.bannerFor = "mentor";
+    this.getBanners();
   }
 
   initProjectForm() {
@@ -76,6 +91,18 @@ export class AddProjectComponent implements OnInit {
         this.project ? this.project.description : null,
         Validators.required,
       ],
+      projectDuration: [
+        this.project ? this.project.projectPlan?.projectDuration : '4',
+        Validators.required,
+      ],
+      week1Duration: [ this.project ? this.project.projectPlan?.week1Duration:null],
+      week2Duration: [ this.project ? this.project.projectPlan?.week2Duration:null],
+      week3Duration: [ this.project ? this.project.projectPlan?.week3Duration:null],
+      week4Duration: [ this.project ? this.project.projectPlan?.week4Duration:null],
+      week5Duration: [ this.project ? this.project.projectPlan?.week5Duration:null],
+      week6Duration: [ this.project ? this.project.projectPlan?.week6Duration:null],
+      monthDuration: [ this.project ? this.project.projectPlan?.monthDuration:null],
+
       impact: [this.project ? this.project.impact : null, Validators.required],
       partner: [this.project ? this.project?.partner?._id : null],
       projectOwner: [this.loginuserId],
@@ -124,12 +151,13 @@ export class AddProjectComponent implements OnInit {
           this.documentList.push(image);
         });
     }
+    this.changeProjectduration(this.project.projectPlan?.projectDuration);
   }
 
   get questions() {
     return this.projectForm.get('questions') as FormArray;
   }
-
+  
   onAddQuestions() {
     this.questions.push(this.fb.control(''));
   }
@@ -138,12 +166,44 @@ export class AddProjectComponent implements OnInit {
     this.questions.removeAt(index);
   }
 
+  onChangeProjectStart(event) {
+    var myCurrentDate = new Date(event.target.value);
+    myCurrentDate.setDate(myCurrentDate.getDate() + 30);
+    var newPlusDate = this.datePipe.transform(myCurrentDate, 'yyyy-MM-dd');
+    this.projectSetLastDate = newPlusDate;
+    this.projectForm.patchValue({
+      end_date: '',
+    });
+  }
+
   createQuestionsFormArray(questions): FormArray {
     return this.fb.array(
       questions.length > 0
         ? questions.map((question) => this.fb.control(question))
         : [new FormControl('')]
     );
+  }
+
+  getBanners() {
+    const obj = {
+      bannerFor: this.bannerFor,
+    };
+    this.projectService.getBanners(obj).subscribe(
+      (response) => {
+        this.bannerImages = response.data;
+      },
+      (err) => {
+
+      },
+    );
+  }
+
+  selectImage(image) {
+    if (image) {
+      this.projectImage = image.imagePath;
+    } else {
+      this.projectImage = this.bannerImages[0];
+    }
   }
 
   getCanBeDone(canBeDone: CanBeDone) {
@@ -196,6 +256,13 @@ export class AddProjectComponent implements OnInit {
       }
       const formData = this.projectForm.getRawValue();
       this.isLoading = true;
+
+      if (this.monthDurationActive) {
+        const aProjectDescriptionCount = this.wordCounts(this.projectForm.value.monthDuration, 250);
+        if (aProjectDescriptionCount) {
+          return;
+        }
+      }
       
       // const skills = [];
       // formData.skills.forEach((skill) => {
@@ -219,7 +286,9 @@ export class AddProjectComponent implements OnInit {
       formData.status = 1;
 
       formData['projectStatus'] = 'pending';
-      formData['projectType'] = 'collegey';
+      if(!this.project){
+        formData['projectType'] = 'collegey';
+      }
       formData['image'] = this.projectImage;
       formData['remainingSlot'] = formData?.students_count;
       
@@ -319,5 +388,102 @@ export class AddProjectComponent implements OnInit {
   }
   cancel() {
     this.modal.destroy();
+  }
+
+  statusTypeOptions = [
+    {
+      id: 1,
+      value: '4',
+      name: '4 Weeks'
+    },
+    {
+      id: 2,
+      value: '5',
+      name: '5 Weeks'
+    },
+
+    {
+      id: 3,
+      value: '6',
+      name: '6 Weeks'
+    },
+    {
+      id: 4,
+      value: '3 month',
+      name: '3 Month'
+    },
+    {
+      id: 5,
+      value: '4 month',
+      name: '4 Month'
+    },
+    {
+      id: 6,
+      value: '5 month',
+      name: '5 Month'
+    },
+    {
+      id: 7,
+      value: '6 month',
+      name: '6 Month'
+    },
+    {
+      id: 8,
+      value: '7 month',
+      name: '7 Month'
+    },
+    {
+      id: 9,
+      value: '8 month',
+      name: '8 Month'
+    },
+    {
+      id: 10,
+      value: '9 month',
+      name: '9 Month'
+    },
+    
+  ];
+  projectWeeklength: any = [1, 2, 3, 4];
+  monthDurationActive: boolean = false;
+
+  changeProjectduration(event) {
+
+    this.projectWeeklength = [];
+    if (event == '3 month' || event == '4 month' || event == '5 month' || event == '6 month' || event == '7 month' || event == '8 month' || event == '9 month') {
+      this.monthDurationActive = true;
+    }
+    else {
+      for (let f = 1; f <= Number(event); f++) {
+        this.projectWeeklength.push(f);
+      }
+      this.monthDurationActive = false;
+    }
+  }
+  wordCount: any;
+  words: any;
+  showWordLimitMilestoneError: Boolean = false;
+
+  wordCounterMilestone(event) {
+    if (event.keyCode != 32) {
+      this.wordCount = event.target.value ? event.target.value.split(/\s+/) : 0;
+      this.words = this.wordCount ? this.wordCount.length : 0;
+    }
+
+    if (this.words > 250) {
+      this.showWordLimitMilestoneError = true;
+    } else {
+      this.showWordLimitMilestoneError = false;
+    }
+  }
+
+  wordCounts(text, limit) {
+    this.wordCount = text ? text.split(/\s+/) : 0;
+    this.words = this.wordCount ? this.wordCount.length : 0;
+    if (this.words > limit) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

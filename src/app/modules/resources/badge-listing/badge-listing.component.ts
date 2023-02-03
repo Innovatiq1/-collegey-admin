@@ -1,4 +1,4 @@
-import { Component, OnInit, NgModule, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, NgModule, ElementRef, ViewChild,ChangeDetectorRef } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { UploadlogoService } from 'src/app/core/services/uploadlogo.service';
@@ -36,6 +36,7 @@ export class BadgeListingComponent implements OnInit {
     private uploadlogoService: UploadlogoService,
     private activatedRoute: ActivatedRoute,
     private modalService: NzModalService,
+    private cdr: ChangeDetectorRef,
   ) { }
 
   getUploadBadgeLogoList(filter) {
@@ -47,6 +48,7 @@ export class BadgeListingComponent implements OnInit {
       if(response.totalDocs - (+filter.limit) < -11) {
         this._showSnackbar("No more data found")
       }
+      this.cdr.detectChanges();
       this.isLoading = false;
     }, error => {
       this.isLoading = false;

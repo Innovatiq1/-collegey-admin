@@ -187,7 +187,7 @@
         </nz-form-item>
 
         <nz-form-item>
-            <nz-form-label [nzXs]="24" nzRequired nzFor="description" nz-typography>Enter  description</nz-form-label>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="description" nz-typography>Enter description</nz-form-label>
             <nz-form-control [nzXs]="24" nzHasFeedback>
                 <input nz-input formControlName="description" id="description" placeholder="Enter short description"/>
                 <ng-container *ngIf="projectForm.get('description').errors?.required">
@@ -195,6 +195,36 @@
                 </ng-container>
             </nz-form-control>
         </nz-form-item>
+
+
+        <!-- <nz-form-item>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="projectDuration" nz-typography>Project Plan</nz-form-label>
+            <nz-form-control [nzXs]="24" nzHasFeedback >
+                <nz-select formControlName="projectDuration" nzPlaceHolder="Please Select Status" (ngModelChange)="changeProjectduration($event)">
+                  <nz-option *ngFor="let option of statusTypeOptions" [nzLabel]="option.name" [nzValue]="option.value">{{option.value}}ok</nz-option>
+                </nz-select>
+                <ng-container *ngIf="projectForm.get('projectDuration').errors?.required">
+                  <span class="clg-input-error">Project Duration required.</span>
+              </ng-container>
+         
+              <div class="maincon">
+                    <div class="group1" *ngFor="let item of projectWeeklength; let i=index;">
+                        <label class="form-label">Week {{i+1}} description</label>
+                        <textarea formControlName="week{{i+1}}Duration"></textarea>
+                    </div>
+
+                    <div class="group" *ngIf="monthDurationActive">
+
+                            <textarea (change)="wordCounterMilestone($event);"
+                                formControlName="monthDuration"></textarea>
+                            <label class="form-label">Project description</label>
+                        </div>
+                        <span *ngIf="showWordLimitMilestoneError" class="alert-danger d-block p-1">Max word limit is
+                            250</span>
+                    </div>
+
+            </nz-form-control>
+          </nz-form-item> -->
 
         <div nz-row [nzGutter]="16">
             <div nz-col [nzSpan]="12">
@@ -283,24 +313,35 @@
         </div> -->
 
         <div nz-row [nzGutter]="16">
-            <nz-form-item>
-                <nz-form-label [nzXs]="24" nzRequired nzFor="start_date" nz-typography>Start Date</nz-form-label>
-                <nz-form-control [nzXs]="24" nzHasFeedback>
-                    <nz-date-picker formControlName="start_date"></nz-date-picker>
-                    <ng-container *ngIf="projectForm.get('start_date').errors?.required">
-                        <span style="color: #f00;">Start Date is required.</span>
-                    </ng-container>
-                </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-                <nz-form-label [nzXs]="24" nzRequired nzFor="end_date" nz-typography>End Date</nz-form-label>
-                <nz-form-control [nzXs]="24" nzHasFeedback>
-                    <nz-date-picker formControlName="end_date"></nz-date-picker>
-                    <ng-container *ngIf="projectForm.get('end_date').errors?.required">
-                        <span style="color: #f00;">End Date is required.</span>
-                    </ng-container>
-                </nz-form-control>
-            </nz-form-item>
+
+            <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                    <nz-form-label [nzXs]="24" nzRequired nzFor="start_date" nz-typography>Project start date</nz-form-label>
+                    <nz-form-control [nzXs]="24" nzHasFeedback>
+                        <input type="date" class="form-control" min="{{projectStartDate}}" id="date1" placeholder=""
+                            style="height: 29px;" formControlName="start_date" (change)="onChangeProjectStart($event)">
+                        <!-- <nz-date-picker formControlName="start_date" nzMin="{{projectStartDate}}"></nz-date-picker> -->
+                        <ng-container *ngIf="projectForm.get('start_date').errors?.required">
+                            <span style="color: #f00;">Start Date is required.</span>
+                        </ng-container>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            
+            <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                    <nz-form-label [nzXs]="24" nzRequired nzFor="end_date" nz-typography>Project end date</nz-form-label>
+                    <nz-form-control [nzXs]="24" nzHasFeedback>
+                        <input type="date" class="form-control" min="{{projectSetLastDate}}" #takeInput id="date1"
+                            placeholder="" style="height: 29px;" formControlName="end_date">
+                        <!-- <nz-date-picker formControlName="end_date"></nz-date-picker> -->
+                        <ng-container *ngIf="projectForm.get('end_date').errors?.required">
+                            <span style="color: #f00;">End Date is required.</span>
+                        </ng-container>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
         </div>
         <div nz-row formGroupName="can_be_done" [nzGutter]="8">
             <nz-form-label [nzXs]="24" nzFor="can_be_done" nz-typography>What % of this project can be done?</nz-form-label>
@@ -461,7 +502,7 @@
                 <select name="projectfees" formControlName="projectfees" class="projectfees">
                     <option value="">Choice fees</option>
                     <option value="1">Paid</option>
-                    <option value="0">UnPaid</option>
+                    <option value="0">Unpaid</option>
                 </select>
 
             </nz-form-control>
@@ -494,8 +535,13 @@
                 </nz-form-control>
             </nz-form-item>
         </ng-container>
+        
         <div nz-row>
             <app-upload-dialog [documentList]="documentList" [imageSource]="imageSource" [multipleSelection]="true" (onFileUploadSuccess)="onFileUpload($event)"></app-upload-dialog>
+        </div>
+        <div class="fixed-images">
+            <img *ngFor="let image of bannerImages" [class.activeImg]="projectImage == image"
+                class="defaultImg" (click)="selectImage(image)" src="{{image.imagePath}}" alt="firstImg">
         </div>
         <img *ngIf="projectImage" alt="project" style="height: 100px; width: 100px;margin-top: 5px;" src="{{projectImage}}">
     </form>
