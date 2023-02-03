@@ -63,9 +63,7 @@ export class AddNewMenterContactTemplateComponent implements OnInit {
     this.pageContent = pageContent;
     this.emailTemplateForm.patchValue({
       email_template_type: pageContent?.email_template_type,
-      mentorName: pageContent?.mentorName,
-      mentorEmail: pageContent?.mentorEmail,
-      message: pageContent?.message,
+      email_top_header_text: pageContent?.email_top_header_text,
       email_subject: pageContent?.email_subject,
       email_content: pageContent?.email_content,
     });
@@ -76,11 +74,8 @@ export class AddNewMenterContactTemplateComponent implements OnInit {
     this.emailTemplateForm = this.fb.group(
       {
         email_template_type: ["new_mentor_contact_template", [Validators.required]],
-        
         email_subject: ["", [Validators.required]],
-        mentorName: ["", [Validators.required]],
-        mentorEmail: ["", [Validators.required]],
-        message: ["", [Validators.required]],
+        email_top_header_text: ["", [Validators.required]],
         email_content: ["", [Validators.required]],
       },
     );
