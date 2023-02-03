@@ -286,7 +286,9 @@ export class AddProjectComponent implements OnInit {
       formData.status = 1;
 
       formData['projectStatus'] = 'pending';
-      formData['projectType'] = 'collegey';
+      if(!this.project){
+        formData['projectType'] = 'collegey';
+      }
       formData['image'] = this.projectImage;
       formData['remainingSlot'] = formData?.students_count;
       
