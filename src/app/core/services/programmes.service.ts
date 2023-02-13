@@ -25,7 +25,15 @@ export class ProgrammesService {
       return response.data;
     }));
   }
-
+  
+  getProgramByName(data: any): Observable<any> {
+    const apiUrl = environment.apiUrl + 'admin/programs/getProgramByName';
+    return this.http.post<ApiResponse>(apiUrl, data).pipe(map((response) => {
+      Logging.debug(response);
+      return response;
+    }));
+  }
+  
   getProgramDetails(id): Observable<Programme> {
     return this.http.get<ApiResponse>(`${environment.apiUrl}admin/programs/${id}`).pipe(map(response => {
       Logging.debug(response.data);

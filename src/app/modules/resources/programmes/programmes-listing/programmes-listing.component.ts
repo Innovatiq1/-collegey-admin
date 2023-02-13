@@ -22,6 +22,8 @@ enum Mode {
 })
 export class ProgrammesListingComponent implements OnInit {
   isLoading = false;
+  isSearch = false;
+
   programmes: Programme[] = [];
   searchText: string = "";
   modal: NzModalRef;
@@ -29,6 +31,7 @@ export class ProgrammesListingComponent implements OnInit {
   @ViewChild("searchBox") searchBox: ElementRef;
   @ViewChild("fileImportInput") fileImportInput: any;
   keyup$: Observable<any>;
+  searchLimit: any;
   constructor(
     private programmeService: ProgrammesService,
     private snackBar: MatSnackBar,
@@ -37,7 +40,7 @@ export class ProgrammesListingComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private snackbar: MatSnackBar,
     private modalService: NzModalService,
-    private ref: ChangeDetectorRef
+    private ref: ChangeDetectorRef,
     ) { }
 
     addNewProgramme() {
@@ -83,6 +86,42 @@ export class ProgrammesListingComponent implements OnInit {
         this._getProgrammes(params);
       });
     }
+
+    searchProgram(searchinputText) {
+      this.activatedRoute.queryParams.subscribe(params => {
+        if (params.limit == undefined) {
+          this.searchLimit = 10
+        } else {
+          this.searchLimit = params.limit
+        }
+        // console.log("====limit=========>", this.searchLimit);
+      });
+  
+      this.isSearch = true;
+      if (searchinputText == "") {
+        this.isSearch = false;
+        this.activatedRoute.queryParams.subscribe(params => {
+          this._getProgrammes(params);
+        });
+      } else {
+        let data = {
+          username: searchinputText,
+          limit: this.searchLimit
+        }
+        this.programmeService.getProgramByName(data).subscribe((response: any) => {
+          this.isLoading = false
+          this.programmes = response.data.data;
+          let limit = this.searchLimit
+          if (response.results <= limit || response.results <= 0) {
+            this._showSnackbar("No more data found")
+            this.isLoading = true;
+          }
+          this.ref.detectChanges();
+  
+        })
+      }
+    }
+
     openModal(mode: Mode, id = null, item = null) {
       console.log("Clicked")
       this.modal = this.modalService.create({
