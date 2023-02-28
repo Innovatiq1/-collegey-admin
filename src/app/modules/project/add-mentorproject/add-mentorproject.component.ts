@@ -74,7 +74,10 @@ export class AddMentorprojectComponent implements OnInit {
         Validators.required,
       ],
       impact: [this.project ? this.project.impact : null],
-
+      projectDuration: [
+        this.project ? this.project.projectPlan?.projectDuration : '4',
+        Validators.required,
+      ],
       week1Duration: [this.project ? this.project.projectPlan.week1Duration : null],
       week2Duration: [this.project ? this.project.projectPlan.week2Duration : null],
       week3Duration: [this.project ? this.project.projectPlan.week3Duration : null],
