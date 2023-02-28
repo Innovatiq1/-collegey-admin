@@ -24,6 +24,7 @@
                             <nz-tag [nzColor]="'green'" *ngIf="project.status == 1" nz-typography>Active</nz-tag>
                             <nz-tag [nzColor]="'red'" *ngIf="project.status == 2" nz-typography>In-Active</nz-tag>
                             <nz-tag [nzColor]="'red'" *ngIf="project.projectStatus == 'reject'" nz-typography>Rejected</nz-tag>
+                            <nz-tag [nzColor]="'orange'" nz-typography>{{project?.projectType}}</nz-tag>
                             <ng-container>
                                 <button nz-button nz-dropdown [nzDropdownMenu]="menu" [nzPlacement]="'bottomLeft'" style="float: right;">Actions <i nz-icon nzType="down"></i></button>
                                 <nz-dropdown-menu #menu="nzDropdownMenu">
@@ -51,7 +52,12 @@
                             </div> -->
                         </nb-card-body>
                         <nb-card-footer>
-                            <nz-tag [nzColor]="'gray'" *ngFor="let tag of project.keyword;  let k = index;" nz-typography>{{tag}}</nz-tag>
+                            <div>
+                                <strong>Project Owner : </strong>{{project?.projectOwner?.name}}
+                            </div>
+                            <div>
+                                <nz-tag [nzColor]="'gray'" *ngFor="let tag of project.keyword;  let k = index;" nz-typography>{{tag}}</nz-tag>
+                            </div>
                         </nb-card-footer>
                     </nb-card>
                 </nz-list-item>
