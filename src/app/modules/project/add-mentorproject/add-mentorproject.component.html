@@ -328,14 +328,32 @@
             </nz-form-control>
         </nz-form-item>
 
-        <ng-container formGroupName="projectPrice" *ngIf="showProjectPrice">
+        <div *ngIf="isChoiceFees">
+            <div class="col-xs-6">
+                <div class="d-block mt-2">Set a project fee between ${{projectFeedData?.minimum_price}} and ${{projectFeedData?.maximum_price}}</div>
+                <div class="range range-primary mb-0">
+
+                    <input type="range" name="range_price" min="{{projectFeedData?.minimum_price}}" max="{{projectFeedData?.maximum_price}}"
+                        value="{{projectFeedData?.default_price}}" (change)="priceChange($event)">
+                    <output id="rangePrimary" #rangePrimary class="clg-defaultprice"><b>{{rangeValue}}</b></output>
+                    <br/>
+                </div>
+            </div>
+            <!-- <b>Note</b> : You will receive 50% of this fee. -->
+        </div>
+        <div *ngIf="!isChoiceFees">
+            <b>Note</b> : Free Project
+            
+        </div>
+        <br/>
+        <!-- <ng-container formGroupName="projectPrice" *ngIf="showProjectPrice">
             <nz-form-item>
                 <nz-form-label [nzXs]="24" nzFor="amount" nz-typography>Project Price</nz-form-label>
                 <nz-form-control [nzXs]="24" nzHasFeedback>
                     <input nz-input type="number" formControlName="amount" id="amount" placeholder="Enter Project Price"/>
                 </nz-form-control>
             </nz-form-item>
-        </ng-container>
+        </ng-container> -->
 
         <ng-container *ngIf="projectForm.get('ask_questions').value">
             <div nz-row>

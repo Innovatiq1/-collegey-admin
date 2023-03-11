@@ -499,7 +499,7 @@
             <nz-form-label [nzXs]="24" nzFor="projectfees" nz-typography>Project Paid/free</nz-form-label>
             <nz-form-control [nzXs]="24" nzHasFeedback>
             
-                <select name="projectfees" formControlName="projectfees" class="projectfees">
+                <select name="projectfees" formControlName="projectfees" class="projectfees" (change)="clickRadio($event)">
                     <option value="">Choice fees</option>
                     <option value="1">Paid</option>
                     <option value="0">Unpaid</option>
@@ -508,6 +508,24 @@
             </nz-form-control>
         </nz-form-item>
 
+        <div *ngIf="isChoiceFees">
+            <div class="col-xs-6">
+                <div class="d-block mt-2">Set a project fee between ${{projectFeedData?.minimum_price}} and ${{projectFeedData?.maximum_price}}</div>
+                <div class="range range-primary mb-0">
+
+                    <input type="range" name="range_price" min="{{projectFeedData?.minimum_price}}" max="{{projectFeedData?.maximum_price}}"
+                        value="{{projectFeedData?.default_price}}" (change)="priceChange($event)">
+                    <output id="rangePrimary" #rangePrimary class="clg-defaultprice"><b>{{rangeValue}}</b></output>
+                    <br/>
+                </div>
+            </div>
+            <!-- <b>Note</b> : You will receive 50% of this fee. -->
+        </div>
+        <div *ngIf="!isChoiceFees">
+            <b>Note</b> : Free Project
+            
+        </div>
+        <br/>
         <ng-container *ngIf="projectForm.get('ask_questions').value">
             <div nz-row>
                 <div nz-col [nzSpan]="18">

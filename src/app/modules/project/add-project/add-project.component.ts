@@ -1,5 +1,5 @@
 import { Component, OnInit, NgModule, Inject } from '@angular/core';
-import { CommonModule,DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MaterialModule } from 'src/app/material/material.module';
 import {
   FormGroup,
@@ -52,17 +52,19 @@ export class AddProjectComponent implements OnInit {
   imageSource = ImageSource.PROJECT;
   mode: String;
   id: any;
-  loginuserId:any;
-  projectImage:any;
+  loginuserId: any;
+  projectImage: any;
 
   // Set Last date and start date
   projectStartDate: any;
   projectSetLastDate: any;
-  
+
   bannerImages: any = [];
   bannerFor: String;
-  defaultProjectPrice:any;
-
+  projectFeedData: any;
+  defaultProjectPrice: any;
+  isChoiceFees: boolean = true;
+  rangeValue: any;
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<AddProjectComponent>,
@@ -95,19 +97,34 @@ export class AddProjectComponent implements OnInit {
     if (day.length < 2) day = '0' + day;
     return [year, month, day].join('-');
   }
-  
-  getProjectFeesData() { 
+
+  getProjectFeesData() {
     const obj = {
       fees_type: 'mentor',
     };
     this.projectService.getProjectSingleFeesData(obj).subscribe(
       (response) => {
+        this.projectFeedData = response?.data;
+        this.rangeValue = this.projectFeedData?.default_price;
         this.defaultProjectPrice = response?.data?.default_price;
       },
       (err) => {
 
       },
     );
+  }
+
+  priceChange(event) {
+    this.rangeValue = event.target.value;
+  }
+
+  clickRadio(event) {
+    if (event.target.value == "1") {
+      this.isChoiceFees = true;
+    }
+    else {
+      this.isChoiceFees = false;
+    }
   }
 
   initProjectForm() {
@@ -121,13 +138,13 @@ export class AddProjectComponent implements OnInit {
         this.project ? this.project.projectPlan?.projectDuration : '4',
         Validators.required,
       ],
-      week1Duration: [ this.project ? this.project.projectPlan?.week1Duration:null],
-      week2Duration: [ this.project ? this.project.projectPlan?.week2Duration:null],
-      week3Duration: [ this.project ? this.project.projectPlan?.week3Duration:null],
-      week4Duration: [ this.project ? this.project.projectPlan?.week4Duration:null],
-      week5Duration: [ this.project ? this.project.projectPlan?.week5Duration:null],
-      week6Duration: [ this.project ? this.project.projectPlan?.week6Duration:null],
-      monthDuration: [ this.project ? this.project.projectPlan?.monthDuration:null],
+      week1Duration: [this.project ? this.project.projectPlan?.week1Duration : null],
+      week2Duration: [this.project ? this.project.projectPlan?.week2Duration : null],
+      week3Duration: [this.project ? this.project.projectPlan?.week3Duration : null],
+      week4Duration: [this.project ? this.project.projectPlan?.week4Duration : null],
+      week5Duration: [this.project ? this.project.projectPlan?.week5Duration : null],
+      week6Duration: [this.project ? this.project.projectPlan?.week6Duration : null],
+      monthDuration: [this.project ? this.project.projectPlan?.monthDuration : null],
 
       impact: [this.project ? this.project.impact : null, Validators.required],
       partner: [this.project ? this.project?.partner?._id : null],
@@ -140,15 +157,15 @@ export class AddProjectComponent implements OnInit {
         this.project ? this.project.min_students_count : null,
         Validators.required,
       ],
-       students_count: [
+      students_count: [
         this.project ? this.project.students_count : null,
         Validators.required,
       ],
-      start_date: [ 
+      start_date: [
         this.project ? this.formatDate(new Date(this.project.start_date)) : null,
         Validators.required,
       ],
-      end_date: [ 
+      end_date: [
         this.project ? this.formatDate(new Date(this.project.end_date)) : null,
         Validators.required,
       ],
@@ -166,24 +183,42 @@ export class AddProjectComponent implements OnInit {
         this.project ? this.project.ask_questions : null,
         Validators.required,
       ],
-      projectfees: [this.project ? this.project.projectfees : '1',Validators.required],
+      projectfees: [this.project ? this.project.projectfees : '1', Validators.required],
       questions: this.createQuestionsFormArray(
         this.project ? this.project.questions : []
       ),
     });
 
     if (this.project?.documents && this.project.documents.length > 0) {
-        this.project.documents.forEach((image) => {
-          this.documentList.push(image);
-        });
+      this.project.documents.forEach((image) => {
+        this.documentList.push(image);
+      });
     }
-    this.changeProjectduration(this.project?.projectPlan?.projectDuration);
+    setTimeout(() => {
+      if (this.project) {
+        this.rangeValue = this.project?.projectPrice?.amount;
+        if (this.project.projectfees == '1') {
+          this.isChoiceFees = true;
+        }
+        else {
+          this.isChoiceFees = false;
+        }
+      }
+      this.projectFeedData['default_price'] = this.project?.projectPrice?.amount;
+    }, 500);
+    if (this.project?.projectPlan?.projectDuration) {
+      this.changeProjectduration(this.project?.projectPlan?.projectDuration);
+    }
+    else {
+      this.changeProjectduration(4);
+    }
+
   }
 
   get questions() {
     return this.projectForm.get('questions') as FormArray;
   }
-  
+
   onAddQuestions() {
     this.questions.push(this.fb.control(''));
   }
@@ -289,7 +324,7 @@ export class AddProjectComponent implements OnInit {
           return;
         }
       }
-      
+
       // const skills = [];
       // formData.skills.forEach((skill) => {
       //   if (skill.label) {
@@ -299,7 +334,7 @@ export class AddProjectComponent implements OnInit {
       //   }
       // });
       // formData.skills = skills;
-      
+
       const keyword = [];
       formData.keyword.forEach((hash_tag) => {
         if (hash_tag.label) {
@@ -312,28 +347,30 @@ export class AddProjectComponent implements OnInit {
       formData.status = 1;
 
       formData['projectStatus'] = 'pending';
-      if(!this.project){
+      if (!this.project) {
         formData['projectType'] = 'collegey';
       }
       formData['image'] = this.projectImage;
       formData['remainingSlot'] = formData?.students_count;
-      
-      !this.project ? this.addProject(formData).then((response)=>{
+
+      !this.project ? this.addProject(formData).then((response) => {
         resolve()
-      }).catch((e)=>{
+      }).catch((e) => {
         reject();
-      }) : this.updateProject(formData).then((response)=>{
+      }) : this.updateProject(formData).then((response) => {
         resolve()
-      }).catch((e)=>{
+      }).catch((e) => {
         reject();
       });
     })
-    
+
   }
 
   addProject(formObj) {
-    if(formObj['projectfees'] == '1')
-    {
+    if (formObj['projectfees'] == '1') {
+      formObj['projectPrice.amount'] = this.rangeValue;
+    }
+    else {
       formObj['projectPrice.amount'] = this.defaultProjectPrice;
     }
     return new Promise((resolve, reject) => {
@@ -358,10 +395,16 @@ export class AddProjectComponent implements OnInit {
           reject(error)
         }
       );
-    })    
+    })
   }
 
   updateProject(obj) {
+    if (obj['projectfees'] == '1') {
+      obj['projectPrice.amount'] = this.rangeValue;
+    }
+    else {
+      obj['projectPrice.amount'] = this.defaultProjectPrice;
+    }
     return new Promise((resolve, reject) => {
       this.projectService.updateProject(obj, this.project._id).subscribe(
         (response) => {
@@ -386,7 +429,7 @@ export class AddProjectComponent implements OnInit {
         }
       );
     })
-    
+
   }
 
   getMentors() {
@@ -395,21 +438,21 @@ export class AddProjectComponent implements OnInit {
       .subscribe((data) =>
         this.mentorList = data
       );
-   }
+  }
 
   ngOnInit(): void {
     this.initProjectForm();
-    this.projectImage = this.project?.image; 
+    this.projectImage = this.project?.image;
     this.projectService
       .getPartnerId()
-      .subscribe((data) => {  
-        console.log("data===>", data);        
+      .subscribe((data) => {
+        console.log("data===>", data);
         this.projectService.savePartnerId(data)
       }
       )
 
     this.getMentors();
-      
+
     this.projectForm.get('ask_questions').valueChanges.subscribe((value) => {
       if (value) {
         this.projectForm.setControl('questions', this.fb.array(['']));
@@ -472,13 +515,12 @@ export class AddProjectComponent implements OnInit {
       value: '9 month',
       name: '9 Month'
     },
-    
+
   ];
   projectWeeklength: any = [1, 2, 3, 4];
   monthDurationActive: boolean = false;
 
   changeProjectduration(event) {
-
     this.projectWeeklength = [];
     if (event == '3 month' || event == '4 month' || event == '5 month' || event == '6 month' || event == '7 month' || event == '8 month' || event == '9 month') {
       this.monthDurationActive = true;
