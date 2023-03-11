@@ -61,6 +61,7 @@ export class AddProjectComponent implements OnInit {
   
   bannerImages: any = [];
   bannerFor: String;
+  defaultProjectPrice:any;
 
   constructor(
     private fb: FormBuilder,
@@ -82,6 +83,31 @@ export class AddProjectComponent implements OnInit {
     this.projectSetLastDate = newDateSet;
     this.bannerFor = "mentor";
     this.getBanners();
+    this.getProjectFeesData();
+  }
+
+  private formatDate(date) {
+    const d = new Date(date);
+    let month = '' + (d.getMonth() + 1);
+    let day = '' + d.getDate();
+    const year = d.getFullYear();
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+    return [year, month, day].join('-');
+  }
+  
+  getProjectFeesData() { 
+    const obj = {
+      fees_type: 'mentor',
+    };
+    this.projectService.getProjectSingleFeesData(obj).subscribe(
+      (response) => {
+        this.defaultProjectPrice = response?.data?.default_price;
+      },
+      (err) => {
+
+      },
+    );
   }
 
   initProjectForm() {
@@ -118,12 +144,12 @@ export class AddProjectComponent implements OnInit {
         this.project ? this.project.students_count : null,
         Validators.required,
       ],
-      start_date: [
-        this.project ? this.project.start_date : null,
+      start_date: [ 
+        this.project ? this.formatDate(new Date(this.project.start_date)) : null,
         Validators.required,
       ],
-      end_date: [
-        this.project ? this.project.end_date : null,
+      end_date: [ 
+        this.project ? this.formatDate(new Date(this.project.end_date)) : null,
         Validators.required,
       ],
       can_be_done: this.getCanBeDone(
@@ -151,7 +177,7 @@ export class AddProjectComponent implements OnInit {
           this.documentList.push(image);
         });
     }
-    this.changeProjectduration(this.project.projectPlan?.projectDuration);
+    this.changeProjectduration(this.project?.projectPlan?.projectDuration);
   }
 
   get questions() {
@@ -306,6 +332,10 @@ export class AddProjectComponent implements OnInit {
   }
 
   addProject(formObj) {
+    if(formObj['projectfees'] == '1')
+    {
+      formObj['projectPrice.amount'] = this.defaultProjectPrice;
+    }
     return new Promise((resolve, reject) => {
       this.projectService.createProject(formObj).subscribe(
         (response) => {
