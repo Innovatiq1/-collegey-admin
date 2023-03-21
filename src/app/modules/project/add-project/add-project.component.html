@@ -330,9 +330,9 @@
             
             <div nz-col [nzSpan]="12">
                 <nz-form-item>
-                    <nz-form-label [nzXs]="24" nzRequired nzFor="end_date" nz-typography>Project end date</nz-form-label>
+                    <nz-form-label [nzXs]="24" nzRequired nzFor="end_date" nz-typography>Deadline to sign up</nz-form-label>
                     <nz-form-control [nzXs]="24" nzHasFeedback>
-                        <input type="date" class="form-control" min="{{projectSetLastDate}}" #takeInput id="date1"
+                        <input type="date" class="form-control" min="{{ProjectSetLastMaxiDate}}" max="{{projectSetLastDate}}" #takeInput id="date1"
                             placeholder="" style="height: 29px;" formControlName="end_date">
                         <!-- <nz-date-picker formControlName="end_date"></nz-date-picker> -->
                         <ng-container *ngIf="projectForm.get('end_date').errors?.required">
