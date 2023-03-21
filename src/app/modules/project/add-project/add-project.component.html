@@ -318,7 +318,7 @@
                 <nz-form-item>
                     <nz-form-label [nzXs]="24" nzRequired nzFor="start_date" nz-typography>Project start date</nz-form-label>
                     <nz-form-control [nzXs]="24" nzHasFeedback>
-                        <input type="date" class="form-control" min="{{projectStartDate}}" id="date1" placeholder=""
+                        <input type="date" class="form-control" min="{{projectStartDate}}" value="" id="date1" placeholder=""
                             style="height: 29px;" formControlName="start_date" (change)="onChangeProjectStart($event)">
                         <!-- <nz-date-picker formControlName="start_date" nzMin="{{projectStartDate}}"></nz-date-picker> -->
                         <ng-container *ngIf="projectForm.get('start_date').errors?.required">
@@ -330,9 +330,9 @@
             
             <div nz-col [nzSpan]="12">
                 <nz-form-item>
-                    <nz-form-label [nzXs]="24" nzRequired nzFor="end_date" nz-typography>Project end date</nz-form-label>
+                    <nz-form-label [nzXs]="24" nzRequired nzFor="end_date" nz-typography>Deadline to sign up</nz-form-label>
                     <nz-form-control [nzXs]="24" nzHasFeedback>
-                        <input type="date" class="form-control" min="{{projectSetLastDate}}" #takeInput id="date1"
+                        <input type="date" class="form-control" min="{{ProjectSetLastMaxiDate}}" max="{{projectSetLastDate}}" #takeInput id="date1"
                             placeholder="" style="height: 29px;" formControlName="end_date">
                         <!-- <nz-date-picker formControlName="end_date"></nz-date-picker> -->
                         <ng-container *ngIf="projectForm.get('end_date').errors?.required">
@@ -499,7 +499,7 @@
             <nz-form-label [nzXs]="24" nzFor="projectfees" nz-typography>Project Paid/free</nz-form-label>
             <nz-form-control [nzXs]="24" nzHasFeedback>
             
-                <select name="projectfees" formControlName="projectfees" class="projectfees">
+                <select name="projectfees" formControlName="projectfees" class="projectfees" (change)="clickRadio($event)">
                     <option value="">Choice fees</option>
                     <option value="1">Paid</option>
                     <option value="0">Unpaid</option>
@@ -508,6 +508,24 @@
             </nz-form-control>
         </nz-form-item>
 
+        <div *ngIf="isChoiceFees">
+            <div class="col-xs-6">
+                <div class="d-block mt-2">Set a project fee between ${{projectFeedData?.minimum_price}} and ${{projectFeedData?.maximum_price}}</div>
+                <div class="range range-primary mb-0">
+
+                    <input type="range" name="range_price" min="{{projectFeedData?.minimum_price}}" max="{{projectFeedData?.maximum_price}}"
+                        value="{{projectFeedData?.default_price}}" (change)="priceChange($event)">
+                    <output id="rangePrimary" #rangePrimary class="clg-defaultprice"><b>{{rangeValue}}</b></output>
+                    <br/>
+                </div>
+            </div>
+            <!-- <b>Note</b> : You will receive 50% of this fee. -->
+        </div>
+        <div *ngIf="!isChoiceFees">
+            <b>Note</b> : Free Project
+            
+        </div>
+        <br/>
         <ng-container *ngIf="projectForm.get('ask_questions').value">
             <div nz-row>
                 <div nz-col [nzSpan]="18">

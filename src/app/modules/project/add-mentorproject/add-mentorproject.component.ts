@@ -54,6 +54,11 @@ export class AddMentorprojectComponent implements OnInit {
   id: any;
   projectImage:any;
   showProjectPrice:boolean = false;
+
+  projectFeedData:any;
+  defaultProjectPrice:any;
+  isChoiceFees: boolean = true;  
+  rangeValue: any;
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<AddMentorprojectComponent>,
@@ -63,6 +68,37 @@ export class AddMentorprojectComponent implements OnInit {
   )
   { 
     this.documentList = [];
+    this.getProjectFeesData();
+  } 
+
+  getProjectFeesData() { 
+    const obj = {
+      fees_type: 'mentor',
+    };
+    this.projectService.getProjectSingleFeesData(obj).subscribe(
+      (response) => {
+        this.projectFeedData = response?.data;
+        this.rangeValue = this.projectFeedData?.default_price;
+        this.defaultProjectPrice = response?.data?.default_price;
+      },
+      (err) => {
+
+      },
+    );
+  }
+
+  priceChange(event) {
+    this.rangeValue = event.target.value;
+  }
+
+  clickRadio(event) {
+    if (event.target.value == "1") {
+      this.isChoiceFees = true;
+    }
+    else
+    {
+      this.isChoiceFees = false;
+    }
   }
 
   initProjectForm() {
@@ -112,9 +148,9 @@ export class AddMentorprojectComponent implements OnInit {
       can_be_done: this.getCanBeDone(
         this.project ? this.project.can_be_done : null
       ),
-      projectPrice: this.getProjectPriceData(
-        this.project ? this.project.projectPrice : null
-      ),
+      // projectPrice: this.getProjectPriceData(
+      //   this.project ? this.project.projectPrice : null
+      // ),
       contact_person: this.getContactPerson(
         this.project ? this.project.contact_person : null
       ),
@@ -143,6 +179,19 @@ export class AddMentorprojectComponent implements OnInit {
     {
       this.showProjectPrice = false;
     }
+
+    setTimeout(() => {
+      this.rangeValue = this.project?.projectPrice?.amount;
+      this.projectFeedData['default_price'] = this.project?.projectPrice?.amount;
+      if(this.project.projectfees == '1')
+      {
+        this.isChoiceFees = true;
+      }
+      else
+      {
+        this.isChoiceFees = false;
+      }
+    }, 500);
   }
 
   get questions() {
@@ -154,10 +203,12 @@ export class AddMentorprojectComponent implements OnInit {
     if(event.target.value == '1')
     {
       this.showProjectPrice = true;
+      this.isChoiceFees = true;
     }
     else
     {
       this.showProjectPrice = false;
+      this.isChoiceFees = false;
     }
   }
 
@@ -288,6 +339,14 @@ export class AddMentorprojectComponent implements OnInit {
   }
 
   updateProject(obj) {
+    if(obj['projectfees'] == '1')
+    {
+      obj['projectPrice.amount'] = this.rangeValue;
+    }
+    else
+    {
+      obj['projectPrice.amount'] = this.defaultProjectPrice;
+    }
     return new Promise((resolve, reject) => {
       this.projectService.updateProject(obj, this.project._id).subscribe(
         (response) => {

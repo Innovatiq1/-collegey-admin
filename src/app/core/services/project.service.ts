@@ -60,6 +60,15 @@ export class ProjectService {
       })
     );
   };
+
+  getProjectSingleFeesData = (data:any): Observable<any> => {
+    const endpoint = environment.apiUrl+'admin/mentor/fetchSingleProjectFeesData';
+    return this.http.post(endpoint, data).pipe(
+      catchError((err) => {
+        return throwError(err);
+      })
+    ); 
+  };
   
   createProjectFeesData = (data:any): Observable<any> => {
     const endpoint = environment.apiUrl+'admin/projects/addProjectFeesData';
