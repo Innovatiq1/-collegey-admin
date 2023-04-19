@@ -149,7 +149,7 @@ export class AddProjectComponent implements OnInit {
 
       impact: [this.project ? this.project.impact : null, Validators.required],
       partner: [this.project ? this.project?.partner?._id : null],
-      projectOwner: [this.loginuserId],
+      projectOwner: [this.project?.projectOwner ? this.project?.projectOwner : this.loginuserId],  
       sdg: [this.project ? this.project.sdg : null, Validators.required],
       //skills: [this.project ? this.project.skills : null, Validators.required],
       keyword: [this.project ? this.project.keyword : null, Validators.required],
@@ -230,7 +230,7 @@ export class AddProjectComponent implements OnInit {
 
   onChangeProjectStart(event) {
     var myCurrentDate = new Date(event.target.value);
-    //myCurrentDate.setDate(myCurrentDate.getDate() + 30);
+    myCurrentDate.setDate(myCurrentDate.getDate() - 1);
     var newPlusDate = this.datePipe.transform(myCurrentDate, 'yyyy-MM-dd');
     this.projectSetLastDate = newPlusDate;
 
