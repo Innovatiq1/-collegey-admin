@@ -80,10 +80,22 @@ export class AddProjectComponent implements OnInit {
     const userDataList = JSON.parse(userObject);
     this.loginuserId = userDataList?.user?._id;
 
-    var myDateSet = new Date();
-    var newDateSet = this.datePipe.transform(myDateSet, 'yyyy-MM-dd');
-    this.projectStartDate = newDateSet;
-    this.projectSetLastDate = newDateSet;
+    var myDateSet = new Date(new Date());
+    var projStartDate = new Date(); 
+    projStartDate.setDate(myDateSet.getDate()+28);
+    var newprojStartDateSet = this.datePipe.transform(projStartDate, 'yyyy-MM-dd');
+    this.projectStartDate = newprojStartDateSet;
+
+    var deadlineDate = new Date();
+    deadlineDate.setDate(myDateSet.getDate());
+    var startDeadlineDateSet = this.datePipe.transform(deadlineDate, 'yyyy-MM-dd');
+    this.ProjectSetLastMaxiDate = startDeadlineDateSet;
+
+    // var endDeadlineDate = new Date();
+    // endDeadlineDate.setDate(myDateSet.getDate()+27);
+    // var endDeadlineDateSet = this.datePipe.transform(endDeadlineDate, 'yyyy-MM-dd');
+    // this.projectSetLastDate = endDeadlineDateSet;
+
     this.bannerFor = "mentor";
     this.getBanners();
     this.getProjectFeesData();
@@ -149,7 +161,7 @@ export class AddProjectComponent implements OnInit {
 
       impact: [this.project ? this.project.impact : null, Validators.required],
       partner: [this.project ? this.project?.partner?._id : null],
-      projectOwner: [this.loginuserId],
+      projectOwner: [this.project?.projectOwner ? this.project?.projectOwner : this.loginuserId],  
       sdg: [this.project ? this.project.sdg : null, Validators.required],
       //skills: [this.project ? this.project.skills : null, Validators.required],
       keyword: [this.project ? this.project.keyword : null, Validators.required],
@@ -230,7 +242,7 @@ export class AddProjectComponent implements OnInit {
 
   onChangeProjectStart(event) {
     var myCurrentDate = new Date(event.target.value);
-    //myCurrentDate.setDate(myCurrentDate.getDate() + 30);
+    myCurrentDate.setDate(myCurrentDate.getDate() - 1);
     var newPlusDate = this.datePipe.transform(myCurrentDate, 'yyyy-MM-dd');
     this.projectSetLastDate = newPlusDate;
 
@@ -243,6 +255,7 @@ export class AddProjectComponent implements OnInit {
     this.projectForm.patchValue({
       end_date: this.ProjectSetLastMaxiDate,
     });
+   
   }
 
   createQuestionsFormArray(questions): FormArray {

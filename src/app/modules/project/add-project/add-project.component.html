@@ -320,6 +320,7 @@
                     <nz-form-control [nzXs]="24" nzHasFeedback>
                         <input type="date" class="form-control" min="{{projectStartDate}}" value="" id="date1" placeholder=""
                             style="height: 29px;" formControlName="start_date" (change)="onChangeProjectStart($event)">
+
                         <!-- <nz-date-picker formControlName="start_date" nzMin="{{projectStartDate}}"></nz-date-picker> -->
                         <ng-container *ngIf="projectForm.get('start_date').errors?.required">
                             <span style="color: #f00;">Start Date is required.</span>
@@ -327,20 +328,22 @@
                     </nz-form-control>
                 </nz-form-item>
             </div>
+
             
             <div nz-col [nzSpan]="12">
                 <nz-form-item>
                     <nz-form-label [nzXs]="24" nzRequired nzFor="end_date" nz-typography>Deadline to sign up</nz-form-label>
                     <nz-form-control [nzXs]="24" nzHasFeedback>
-                        <input type="date" class="form-control" min="{{ProjectSetLastMaxiDate}}" max="{{projectSetLastDate}}" #takeInput id="date1"
-                            placeholder="" style="height: 29px;" formControlName="end_date">
-                        <!-- <nz-date-picker formControlName="end_date"></nz-date-picker> -->
+                        
+                        <input type="date" class="form-control" min="{{ProjectSetLastMaxiDate}}" max="{{projectSetLastDate}}" #takeInput id="date2"
+                            placeholder="" style="height: 29px;" formControlName="end_date" value="{{projectSetLastDate}}"  > 
+                         <!-- <nz-date-picker formControlName="end_date"></nz-date-picker> -->
                         <ng-container *ngIf="projectForm.get('end_date').errors?.required">
                             <span style="color: #f00;">End Date is required.</span>
                         </ng-container>
                     </nz-form-control>
                 </nz-form-item>
-            </div>
+            </div> 
 
         </div>
         <div nz-row formGroupName="can_be_done" [nzGutter]="8">

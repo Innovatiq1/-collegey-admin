@@ -32,7 +32,7 @@ export interface Project {
   projectPlan: projectPlan;
   projectPrice: projectPrice;
   mentor: MentorData;
-  // projectOwner: string;
+  projectOwner: string;
 };
 
 export interface MentorData {
