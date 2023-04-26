@@ -89,7 +89,7 @@
                         </nb-card-body>
                         <nb-card-footer >
                             <div>
-                                <strong>Project Owner : </strong>{{project?.projectOwner?.name}}
+                                <strong>Project Owner : </strong>{{project?.mentor?.name}}
                             </div>
                             <div>
                                 <nz-tag [nzColor]="'gray'" *ngFor="let tag of project.keyword;  let k = index;" nz-typography>{{tag}}</nz-tag>
