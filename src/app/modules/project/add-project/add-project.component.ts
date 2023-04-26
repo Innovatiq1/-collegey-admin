@@ -255,6 +255,7 @@ export class AddProjectComponent implements OnInit {
     this.projectForm.patchValue({
       end_date: this.ProjectSetLastMaxiDate,
     });
+   
   }
 
   createQuestionsFormArray(questions): FormArray {
