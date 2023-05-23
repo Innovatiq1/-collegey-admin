@@ -14,7 +14,7 @@ export const environment = {
 
   
   
-  /* */  
+  /* * /  
   // Localhost server API connection URL  
   apiUrl: 'http://localhost:3000/api/',
   apiEndpointNew: 'http://localhost:3000/x-api/v1/',  
@@ -30,7 +30,7 @@ export const environment = {
   apiNewEndpoint: 'http://3.0.100.217/api1/', 
   /* */ 
   
-  /* * /    
+  /* */    
   // UAT server API connection URL 
   apiUrl: 'https://prodapi.collegey.com/api/',
   apiEndpointNew: 'https://prodapi.collegey.com/x-api/v1/',
