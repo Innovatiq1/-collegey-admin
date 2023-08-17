@@ -56,6 +56,8 @@ import { FaqCategoryComponent } from './faqs/faq-category/faq-category.component
 import { CollegeyPartnerComponent } from './collegey-partner/collegey-partner.component';
 import { CollegeyCareersComponent } from './collegey-careers/collegey-careers.component';
 import { NewsletterListComponent } from './newsletter-list/newsletter-list.component';
+import { UniversityComponent } from './university/university/university.component';
+import { NewUniversityComponent } from './university/new-university/new-university/new-university.component';
 
 
 
@@ -108,7 +110,9 @@ import { NewsletterListComponent } from './newsletter-list/newsletter-list.compo
     FaqCategoryListingComponent,
     CollegeyPartnerComponent,
     CollegeyCareersComponent,
-    NewsletterListComponent
+    NewsletterListComponent,
+    UniversityComponent,
+    NewUniversityComponent
   ],
   imports: [
     CommonModule,

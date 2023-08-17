@@ -35,6 +35,8 @@ import { FaqCategoryListingComponent } from './faqs/faq-category-listing/faq-cat
 import { CollegeyPartnerComponent } from './collegey-partner/collegey-partner.component';
 import { CollegeyCareersComponent } from './collegey-careers/collegey-careers.component';
 import { NewsletterListComponent } from './newsletter-list/newsletter-list.component';
+import { UniversityComponent } from './university/university/university.component';
+import { NewUniversityComponent } from './university/new-university/new-university/new-university.component';
 
 const routes: Routes = [
   {
@@ -165,6 +167,14 @@ const routes: Routes = [
     path: 'newsletter-list',
     component: NewsletterListComponent,
   },
+  {
+    path: 'university',
+    component: UniversityComponent,
+  },
+  {
+    path: 'new-university',
+    component: NewUniversityComponent,
+  }
 
 ];
 
