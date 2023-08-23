@@ -1,14 +1,14 @@
 <div>
     <form nz-form [formGroup]="universityForm" class="ant-advanced-search-form">
         <nz-form-item>
-            <nz-form-label [nzXs]="24" nzRequired nzFor="subject" nz-typography>University Name</nz-form-label>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="name" nz-typography>University Name</nz-form-label>
             <nz-form-control [nzXs]="24" nzHasFeedback>
-                <input nz-input formControlName="subject" id="subject" placeholder="Enter University Name">
+                <input nz-input formControlName="name" id="name" placeholder="Enter University Name">
             </nz-form-control>
             
         </nz-form-item>
         <nz-form-item>
-            <nz-form-label [nzXs]="24" nzRequired nzFor="subject" nz-typography>University Link</nz-form-label>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="weblink" nz-typography>Universitygg Link</nz-form-label>
             <nz-form-control [nzXs]="24" nzHasFeedback>
                 <input nz-input formControlName="weblink" id="weblink" placeholder="Enter Website link">
             </nz-form-control>
@@ -16,10 +16,10 @@
         </nz-form-item>
 
         <nz-form-item>
-            <nz-form-label [nzXs]="24" nzRequired nzFor="details" nz-typography>University Description</nz-form-label>
+            <nz-form-label [nzXs]="24" nzRequired nzFor="description" nz-typography>University Description</nz-form-label>
             <nz-form-control [nzXs]="24" nzHasFeedback>
                 <!-- <input nz-input formControlName="details" id="details" placeholder="Add Announcement Text" (change)="wordCounter($event);"/> -->
-                <quill-editor formControlName="details" aria-placeholder="Add University Description"></quill-editor>
+                <quill-editor formControlName="description" aria-placeholder="Add University Description"></quill-editor>
                 <span *ngIf="showWordLimitError" class="d-block" style="color: red; position: absolute;">{{
                     wordLimitError }}</span>
             </nz-form-control>
@@ -27,10 +27,10 @@
         <div>
             <form nz-form [formGroup]="universityForm" class="ant-advanced-search-form">
                 <nz-form-item>
-                    <nz-form-label [nzXs]="24" nzFor="" nz-typography>Choose university logo</nz-form-label>
+                    <nz-form-label [nzXs]="24" nzRequired nzFor="imagePath"  nz-typography>Choose university logo</nz-form-label>
                 </nz-form-item>
                 <nz-form-item>
-                    <input hidden #chooseFiles multiple formControlName="imagePath" accept="image/*" accept=".png,.jpeg,.jpg" type="file" (change)="logoUpload($event)" />
+                    <input hidden #chooseFiles multiple  accept="image/*" accept=".png,.jpeg,.jpg" type="file" (change)="logoUpload($event)" />
                     <button (click)="chooseFiles.click()" color="primary" mat-flat-button>Upload logo</button>
                 </nz-form-item>
                 <span *ngIf="isSubmitted && hasErrorEvent('imagePath','required')" class="d-block" style="color: red;">Please upload an logo.</span>
@@ -44,6 +44,13 @@
                         style="width: 150px;height: 150px;"/>
                     <br>
                 </nz-form-item>
+                <!-- <nz-form-item *ngIf="logoImage1" >
+                    <img                 
+                        [src]="logoImage1" 
+                        class="img-fluid"
+                        style="width: 150px;height: 150px;"/>
+                    <br>
+                </nz-form-item> -->
             </form>
         </div>
     </form>

@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AppConstants } from 'src/app/shared/constants/app.constants';
 import { NewUniversityComponent } from '../new-university/new-university/new-university.component';
+import { UniversityService } from 'src/app/core/services/university.service';
+import Swal from 'sweetalert2';
 
 enum Mode {
   Create = 'Create',
@@ -27,39 +29,44 @@ export class UniversityComponent implements OnInit {
 
   constructor(
     private announcementService: AnnouncementService,
+    
     private cdr: ChangeDetectorRef,
     private modalService: NzModalService,
     private activatedRoute: ActivatedRoute,
     private snackbar: MatSnackBar,
+    private universityService:UniversityService,
+    //private uni
     ) { }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.getAnnouncementList(params);
+      this.getUniversityList(params);
     });
   }
 
   openModal(mode: Mode, id = null, item = null) {
+    console.log("=========",item)
+    console.log("mode",mode)
     this.modal = this.modalService.create({
       nzTitle: mode === "Create" ? "Create University" : "Update University",
       nzContent: NewUniversityComponent,
       nzFooter: [
         {
           label: mode === "Create" ? "Create" : "Update",
-          show: item ? (item.isActive ? true : false) : true,
+          show: item ? (item.isActivated ? true : false) : true,
           type: "primary",
           onClick: (componentInstance) => {
             componentInstance!.save().then(() => {
               componentInstance!.cancel();
               this.activatedRoute.queryParams.subscribe(params => {
-                this.getAnnouncementList(params);
+                this.getUniversityList(params);
               });
             });
           },
         },
         {
           label: "Cancel",
-          show: item ? (item.isActive ? true : false) : true,
+          show: item ? (item.isActivated ? true : false) : true,
           type: "default",
           onClick: (componentInstance) => {
             componentInstance!.cancel();
@@ -67,7 +74,7 @@ export class UniversityComponent implements OnInit {
         },
         {
           label: "close",
-          show: item ? (item.isActive ? false : true) : false,
+          show: item ? (item.isActivated ? false : true) : false,
           type: "default",
           onClick: (componentInstance) => {
             componentInstance!.cancel();
@@ -84,8 +91,8 @@ export class UniversityComponent implements OnInit {
   }
 
 
-  getAnnouncementList(filter) {
-    this.announcementService.getAnnouncementList(filter).subscribe((res)=>{
+  getUniversityList(filter) {
+    this.universityService.getUniversityLists(filter).subscribe((res)=>{
       this.isLoading = false;
       this.announcementData = res.data.data;
       let limit = filter.limit ? filter.limit : 10
@@ -105,10 +112,17 @@ export class UniversityComponent implements OnInit {
   _showSnackbar(message) {
     this.snackbar.open(message, null, { duration: AppConstants.TOAST_DISPLAY_TIME })
   }
-  deleteAnnouncement(announcementId) {
-    this.announcementService.deleteAnnouncement(announcementId).subscribe((res)=> {
+  deleteUniversity(universityId) {
+    this.universityService.deleteUniversity(universityId).subscribe((res)=> {
+      if(res.message==="University Deleted Successfully"){
+      Swal.fire({
+        title: 'Successful',
+        text: 'Delete University Successfully',
+        icon: 'success',
+      });
+    }
       this.activatedRoute.queryParams.subscribe(params => {
-        this.getAnnouncementList(params);
+        this.getUniversityList(params);
       });
       this.cdr.detectChanges();
     });

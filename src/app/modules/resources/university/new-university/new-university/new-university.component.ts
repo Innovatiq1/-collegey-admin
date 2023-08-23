@@ -7,6 +7,8 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { MyErrorStateMatcher } from 'src/app/shared/components/email-state-matcher';
 import { AnnouncementService } from 'src/app/core/services/announcement.service';
 import { NzModalRef } from 'ng-zorro-antd';
+import { UniversityPartnerNzListingComponent } from 'src/app/modules/user/university-partner-nz/university-partner-nz-listing/university-partner-nz-listing.component';
+import { UniversityService } from 'src/app/core/services/university.service';
 
 enum Mode {
   Create = 'Create',
@@ -44,6 +46,7 @@ export class NewUniversityComponent implements OnInit {
       name: 'Deactive'
     }
   ];
+  logoImage1: any;
 
 
   constructor(
@@ -51,17 +54,17 @@ export class NewUniversityComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private announcementService: AnnouncementService,
+    private universityService:UniversityService,
     private modal: NzModalRef,
   ) { 
     this.universityForm = fb.group({
 
-      'subject': ['',Validators.required],
-      'details': ['',Validators.required],
-      'announcementType': ['project',Validators.required],
-      'forStudents': [true],
-      'forMentors': [true],
-      'isActive': [true],
-      'imagePath': ['',Validators.required],
+      'name': ['',Validators.required],
+      'description': ['',Validators.required],
+      //'//imagePath': ['',Validators.required],
+      'weblink': ['',Validators.required],
+      
+      
     })
   }
 
@@ -79,7 +82,7 @@ export class NewUniversityComponent implements OnInit {
   }
 
   fetchResource() {
-    this.announcementService.getAnnouncementById(this.id).subscribe(
+    this.universityService.getUniversityById(this.id).subscribe(
       (response) => {
         if (response) {
           this.wordCount = response?.data?.data.details ? response?.data?.data.details.split(/\s+/) : 0;
@@ -96,15 +99,20 @@ export class NewUniversityComponent implements OnInit {
 
   patchForm(resource) {
     this.resource = resource;
+    //console.log("==esource?.data?.weblink=",resource?.data?.weblink)
+    this.logoImage= resource?.data?.imagePath
+    //this.logoImage=""
     
     this.universityForm.patchValue({
-      subject: resource?.data?.subject,
-      details: resource?.data?.details,
-      announcementType: resource?.data?.announcementType,
-      forStudents: resource?.data?.forStudents,
-      forMentors: resource?.data?.forMentors,
-      isActive: resource?.data?.isActive,
+      name: resource?.data?.name,
+      description: resource?.data?.description,
+      //imagePath: resource?.data?.imagePath,
+      weblink: resource?.data?.weblink
+      
+      
     });
+    console.log("===rrrrrrrrrrrrrrrrrrrrrrs====", this.universityForm.getRawValue())
+
     this.markAllTouched();
   }
 
@@ -112,12 +120,11 @@ export class NewUniversityComponent implements OnInit {
     if (this.mode === Mode.Edit) {
       this.universityForm = this.fb.group(
         {
-          subject: ["", [Validators.required]],
-          details: ["", [Validators.required]],
-          announcementType: ['project',Validators.required],
-          forStudents: [true],
-          forMentors: [true],
-          isActive: [true],
+      'name': ['',Validators.required],
+      'description': ['',Validators.required],
+     // 'imagePath': ['',Validators.required],
+      'weblink': ['',Validators.required],
+      
         },
       );
     }
@@ -125,12 +132,11 @@ export class NewUniversityComponent implements OnInit {
     {
       this.universityForm = this.fb.group(
         {
-          subject: ["", [Validators.required]],
-          details: ["", [Validators.required]],
-          announcementType: ['project',Validators.required],
-          forStudents: [true],
-          forMentors: [true],
-          isActive: [true],
+      'name': ['',Validators.required],
+      'description': ['',Validators.required],
+      //'imagePath': ['',Validators.required],
+      'weblink': ['',Validators.required],
+      
         },
       );
     }
@@ -144,13 +150,32 @@ export class NewUniversityComponent implements OnInit {
     this.makeAnnouncement();
     this.universityForm.reset();
   }
-
+ 
   save() {
     return new Promise<void>((resolve, reject) => {
       this.markAllTouched();
+      const formData = this.universityForm.getRawValue();
+      let des=  formData.description.replace(/<\/?span[^>]*>/g,"")
+      const dec1 = des.replace(/<\/?p[^>]*>/g,"")
+      let payload ={
+        name:formData.name,
+        description:dec1,
+        weblink:formData.weblink,
+        imagePath:this.logoImage,
+        isDeleted:true,
+        isActivated:true,
+
+      }
+      console.log("=======",payload)
+      
+      //  formData['isDeleted']=true
+      //  formData['isActivated']=true
+
       if (this.universityForm.valid && (this.words <= 250 || this.words == undefined)) {
-        if (this.mode === Mode.Create) {          
-          this.announcementService.makeAnnouncement(this.universityForm.value).subscribe(
+        if (this.mode === Mode.Create) { 
+          console.log("====s===",payload)       
+            
+          this.universityService.CreateUniversity(payload).subscribe(
             (res) => {
               // this.id = res.data;
               this.modal.destroy();
@@ -160,6 +185,7 @@ export class NewUniversityComponent implements OnInit {
                 text: "University Created Successfully",
                 icon: 'success',
               });
+              this.logoImage=""
             },
             (err) => {
               debugger;
@@ -174,13 +200,14 @@ export class NewUniversityComponent implements OnInit {
             }
           );
         } else {
-          this.announcementService.updateAnnouncement(this.universityForm.value, this.id).subscribe(
+          this.universityService.EditUniversity(payload, this.id).subscribe(
             (res) => {
               Swal.fire({
                 title: 'Successful',
                 text: 'Updated University Successfully',
                 icon: 'success',
               });
+              this.logoImage=""
               resolve();
             },
             (err) => {
@@ -257,6 +284,7 @@ export class NewUniversityComponent implements OnInit {
         return;
       }
       this.uploadFileApi(event.target.files[0]).then((data) => {
+        console.log("========logo=",data)
         this.logoImage = data;        
       }).catch((err) => {
         console.log("Upload Failed")

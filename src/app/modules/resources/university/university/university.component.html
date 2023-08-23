@@ -11,14 +11,14 @@
                 <nz-list-item class="w-100">
                     <nb-card style="width: 100%;">
                         <nb-card-header>
-                            {{resourceList?.subject}} 
+                            {{resourceList?.name}} 
                             <nz-tag [nzColor]="'red'" *ngIf="resourceList?.isActive == false" nz-typography>Deleted</nz-tag>
                             <ng-container>
                                 <button nz-button nz-dropdown [nzDropdownMenu]="menu" [nzPlacement]="'bottomLeft'" style="float: right;">Actions <i nz-icon nzType="down"></i></button>
                                 <nz-dropdown-menu #menu="nzDropdownMenu">
                                     <ul nz-menu>
                                         <li nz-menu-item>
-                                            <a (click)="deleteAnnouncement(resourceList._id)">Delete</a>
+                                            <a (click)="deleteUniversity(resourceList._id)">Delete</a>
                                         </li>
                                         <li nz-menu-item>
                                             <a (click)="openModal(Mode.Edit, resourceList._id, resourceList)">Edit</a>
@@ -28,7 +28,7 @@
                               </ng-container>
                         </nb-card-header>
                         <nb-card-body>
-                            {{resourceList?.details}}
+                            {{resourceList?.description}}
                         </nb-card-body>
                     </nb-card>
                 </nz-list-item>
