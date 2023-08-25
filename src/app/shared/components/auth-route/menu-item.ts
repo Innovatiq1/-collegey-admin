@@ -624,6 +624,17 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ]
   },
   {
+    title: 'University',
+    icon: 'layers-outline',
+    children: [
+      {
+        title: 'Universities',
+        icon: 'layers-outline',
+        link: '/resources/university'
+      },
+    ]
+  },
+  {
     title: 'Collegey Feeds',
     icon: 'file-text-outline',
     //link: '/feeds/collegey-feeds',
