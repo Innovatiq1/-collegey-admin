@@ -25,6 +25,7 @@ export class UniversityComponent implements OnInit {
   modal: NzModalRef;
   mode: String;
   Mode = Mode;
+  test : any;
   
 
   constructor(
@@ -95,6 +96,7 @@ export class UniversityComponent implements OnInit {
     this.universityService.getUniversityLists(filter).subscribe((res)=>{
       this.isLoading = false;
       this.announcementData = res.data.data;
+      this.test=this.announcementData.map(data => data.description)
       let limit = filter.limit ? filter.limit : 10
       if (res.totalRecords <= limit || res.totalRecords <= 0) {
         this._showSnackbar("No more data found")
